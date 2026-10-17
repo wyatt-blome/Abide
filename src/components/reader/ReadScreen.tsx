@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { ActionBar, Button, Card, cx, Icon, PageHeader, type IconName } from "@/components/ui";
 import { db } from "@/db/db";
 import { paceLabel, pickCurrentPlan, planStats } from "@/lib/readingPlanStore";
+import { formatPercentRead } from "@/lib/progress";
 import { formatDate, formatDateLong } from "./format";
 import { useBibleMeta, useToday } from "./hooks";
 import { linkButtonClass } from "./linkButton";
@@ -92,7 +93,11 @@ export function ReadScreen() {
           <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2">
             <dt className="text-muted">Read</dt>
             <dd className="font-bold">
-              {stats.percent}% · {stats.completeDays} of {stats.planDays} days
+              {formatPercentRead(stats.doneVerses, stats.totalVerses)} of verses
+            </dd>
+            <dt className="text-muted">Days complete</dt>
+            <dd className="font-bold">
+              {stats.completeDays} of {stats.planDays}
             </dd>
             <dt className="text-muted">Pace</dt>
             <dd className={cx("flex items-center gap-1 font-bold", stats.net < 0 ? "text-danger" : stats.net > 0 ? "text-success" : "")}>

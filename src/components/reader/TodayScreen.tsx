@@ -21,7 +21,8 @@ import { TodayReading } from "./TodayReading";
 
 const BACKUP_NUDGE_DAYS = 14;
 
-function MemoryCard({ now }: { now: number }) {
+/** Today's memory queue (null while loading) and whether any plan is not paused. */
+function useTodayQueue(now: number) {
   const plans = useLiveQuery(() => db.plans.toArray(), []);
   const verseCards = useLiveQuery(() => db.verseCards.toArray(), []);
   const passageCards = useLiveQuery(() => db.passageCards.toArray(), []);
@@ -29,7 +30,10 @@ function MemoryCard({ now }: { now: number }) {
     () => (plans && verseCards && passageCards ? buildQueue({ plans, verseCards, passageCards, now }) : null),
     [plans, verseCards, passageCards, now],
   );
-  const hasPlans = !!plans?.some((p) => p.status !== "paused");
+  return { queue, hasPlans: !!plans?.some((p) => p.status !== "paused") };
+}
+
+function MemoryCard({ queue, hasPlans }: ReturnType<typeof useTodayQueue>) {
   const empty = queue ? queue.items.length === 0 : false;
 
   return (
@@ -192,6 +196,7 @@ export function TodayScreen() {
   const [clock, setClock] = useState(() => ({ day: today, now: today ? Date.now() : 0 }));
   if (clock.day !== today) setClock(() => ({ day: today, now: today ? Date.now() : 0 }));
   const now = clock.now;
+  const { queue, hasPlans } = useTodayQueue(now);
 
   useEffect(() => {
     void introduceDueChunks().catch(() => {});
@@ -211,17 +216,25 @@ export function TodayScreen() {
       <PageHeader title="Today" />
       <p className="-mt-1 mb-4 text-muted">{formatDateLong(today)}</p>
       <div className="flex flex-col gap-4">
-        <MemoryCard now={now} />
+        <MemoryCard queue={queue} hasPlans={hasPlans} />
         <BibleCard today={today} />
         <BooksCard today={today} />
         <StreakCard today={today} />
         <BackupNudge now={now} />
       </div>
       <ActionBar label="Start">
-        <Link href="/memorize/practice?queue=today" className={linkButtonClass("primary", "lg")}>
-          <Icon name="play" size={26} />
-          Start review
-        </Link>
+        {queue && queue.items.length === 0 ? (
+          // Nothing due: no primary "Start review"; offer Memorize instead.
+          <Link href="/memorize" className={linkButtonClass("secondary", "lg")}>
+            <Icon name={hasPlans ? "check" : "plus"} size={26} />
+            {hasPlans ? "Open Memorize" : "Pick verses to memorize"}
+          </Link>
+        ) : (
+          <Link href="/memorize/practice?queue=today" className={linkButtonClass("primary", "lg")}>
+            <Icon name="play" size={26} />
+            Start review
+          </Link>
+        )}
       </ActionBar>
     </>
   );

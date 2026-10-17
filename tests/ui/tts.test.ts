@@ -37,3 +37,45 @@ describe("tts helpers", () => {
     expect(s.reason).toMatch(/isn't available/);
   });
 });
+
+describe("speak with no voices installed", () => {
+  it("reports an error (not 'end') when the engine ends without starting", async () => {
+    const { speak, speechErrorLabel, NO_VOICES_LABEL, NO_VOICE_ERROR } = await import("@/lib/tts");
+    class FakeUtterance {
+      text: string;
+      rate = 1;
+      lang = "";
+      voice: unknown = null;
+      onstart: (() => void) | null = null;
+      onend: (() => void) | null = null;
+      onerror: ((e: unknown) => void) | null = null;
+      onboundary: ((e: unknown) => void) | null = null;
+      constructor(text: string) {
+        this.text = text;
+      }
+    }
+    const synth = {
+      speaking: false,
+      pending: false,
+      paused: false,
+      getVoices: () => [],
+      cancel: () => {},
+      speak: (u: FakeUtterance) => queueMicrotask(() => u.onend?.()),
+    };
+    const g = globalThis as Record<string, unknown>;
+    const had = { window: g.window, utt: g.SpeechSynthesisUtterance };
+    g.window = { speechSynthesis: synth };
+    g.SpeechSynthesisUtterance = FakeUtterance;
+    try {
+      const errors: string[] = [];
+      // Structural placeholder text.
+      const r = await speak("lorem ipsum", { onError: (e) => errors.push(e) }).done;
+      expect(r).toBe("error");
+      expect(errors).toEqual([NO_VOICE_ERROR]);
+      expect(speechErrorLabel()).toBe(NO_VOICES_LABEL);
+    } finally {
+      g.window = had.window;
+      g.SpeechSynthesisUtterance = had.utt;
+    }
+  });
+});

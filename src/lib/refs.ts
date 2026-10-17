@@ -167,6 +167,11 @@ function bookName(code: string, singleChapter: boolean): string {
   return code === "PSA" && singleChapter ? "Psalm" : name;
 }
 
+/** "Psalm 23", "Romans 8": one chapter of a book (singular "Psalm", as formatRef). */
+export function formatChapter(book: string, chapter: number): string {
+  return `${bookName(book, true)} ${chapter}`;
+}
+
 export function formatRef(r: VerseRef): string {
   return `${bookName(r.book, true)} ${r.chapter}:${r.verse}`;
 }

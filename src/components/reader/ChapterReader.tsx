@@ -22,8 +22,7 @@ import type { BsbHeading, ReadingDay, TranslationId, VerseRange, VerseRef } from
 import { headingsInRange, type RangeVerse } from "@/lib/bible";
 import { chapterRangeOf, type BibleMeta } from "@/lib/meta";
 import { setPortionDone } from "@/lib/readingPlanStore";
-import { formatRange, formatRef, toKey } from "@/lib/refs";
-import { BOOK_BY_CODE } from "@/lib/books";
+import { formatChapter, formatRange, formatRef, toKey } from "@/lib/refs";
 import { CheckBox } from "./CheckBox";
 import { scrollBehavior, useReducedMotion } from "./hooks";
 import { ListenButton } from "./ListenButton";
@@ -225,7 +224,7 @@ export function ChapterReader(props: ChapterReaderProps) {
   const multiChapter = range.start.book !== range.end.book || range.start.chapter !== range.end.chapter;
   const nextPortion =
     mode.kind === "portion" && mode.index + 1 < mode.day.portions.length ? mode.index + 1 : null;
-  const shortTitle = mode.kind === "chapter" ? `${BOOK_BY_CODE[mode.pos.book]?.name ?? mode.pos.book} ${mode.pos.chapter}` : title;
+  const shortTitle = mode.kind === "chapter" ? formatChapter(mode.pos.book, mode.pos.chapter) : title;
 
   return (
     <>
@@ -340,7 +339,7 @@ export function ChapterReader(props: ChapterReaderProps) {
             <Button
               iconOnly
               icon="chevronLeft"
-              label={prev ? `Previous chapter: ${BOOK_BY_CODE[prev.book]?.name ?? prev.book} ${prev.chapter}` : "Previous chapter"}
+              label={prev ? `Previous chapter: ${formatChapter(prev.book, prev.chapter)}` : "Previous chapter"}
               disabled={!prev}
               onClick={() => go(prev)}
             />
@@ -355,7 +354,7 @@ export function ChapterReader(props: ChapterReaderProps) {
             <Button
               iconOnly
               icon="chevronRight"
-              label={next ? `Next chapter: ${BOOK_BY_CODE[next.book]?.name ?? next.book} ${next.chapter}` : "Next chapter"}
+              label={next ? `Next chapter: ${formatChapter(next.book, next.chapter)}` : "Next chapter"}
               disabled={!next}
               onClick={() => go(next)}
             />

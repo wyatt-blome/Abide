@@ -8,7 +8,7 @@ import type { MemoryPlan, VerseCard, VerseKey } from "@/db/types";
 import type { BibleMeta } from "@/lib/meta";
 import { rangeKeys } from "@/lib/meta";
 import { MATURITY_LABEL, MATURITY_ORDER, planVerseMaturity, type Maturity } from "@/lib/progress";
-import { fromKey } from "@/lib/refs";
+import { formatRef, fromKey } from "@/lib/refs";
 import { AD_HOC_ID } from "@/lib/planActions";
 import { BOOK_BY_CODE } from "@/lib/books";
 
@@ -59,7 +59,7 @@ export function planHeatCells(
     const r = refs[i];
     const label = books.size > 1 ? `${shortBook(r.book).slice(0, 4)} ${r.chapter}:${r.verse}` : chapters.size > 1 ? `${r.chapter}:${r.verse}` : String(r.verse);
     const state: HeatState = mat.get(key) ?? "empty";
-    return { key, label, fullLabel: `${shortBook(r.book)} ${r.chapter}:${r.verse}`, state };
+    return { key, label, fullLabel: formatRef(r), state };
   });
 }
 

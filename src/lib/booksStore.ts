@@ -143,7 +143,7 @@ export function bookTodayView(plan: BookPlan, today: ISODate, graceWeekday: numb
   return {
     assignment,
     label: assignment ? `Today: ${formatAssignment(assignment)}` : null,
-    pace: paceStatus(plan, today, graceWeekday),
+    pace: paceStatus(plan, today, graceWeekday, logs),
     loggedToday: unitsLogged(logs, plan.id, today),
   };
 }

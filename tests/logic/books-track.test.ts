@@ -55,6 +55,14 @@ describe("books track", () => {
     expect(paceStatus(behind, "2026-03-16", 0).status).toBe("behind");
     expect(paceStatus(book({ current: 75 }), "2026-03-16", 0).status).toBe("onPace");
     expect(paceStatus(book({ current: 120 }), "2026-03-16", 0).status).toBe("ahead");
+    // Finishing exactly today's assignment (logged today) is on pace, not ahead.
+    for (const date of ["2026-03-02", "2026-03-16"]) {
+      const start = book({ current: date === "2026-03-02" ? 0 : 75 });
+      const a = todayAssignment(start, date, 0)!;
+      const done = { ...start, current: a.to };
+      const logs = [{ id: "l", bookId: "b", date, from: a.from, to: a.to }];
+      expect(paceStatus(done, date, 0, logs).status).toBe("onPace");
+    }
     const { perDay } = recomputeToTarget(behind, "2026-03-16", 0);
     expect(perDay).toBe(Math.ceil(270 / 36));
     // Keeping 6 pages/day from 30 → 270 left → 45 reading days.

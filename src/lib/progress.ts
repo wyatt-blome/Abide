@@ -152,3 +152,10 @@ export function forecastDue(cards: Pick<SrsState, "due" | "reps">[], now: number
   }
   return out;
 }
+
+/** "12.3%" (two decimals below 1 %): share of verses read, shared by the Read tab and Progress. */
+export function formatPercentRead(read: number, total: number): string {
+  if (total <= 0) return "0%";
+  const pct = (read / total) * 100;
+  return `${pct.toFixed(read && read < total / 100 ? 2 : 1)}%`;
+}

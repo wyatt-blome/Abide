@@ -6,6 +6,7 @@ import { ChipGroup, cx, Sheet, Stepper } from "@/components/ui";
 import type { TranslationId } from "@/db/types";
 import { BOOKS } from "@/lib/books";
 import { chapterCount, type BibleMeta } from "@/lib/meta";
+import { formatChapter } from "@/lib/refs";
 import type { ChapterPos } from "./readerNav";
 
 export const TRANSLATION_NAME: Record<TranslationId, string> = {
@@ -56,7 +57,7 @@ export function PickerSheet({ open, onClose, meta, current, translation, transla
                   key={c}
                   type="button"
                   aria-current={here ? "true" : undefined}
-                  aria-label={`${bookName} ${c}`}
+                  aria-label={formatChapter(book, c)}
                   className={cx(tile, "tabular-nums", here ? "border-accent bg-accent text-accent-fg" : "bg-surface")}
                   onClick={() => {
                     onPick({ book, chapter: c });

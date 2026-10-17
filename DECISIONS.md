@@ -415,3 +415,50 @@ Built by `npm run build:bible` (`scripts/build-bible.ts`, helpers in `scripts/bi
   Sinners" pass); pack display fields must be label-shaped.
 - **Library manager.** The manifest `proofText` is labelled "License proof found in source:" for built packs and
   "Claimed by manifest (not yet verified)" for packs that were not built.
+
+## Review fixes (memorize, settings, offline, content rules)
+- **SRS learning steps and calendar days** (supersedes the "Passing grades: due = now + round(interval) days" line in
+  Logic defaults). Due dates are whole local calendar days: a passing grade is due at local midnight
+  `localMidnight(addDays(todayISO(now), N))`, N = round(FSRS interval) clamped to 1–36,500, so DST changes never move a
+  due date by an hour into the wrong day (seen with TZ=Europe/Berlin around 2026-03-28). FSRS stability/difficulty are
+  unchanged. Learning steps: the first passing review of a new card (reps = 0, grade ≥ 2) is due tomorrow whatever the
+  grade (FSRS's initial stability is kept), and so is the first passing review after an Again on the same local day
+  (relearning). "Last review was an Again" (`srs.lastWasAgain`) = due less than a day after lastReviewed and not at a
+  local midnight. Maturity intervals (`progress.scheduledIntervalDays`) count calendar days; "next review in N days"
+  previews count calendar days.
+- **Letter keyboard** (supersedes the "3 rows × 9, 64 px" Keyboard line). 4 rows on a 7-column grid: a–g, h–n, o–u,
+  v w x y z + Hint spanning 2 columns; `px-0.5` side padding, `gap-0.5`, keys `h-14` (56 px). At 360 px:
+  (360 − 2·2 − 6·2) / 7 ≈ 49.1 px per key (≥ 48 px; 3 × 9 was ≈ 35.6 px). Spacer under the drill: 4·56 + 3·2 + 12 px
+  padding + border ≈ 244 px, plus 16 px → `h-[260px]`. Type First Letters scrolls the current word to the middle of the
+  area above the keyboard whenever it would sit behind it (instant with reduced motion); the mode pills are one
+  horizontally scrolling row so the text starts higher.
+- **Story of the Passage from Sources.** `refs.rangeId` / `parseRangeId` ("ROM.8.1-ROM.8.39") are shared by the Sources
+  link and `/memorize/practice?mode=headings&range=…`. A memory plan whose range contains the range (active first,
+  then mastered) opens in that plan's practice (run-through target, Story mode). Otherwise the drill runs over the
+  range's BSB verses with planId "" — `recordAttempt` then only scores for the Summary and writes nothing (no cards,
+  logs or streak). The Sources drill link appears only when the range has a section heading (s1/s2/ms).
+- **Psalm superscriptions in the Sources Outline** are shown (they are BSB text) and captioned
+  "Psalm superscription: Berean Standard Bible"; s1/s2/ms keep "Heading: Berean Standard Bible".
+- **Practice target.** PlanPractice waits for the card query and freezes its default target once resolved, so
+  recording an attempt (which ends "has a new chunk") does not swap the target and unmount the Summary.
+- **Grace day change.** Settings → Grace day also updates the reading plan (`changePlanGraceWeekday`): days dated today
+  or later with no portion read are re-dated in order onto consecutive dates from the first such day, skipping the new
+  grace weekday and dates held by kept plan days (completed, partly read); past and completed days keep their dates;
+  unread catch-up days move to the first new grace weekday on or after their date (id follows the date). Portions are
+  never changed, so every verse stays scheduled exactly once; the end date moves by at most a week.
+- **Settings load.** The ESV key field and the reading-plan wizard render only after settings load (so their copied
+  defaults are the saved values); the theme/font effect waits for settings so it never overrides the pre-paint script.
+- **Backup** files carry the export time as `settings.lastBackupAt` (and the same stamp is written to Dexie after a
+  successful save).
+- **Offline.** `/library/README.md` and `/library/packs-summary.json` are precached.
+- **Link-outs.** `saveLinkOut` requires `tagsConfirmed: true` (besides a stated reference and ≥ 1 range) and stamps
+  `tagsConfirmedAt`.
+- **Speech failures.** With no voices installed some engines "end" an utterance at once without starting it; `tts`
+  reports that as an error (`no-voice`). Hands-Free, Read & Listen and Listen then pause on the item and show
+  "No voices installed for read-aloud on this device." (or a generic failure label) instead of racing through.
+- **Books pace.** The straight line counts today once something was logged today, so finishing exactly today's
+  assignment reads "On pace".
+- **Labels.** One chapter of Psalms is "Psalm N" everywhere (`refs.formatChapter`); the Read tab shows % of verses read
+  (same formatting as Progress) and days complete separately. Today's "Start review" is replaced by "Open Memorize"
+  (or "Pick verses to memorize") when nothing is due. The chronological style help reads "Chronological (app's
+  ordering; see DECISIONS.md)." About shows license labels read from `public/bible/sources.json` and the library index.

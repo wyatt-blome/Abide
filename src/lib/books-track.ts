@@ -62,7 +62,7 @@ export function formatAssignment(a: Pick<Assignment, "from" | "to" | "unit">): s
 
 export interface PaceStatus {
   status: "ahead" | "onPace" | "behind";
-  /** Units the plan expected to be finished by the end of yesterday. */
+  /** Units the plan expected to be finished by the end of yesterday (of today once logged today). */
   expected: number;
   /** Positive = reading days behind, negative = ahead (in units of the ideal per-day pace). */
   daysBehind: number;
@@ -70,12 +70,15 @@ export interface PaceStatus {
 
 /**
  * Off-pace detection against the straight line from (startDate, 0) to (targetDate, total) over
- * reading days. Within one day's worth of the line is "onPace".
+ * reading days. Within one day's worth of the line is "onPace". The line runs through the end of
+ * yesterday, or through today once something was logged today (so finishing exactly today's
+ * assignment reads "on pace", not "ahead").
  */
-export function paceStatus(plan: BookPlan, today: ISODate, graceWeekday: number | null): PaceStatus {
+export function paceStatus(plan: BookPlan, today: ISODate, graceWeekday: number | null, logs: BookLog[] = []): PaceStatus {
   const totalDays = Math.max(1, countReadingDays(plan.startDate, plan.targetDate, graceWeekday));
   const ideal = plan.total / totalDays;
-  const elapsed = Math.min(totalDays, countReadingDays(plan.startDate, addDays(today, -1), graceWeekday));
+  const through = unitsLogged(logs, plan.id, today) > 0 ? today : addDays(today, -1);
+  const elapsed = Math.min(totalDays, countReadingDays(plan.startDate, through, graceWeekday));
   const expected = Math.min(plan.total, ideal * elapsed);
   const daysBehind = ideal > 0 ? (expected - plan.current) / ideal : 0;
   const status = daysBehind > 1 ? "behind" : daysBehind < -1 ? "ahead" : "onPace";

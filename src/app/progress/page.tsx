@@ -9,7 +9,7 @@ import type { VerseKey } from "@/db/types";
 import { loadMeta } from "@/lib/bible";
 import { todayISO } from "@/lib/isoDate";
 import { rangeKeys, type BibleMeta } from "@/lib/meta";
-import { classifyCard, forecastDue, isKnown, isPlanMastered } from "@/lib/progress";
+import { classifyCard, forecastDue, formatPercentRead, isKnown, isPlanMastered } from "@/lib/progress";
 import { displayStreak, weekDots, type DotStatus } from "@/lib/streak";
 import { useSettings } from "@/components/providers/AppProviders";
 import { Card, Icon, PageHeader } from "@/components/ui";
@@ -120,7 +120,7 @@ export default function ProgressPage() {
             <Stat label="Passages mastered" value={String(stats.mastered)} />
             <Stat
               label="Bible read"
-              value={stats.read === null ? "…" : `${((stats.read / stats.readable) * 100).toFixed(stats.read && stats.read < stats.readable / 100 ? 2 : 1)}%`}
+              value={stats.read === null ? "…" : formatPercentRead(stats.read, stats.readable)}
               sub={stats.read === null ? undefined : `${stats.read.toLocaleString()} of ${stats.readable.toLocaleString()} verses`}
             />
             <Stat label="Books finished" value={String(stats.booksFinished)} />

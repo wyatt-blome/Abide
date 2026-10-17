@@ -13,7 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { db } from "@/db/db";
 import { introduceDueChunks, recordHeard } from "@/db/repo";
 import type { MemoryPlan } from "@/db/types";
-import { requestWakeLock, setMediaHandlers, setMediaMetadata, setPlaybackState, clearMediaSession, type WakeLockHandle } from "@/lib/media";
+import { createWakeLockGate, setMediaHandlers, setMediaMetadata, setPlaybackState, clearMediaSession, type WakeLockGate } from "@/lib/media";
 import { buildQueue } from "@/lib/queue";
 import { formatRange, formatRef, fromKey } from "@/lib/refs";
 import { cancel as cancelSpeech, isSupported as ttsSupported, speak, speechErrorLabel } from "@/lib/tts";
@@ -117,9 +117,8 @@ function HandsFree() {
   const [lap, setLap] = useState(1);
 
   const gen = useRef(0);
-  const wake = useRef<WakeLockHandle | null>(null);
-  const wakePending = useRef<Promise<WakeLockHandle> | null>(null);
-  const wantWake = useRef(false);
+  // One screen wake lock; overlapping Start taps never leak a second handle (createWakeLockGate).
+  const [wake] = useState<WakeLockGate>(() => createWakeLockGate());
   const live = useRef({ pauseSec: settings.handsFreePauseSec, rate: settings.ttsRate, voice: settings.ttsVoice, halfVariant, gap, repeats });
   useEffect(() => {
     live.current = { pauseSec: settings.handsFreePauseSec, rate: settings.ttsRate, voice: settings.ttsVoice, halfVariant, gap, repeats };
@@ -157,40 +156,14 @@ function HandsFree() {
       setSpeechError(speechErrorLabel());
       setRunning(false);
       setPlaybackState("paused");
-      wantWake.current = false;
-      void wake.current?.release();
-      wake.current = null;
+      wake.release();
       return false;
     }
     return alive() && r !== "cancel";
-  }, []);
+  }, [wake]);
 
-  const releaseWake = useCallback(() => {
-    wantWake.current = false;
-    void wake.current?.release();
-    wake.current = null;
-  }, []);
-
-  // One wake lock at a time: concurrent requests share the pending promise, and a lock that
-  // arrives after Stop (or a second one) is released at once.
-  const acquireWake = useCallback(async () => {
-    wantWake.current = true;
-    if (wake.current) return;
-    if (!wakePending.current) {
-      const pending = requestWakeLock();
-      wakePending.current = pending;
-      void pending.finally(() => {
-        if (wakePending.current === pending) wakePending.current = null;
-      });
-    }
-    const handle = await wakePending.current;
-    if (wake.current === handle) return;
-    if (!wantWake.current || wake.current) {
-      void handle.release();
-      return;
-    }
-    wake.current = handle;
-  }, []);
+  const releaseWake = useCallback(() => wake.release(), [wake]);
+  const acquireWake = useCallback(() => wake.acquire(), [wake]);
 
   const stop = useCallback(() => {
     gen.current++;
@@ -277,8 +250,6 @@ function HandsFree() {
   }, [toggle, step, stop, runFrom, running]);
   useEffect(() => {
     const genRef = gen;
-    const wakeRef = wake;
-    const wantWakeRef = wantWake;
     const off = setMediaHandlers({
       play: () => !handlers.current.running && handlers.current.toggle(),
       pause: () => handlers.current.running && handlers.current.stop(),
@@ -290,11 +261,9 @@ function HandsFree() {
       genRef.current++;
       cancelSpeech();
       clearMediaSession();
-      wantWakeRef.current = false;
-      void wakeRef.current?.release();
-      wakeRef.current = null;
+      wake.release();
     };
-  }, []);
+  }, [wake]);
 
   const swipe = useSwipe(() => step(-1), () => step(1));
   // Server render and hydration assume support; the real value is read after hydration.

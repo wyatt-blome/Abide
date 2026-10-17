@@ -136,3 +136,56 @@ export async function requestWakeLock(): Promise<WakeLockHandle> {
     },
   };
 }
+
+export interface WakeLockGate {
+  /** Ask for the screen to stay on. Concurrent calls share one request; at most one lock is held. */
+  acquire: () => Promise<void>;
+  /** Drop the lock (also one that is still being requested when it arrives). */
+  release: () => void;
+  /** The lock currently held, if any. */
+  readonly held: WakeLockHandle | null;
+}
+
+/**
+ * One screen wake lock for a component: repeated or overlapping acquire() calls never leak a
+ * second handle, and a lock that resolves after release() is released at once.
+ */
+export function createWakeLockGate(request: () => Promise<WakeLockHandle> = requestWakeLock): WakeLockGate {
+  let held: WakeLockHandle | null = null;
+  let pending: Promise<WakeLockHandle> | null = null;
+  let wanted = false;
+  return {
+    get held() {
+      return held;
+    },
+    acquire: async () => {
+      wanted = true;
+      if (held) return;
+      if (!pending) {
+        const p = request();
+        pending = p;
+        p.then(
+          () => {
+            if (pending === p) pending = null;
+          },
+          () => {
+            if (pending === p) pending = null;
+          },
+        );
+      }
+      const handle = await pending;
+      if (handle === held) return;
+      if (!wanted || held) {
+        void handle.release();
+        return;
+      }
+      held = handle;
+    },
+    release: () => {
+      wanted = false;
+      const h = held;
+      held = null;
+      void h?.release();
+    },
+  };
+}
