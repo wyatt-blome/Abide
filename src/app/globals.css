@@ -1,26 +1,270 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Themes: <html data-theme="system|light|dark|sunlight">. "system" follows prefers-color-scheme.
+  Hands-free mode: add class "hands-free" to <html> (true black, white text).
+  Tokens are exposed to Tailwind as colors: bg-bg, text-fg, bg-surface, text-muted, border-border,
+  bg-accent, text-accent-fg, text-danger, text-success, ring-focus.
+*/
+
+:root,
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --surface: #f3f3f0;
+  --surface-strong: #e6e6e1;
+  --border: #c9c9c2;
+  --muted: #545454;
+  --accent: #2d5a3d;
+  --accent-fg: #ffffff;
+  --danger: #b42318;
+  --danger-fg: #ffffff;
+  --success: #1e6e33;
+  --success-fg: #ffffff;
+  --focus: #1f5fd1;
+  --border-width: 1px;
+  --ui-weight: 500;
+  --reading-weight: 400;
+  --overlay: rgb(0 0 0 / 0.45);
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --fg: #ececec;
+  --surface: #1e1e1e;
+  --surface-strong: #2a2a2a;
+  --border: #3d3d3d;
+  --muted: #a9a9a9;
+  --accent: #86c49a;
+  --accent-fg: #0b0b0b;
+  --danger: #ff8b80;
+  --danger-fg: #0b0b0b;
+  --success: #7fd690;
+  --success-fg: #0b0b0b;
+  --focus: #8ab4ff;
+  --overlay: rgb(0 0 0 / 0.65);
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root[data-theme="system"] {
+    --bg: #121212;
+    --fg: #ececec;
+    --surface: #1e1e1e;
+    --surface-strong: #2a2a2a;
+    --border: #3d3d3d;
+    --muted: #a9a9a9;
+    --accent: #86c49a;
+    --accent-fg: #0b0b0b;
+    --danger: #ff8b80;
+    --danger-fg: #0b0b0b;
+    --success: #7fd690;
+    --success-fg: #0b0b0b;
+    --focus: #8ab4ff;
+    --overlay: rgb(0 0 0 / 0.65);
+    color-scheme: dark;
   }
 }
 
+/* Sunlight: maximum contrast for bright sun — pure black on white, heavy weights, thick borders. */
+:root[data-theme="sunlight"] {
+  --bg: #ffffff;
+  --fg: #000000;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --border: #000000;
+  --muted: #000000;
+  --accent: #000000;
+  --accent-fg: #ffffff;
+  --danger: #9a0000;
+  --danger-fg: #ffffff;
+  --success: #004d00;
+  --success-fg: #ffffff;
+  --focus: #0033cc;
+  --border-width: 3px;
+  --ui-weight: 700;
+  --reading-weight: 600;
+  --overlay: rgb(0 0 0 / 0.6);
+  color-scheme: light;
+}
+
+/* Hands-free: true black (OLED, night driving). Applies on top of any theme. */
+:root.hands-free {
+  --bg: #000000;
+  --fg: #ffffff;
+  --surface: #000000;
+  --surface-strong: #111111;
+  --border: #5a5a5a;
+  --muted: #bdbdbd;
+  --accent: #ffffff;
+  --accent-fg: #000000;
+  --overlay: rgb(0 0 0 / 0.8);
+  color-scheme: dark;
+}
+
+:root {
+  --font-scale: 1;
+  --font-reading: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, Cambria, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --reading-size: calc(20px * var(--font-scale));
+  --tap: 48px;
+  --tabbar-height: 64px;
+  --actionbar-height: 72px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-danger: var(--danger);
+  --color-danger-fg: var(--danger-fg);
+  --color-success: var(--success);
+  --color-success-fg: var(--success-fg);
+  --color-focus: var(--focus);
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-reading);
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-weight: var(--ui-weight);
+  font-size: 17px;
+  line-height: 1.45;
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Main content leaves room for the fixed TabBar (+ ActionBar when present) and safe areas. */
+.app-main {
+  padding-top: var(--safe-top);
+  padding-left: max(16px, var(--safe-left));
+  padding-right: max(16px, var(--safe-right));
+  padding-bottom: calc(var(--tabbar-height) + var(--safe-bottom) + 16px);
+  max-width: 44rem;
+  margin: 0 auto;
+}
+.app-main:has(.action-bar) {
+  padding-bottom: calc(var(--tabbar-height) + var(--actionbar-height) + var(--safe-bottom) + 16px);
+}
+
+/* UpdateBanner sits in the thumb zone, above the TabBar and any ActionBar. */
+.update-banner {
+  bottom: calc(var(--tabbar-height) + var(--safe-bottom));
+}
+body:has(.action-bar) .update-banner {
+  bottom: calc(var(--tabbar-height) + var(--actionbar-height) + var(--safe-bottom));
+}
+
+/* Reading text: serif, 20px × fontScale, line-height 1.6. */
+.reading {
+  font-family: var(--font-reading);
+  font-size: var(--reading-size);
+  font-weight: var(--reading-weight);
+  line-height: 1.6;
+}
+
+/* Theme-aware borders: thick in sunlight. Use instead of `border`. */
+.bordered {
+  border: var(--border-width) solid var(--border);
+}
+
+/* Minimum tap targets. */
+.tap {
+  min-height: var(--tap);
+  min-width: var(--tap);
+}
+.tap-lg {
+  min-height: 64px;
+  min-width: 64px;
+}
+
+/* Visible focus rings everywhere (keyboard / switch control). */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:root[data-theme="sunlight"] :focus-visible {
+  outline-width: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.safe-top {
+  padding-top: var(--safe-top);
+}
+.safe-bottom {
+  padding-bottom: var(--safe-bottom);
+}
+.safe-x {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+@keyframes abide-sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.sheet-panel {
+  animation: abide-sheet-in 160ms ease-out;
+}
+
+@keyframes abide-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.toast {
+  animation: abide-toast-in 140ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
