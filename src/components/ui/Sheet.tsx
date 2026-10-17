@@ -20,9 +20,9 @@ export interface SheetProps {
   className?: string;
 }
 
-const FOCUSABLE =
-  'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), ' +
-  'textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+const FOCUSABLE_CONTROLS = ["a[href]", "area[href]", "button:not([disabled])", 'input:not([disabled]):not([type="hidden"])'];
+const FOCUSABLE_OTHER = ["select:not([disabled])", "textarea:not([disabled])", '[tabindex]:not([tabindex="-1"])', '[contenteditable="true"]'];
+const FOCUSABLE = [...FOCUSABLE_CONTROLS, ...FOCUSABLE_OTHER].join(", ");
 
 function focusables(root: HTMLElement): HTMLElement[] {
   return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(

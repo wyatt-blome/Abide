@@ -32,13 +32,16 @@ export const viewport: Viewport = {
 };
 
 // Runs before first paint: applies the last-used theme and font scale (mirrored by AppProviders).
-const PREPAINT = [
-  "try{var d=document.documentElement,s=localStorage;",
+const PREPAINT_THEME = [
+  "var d=document.documentElement,s=localStorage;",
   `var t=s.getItem(${JSON.stringify(THEME_STORAGE_KEY)});`,
   'if(t==="light"||t==="dark"||t==="sunlight"||t==="system")d.dataset.theme=t;',
-  `var f=parseFloat(s.getItem(${JSON.stringify(FONT_SCALE_STORAGE_KEY)})||"");`,
-  'if(f>=1&&f<=2)d.style.setProperty("--font-scale",String(f));}catch(e){}',
 ].join("");
+const PREPAINT_FONT = [
+  `var f=parseFloat(s.getItem(${JSON.stringify(FONT_SCALE_STORAGE_KEY)})||"");`,
+  'if(f>=1&&f<=2)d.style.setProperty("--font-scale",String(f));',
+].join("");
+const PREPAINT = `try{${PREPAINT_THEME}${PREPAINT_FONT}}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
