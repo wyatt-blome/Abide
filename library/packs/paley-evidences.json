@@ -1,0 +1,37 @@
+{
+  "id": "paley-evidences",
+  "author": "William Paley",
+  "title": "A View of the Evidences of Christianity",
+  "edition": "Gutenberg eBook #14780",
+  "era": "puritan18c",
+  "types": [
+    "apologetics"
+  ],
+  "rawUrls": [
+    "https://www.gutenberg.org/cache/epub/14780/pg14780.txt"
+  ],
+  "sourcePage": "https://www.gutenberg.org/ebooks/14780",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.gutenberg.org/ebooks/14780",
+    "proofText": "Public domain in the USA",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

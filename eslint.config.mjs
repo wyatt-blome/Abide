@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated service worker bundles (src/app/sw.ts → public/sw.js) and the download cache.
+    "public/sw.js*",
+    "public/swe-worker*",
+    ".cache/**",
   ]),
 ]);
 

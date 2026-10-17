@@ -1,0 +1,6 @@
+From Verse	To Verse	Votes	#SYNTHETIC FIXTURE CC-BY
+Gen.1.1	John.1.1-John.1.3	50
+Gen.1.1	Heb.11.3	70
+Gen.1.1	Ps.33.6	2
+Gen.1.2	Gen.99.1	9
+Rom.8.28	Gen.50.20	40

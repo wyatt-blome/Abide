@@ -1,0 +1,26 @@
+{
+  "id": "luther-small-catechism",
+  "author": "Martin Luther",
+  "title": "The Small Catechism",
+  "edition": "CCEL text",
+  "era": "medievalReformation",
+  "types": [
+    "catechism"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/l/luther/smallcat/cache/smallcat.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/luther/smallcat",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/luther/smallcat",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel"
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

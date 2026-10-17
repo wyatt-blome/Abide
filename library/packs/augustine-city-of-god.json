@@ -1,0 +1,51 @@
+{
+  "id": "augustine-city-of-god",
+  "author": "Augustine of Hippo",
+  "title": "The City of God",
+  "edition": "NPNF1-02, trans. Marcus Dods (CCEL text)",
+  "era": "early",
+  "types": [
+    "apologetics",
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf102/cache/npnf102.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf102",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf102",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "bodyEnd": "^(?:On Christian Doctrine|ON CHRISTIAN DOCTRINE)\\.?$",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) (\\d+)\\.",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "alternateSources": [
+    {
+      "url": "https://www.gutenberg.org/ebooks/45304",
+      "note": "Dods translation, vol. 1 (Gutenberg)"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/45305",
+      "note": "Dods translation, vol. 2 (Gutenberg)"
+    }
+  ],
+  "notes": "NPNF1-02 also contains On Christian Doctrine; bodyEnd stops before it."
+}

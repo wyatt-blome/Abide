@@ -1,0 +1,39 @@
+{
+  "id": "augustine-psalms",
+  "author": "Augustine of Hippo",
+  "title": "Expositions on the Book of Psalms",
+  "edition": "NPNF1-08, ed. A. Cleveland Coxe (CCEL text)",
+  "era": "early",
+  "types": [
+    "commentary",
+    "sermon"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf108/cache/npnf108.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf108",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf108",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "layout": "ccel",
+    "mappingMethod": "heading",
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^Psalm ([IVXLC]+)\\.?$",
+        "level": "chapter",
+        "book": "PSA",
+        "chapter": "$1",
+        "label": "Psalm $1"
+      }
+    ]
+  },
+  "defaultEnabled": true,
+  "largePack": false,
+  "notes": "Psalm numbers are taken from the edition's own headings; confirm on the first real build that NPNF headings use the English (Hebrew) numbering before enabling by default."
+}

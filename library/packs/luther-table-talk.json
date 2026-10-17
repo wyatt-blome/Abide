@@ -1,0 +1,33 @@
+{
+  "id": "luther-table-talk",
+  "author": "Martin Luther",
+  "title": "Table Talk",
+  "edition": "trans. William Hazlitt (CCEL text)",
+  "era": "medievalReformation",
+  "types": [
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/l/luther/tabletalk/cache/tabletalk.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/luther/tabletalk",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/luther/tabletalk",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:Of|OF) [A-Z].{2,80}$",
+        "level": "unit",
+        "label": "$0"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

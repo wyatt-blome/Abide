@@ -1,0 +1,46 @@
+{
+  "id": "luther-galatians",
+  "author": "Martin Luther",
+  "title": "Commentary on the Epistle to the Galatians",
+  "edition": "Gutenberg eBook #1549, trans. Theodore Graebner",
+  "era": "medievalReformation",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://www.gutenberg.org/cache/epub/1549/pg1549.txt"
+  ],
+  "sourcePage": "https://www.gutenberg.org/ebooks/1549",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.gutenberg.org/ebooks/1549",
+    "proofText": "Public domain in the USA",
+    "basis": "rights-statement"
+  },
+  "parser": "verse-commentary",
+  "parserOptions": {
+    "alsoInline": true,
+    "locatorFromRange": true,
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^CHAPTER (\\d+|[IVX]+)\\.?$",
+        "level": "chapter",
+        "label": "ch. $1"
+      },
+      {
+        "pattern": "^VERSES? (\\d+)(?:\\s*(?:-|–|AND|TO)\\s*(\\d+))?\\.",
+        "level": "verse",
+        "verseEnd": "$2",
+        "paragraphStart": true
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "bookScope": [
+    [
+      "GAL"
+    ]
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "id": "clarke-commentary",
+  "author": "Adam Clarke",
+  "title": "Commentary on the Bible",
+  "edition": "CCEL text (vol1–vol6), first published 1810–1826",
+  "era": "c19",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://www.ccel.org/c/clarke/commentary/vol1.txt",
+    "https://www.ccel.org/c/clarke/commentary/vol2.txt",
+    "https://www.ccel.org/c/clarke/commentary/vol3.txt",
+    "https://www.ccel.org/c/clarke/commentary/vol4.txt",
+    "https://www.ccel.org/c/clarke/commentary/vol5.txt",
+    "https://www.ccel.org/c/clarke/commentary/vol6.txt"
+  ],
+  "sourcePage": "https://www.ccel.org/c/clarke/commentary/",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.ccel.org/c/clarke/commentary/",
+    "proofText": "Clarke",
+    "basis": "published-before-1931",
+    "yearPattern": "\\b(18[0-2]\\d)\\b"
+  },
+  "parser": "verse-commentary",
+  "parserOptions": {
+    "locatorFromRange": true,
+    "sectionMaxChars": 4000,
+    "headings": [
+      {
+        "pattern": "^(?:INTRODUCTION TO|PREFACE TO) (.{3,100})$",
+        "level": "book",
+        "book": "$1",
+        "intro": true,
+        "label": "Introduction",
+        "flags": "i"
+      },
+      {
+        "pattern": "^CHAPTER ([IVXLC]+|\\d+)\\.?$",
+        "level": "chapter",
+        "label": "ch. $1"
+      },
+      {
+        "pattern": "^Verse (\\d+)(?:\\s*[-.]\\s*(\\d+))?\\.",
+        "level": "verse",
+        "verseEnd": "$2",
+        "paragraphStart": true
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": true,
+  "bookScope": [
+    [
+      "GEN",
+      "EXO",
+      "LEV",
+      "NUM",
+      "DEU"
+    ],
+    [
+      "JOS",
+      "JDG",
+      "RUT",
+      "1SA",
+      "2SA",
+      "1KI",
+      "2KI",
+      "1CH",
+      "2CH",
+      "EZR",
+      "NEH",
+      "EST"
+    ],
+    [
+      "JOB",
+      "PSA",
+      "PRO",
+      "ECC",
+      "SNG"
+    ],
+    [
+      "ISA",
+      "JER",
+      "LAM",
+      "EZK",
+      "DAN",
+      "HOS",
+      "JOL",
+      "AMO",
+      "OBA",
+      "JON",
+      "MIC",
+      "NAM",
+      "HAB",
+      "ZEP",
+      "HAG",
+      "ZEC",
+      "MAL"
+    ],
+    [
+      "MAT",
+      "MRK",
+      "LUK",
+      "JHN",
+      "ACT"
+    ],
+    [
+      "ROM",
+      "1CO",
+      "2CO",
+      "GAL",
+      "EPH",
+      "PHP",
+      "COL",
+      "1TH",
+      "2TH",
+      "1TI",
+      "2TI",
+      "TIT",
+      "PHM",
+      "HEB",
+      "JAS",
+      "1PE",
+      "2PE",
+      "1JN",
+      "2JN",
+      "3JN",
+      "JUD",
+      "REV"
+    ]
+  ]
+}

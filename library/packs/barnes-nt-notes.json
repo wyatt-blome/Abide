@@ -1,0 +1,78 @@
+{
+  "id": "barnes-nt-notes",
+  "author": "Albert Barnes",
+  "title": "Notes on the New Testament",
+  "edition": "CCEL text",
+  "era": "c19",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/b/barnes/ntnotes/cache/ntnotes.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/barnes/ntnotes",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/barnes/ntnotes",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "verse-commentary",
+  "parserOptions": {
+    "layout": "ccel",
+    "locatorFromRange": true,
+    "sectionMaxChars": 4000,
+    "headings": [
+      {
+        "pattern": "^(?:NOTES|INTRODUCTION) (?:ON|TO) (.{3,100})$",
+        "level": "book",
+        "book": "$1",
+        "flags": "i"
+      },
+      {
+        "pattern": "^CHAPTER ([IVXLC]+|\\d+)\\.?$",
+        "level": "chapter",
+        "label": "ch. $1"
+      },
+      {
+        "pattern": "^Verse (\\d+)(?:\\s*[-.]\\s*(\\d+))?\\.",
+        "level": "verse",
+        "verseEnd": "$2",
+        "paragraphStart": true
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": true,
+  "bookScope": [
+    [
+      "MAT",
+      "MRK",
+      "LUK",
+      "JHN",
+      "ACT",
+      "ROM",
+      "1CO",
+      "2CO",
+      "GAL",
+      "EPH",
+      "PHP",
+      "COL",
+      "1TH",
+      "2TH",
+      "1TI",
+      "2TI",
+      "TIT",
+      "PHM",
+      "HEB",
+      "JAS",
+      "1PE",
+      "2PE",
+      "1JN",
+      "2JN",
+      "3JN",
+      "JUD",
+      "REV"
+    ]
+  ]
+}

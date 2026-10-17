@@ -1,0 +1,39 @@
+{
+  "id": "owen-mortification",
+  "author": "John Owen",
+  "title": "Of the Mortification of Sin in Believers",
+  "edition": "CCEL text",
+  "era": "puritan18c",
+  "types": [
+    "theology",
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/o/owen/mort/cache/mort.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/owen/mort",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/owen/mort",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "luther-large-catechism",
+  "author": "Martin Luther",
+  "title": "The Large Catechism",
+  "edition": "trans. F. Bente and W. H. T. Dau (CCEL text)",
+  "era": "medievalReformation",
+  "types": [
+    "catechism"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/l/luther/largecatechism/cache/largecatechism.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/luther/largecatechism",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/luther/largecatechism",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:Part [A-Z][a-z]+|The [A-Z][a-z]+ Commandment)\\.?$",
+        "level": "unit",
+        "label": "$0"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

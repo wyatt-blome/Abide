@@ -1,0 +1,38 @@
+{
+  "id": "murray-school-of-prayer",
+  "author": "Andrew Murray",
+  "title": "With Christ in the School of Prayer",
+  "edition": "CCEL text",
+  "era": "c19",
+  "types": [
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/m/murray/prayer/cache/prayer.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/murray/prayer",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/murray/prayer",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

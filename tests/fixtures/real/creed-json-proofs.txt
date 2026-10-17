@@ -1,0 +1,166 @@
+{
+  "Metadata": {
+    "Title": "Heidelberg Catechism",
+    "AlternativeTitles": [
+      "Catechism, or Christian Instruction, according to the Usages of the Churches and Schools of the Electoral Palatinate"
+    ],
+    "Year": "1563",
+    "Authors": [
+      "Zacharias Ursinus"
+    ],
+    "Location": "Heidelberg, Germany",
+    "OriginalLanguage": "German",
+    "OriginStory": "",
+    "SourceUrl": "http://apostles-creed.org/wp-content/uploads/2014/07/Heidelberg-Catechism-with-Intro.pdf",
+    "SourceAttribution": "Public Domain",
+    "CreedFormat": "Catechism"
+  },
+  "Data": [
+    {
+      "Number": 1,
+      "Question": "What is your only comfort in life and death?",
+      "Answer": "That I am not my own, but belong with body and soul, both in life and in death, to my faithful Saviour Jesus Christ. He has fully paid for all my sins with His precious blood, and has set me free from all the power of the devil. He also preserves me in such a way that without the will of my heavenly Father not a hair can fall from my head; indeed, all things must work together for my salvation. Therefore, by His Holy Spirit He also assures me of eternal life and makes me heartily willing and ready from now on to live for Him.",
+      "AnswerWithProofs": "That I am not my own,[1] but belong with body and soul, both in life and in death,[2] to my faithful Saviour Jesus Christ.[3] He has fully paid for all my sins with His precious blood,[4] and has set me free from all the power of the devil.[5] He also preserves me in such a way[6] that without the will of my heavenly Father not a hair can fall from my head;[7] indeed, all things must work together for my salvation.[8] Therefore, by His Holy Spirit He also assures me of eternal life[9] and makes me heartily willing and ready from now on to live for Him.[10]",
+      "Proofs": [
+        {
+          "Id": 1,
+          "References": [
+            "1Cor.6.19,1Cor.6.2"
+          ]
+        },
+        {
+          "Id": 2,
+          "References": [
+            "Rom.14.7-Rom.14.9"
+          ]
+        },
+        {
+          "Id": 3,
+          "References": [
+            "1Cor.3.23",
+            "Titus.2.14"
+          ]
+        },
+        {
+          "Id": 4,
+          "References": [
+            "1Pet.1.18-1Pet.1.19",
+            "1John.1.7",
+            "1John.2.2"
+          ]
+        },
+        {
+          "Id": 5,
+          "References": [
+            "John.8.34-John.8.36",
+            "Heb.2.14-Heb.2.15",
+            "1John.3.8"
+          ]
+        },
+        {
+          "Id": 6,
+          "References": [
+            "John.6.39-John.6.40",
+            "John.10.27-John.10.30",
+            "2Thess.3.3",
+            "1Pet.1.5"
+          ]
+        },
+        {
+          "Id": 7,
+          "References": [
+            "Matt.10.29-Matt.10.31",
+            "Luke.21.16-Luke.21.18"
+          ]
+        },
+        {
+          "Id": 8,
+          "References": [
+            "Rom.8.28"
+          ]
+        },
+        {
+          "Id": 9,
+          "References": [
+            "Rom.8.15-Rom.8.16",
+            "2Cor.1.21-2Cor.1.22",
+            "2Cor.5.5",
+            "Eph.1.13-Eph.1.14"
+          ]
+        },
+        {
+          "Id": 10,
+          "References": [
+            "Rom.8.14"
+          ]
+        }
+      ]
+    },
+    {
+      "Number": 2,
+      "Question": "What do you need to know in order to live and die in the joy of this comfort?",
+      "Answer": "First, how great my sins and misery are; second, how I am delivered from all my sins and misery; third, how I am to be thankful to God for such deliverance.",
+      "AnswerWithProofs": "First, how great my sins and misery are;[1] second, how I am delivered from all my sins and misery;[2] third, how I am to be thankful to God for such deliverance.[3]",
+      "Proofs": [
+        {
+          "Id": 1,
+          "References": [
+            "Rom.3.9-Rom.3.10",
+            "1John.1.10"
+          ]
+        },
+        {
+          "Id": 2,
+          "References": [
+            "John.17.3",
+            "Acts.4.12",
+            "Acts.10.43"
+          ]
+        },
+        {
+          "Id": 3,
+          "References": [
+            "Matt.5.16",
+            "Rom.6.13",
+            "Eph.5.8-Eph.5.10",
+            "1Pet.2.9-1Pet.2.10"
+          ]
+        }
+      ]
+    },
+    {
+      "Number": 3,
+      "Question": "From where do you know your sins and misery?",
+      "Answer": "From the law of God.",
+      "AnswerWithProofs": "From the law of God.[1]",
+      "Proofs": [
+        {
+          "Id": 1,
+          "References": [
+            "Rom.3.20"
+          ]
+        }
+      ]
+    },
+    {
+      "Number": 4,
+      "Question": "What does God's law require of us?",
+      "Answer": "Christ teaches us this in a summary in Matthew 22: You shall love the LORD your God with all your heart, and with all your soul, and with all your mind. This is the great and first commandment. And a second is like it, You shall love your neighbour as yourself. On these two commandments depend all the law and the prophets.",
+      "AnswerWithProofs": "Christ teaches us this in a summary in Matthew 22: You shall love the LORD your God with all your heart, and with all your soul, and with all your mind.[1] This is the great and first commandment. And a second is like it, You shall love your neighbour as yourself. On these two commandments depend all the law and the prophets.[2]",
+      "Proofs": [
+        {
+          "Id": 1,
+          "References": [
+            "Deut.6.5"
+          ]
+        },
+        {
+          "Id": 2,
+          "References": [
+            "Lev.19.18"
+          ]
+        }
+      ]
+    }
+  ]
+}

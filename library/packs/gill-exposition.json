@@ -1,0 +1,308 @@
+{
+  "id": "gill-exposition",
+  "author": "John Gill",
+  "title": "Exposition of the Entire Bible",
+  "edition": "archive.org GillsCommentaryOnTheEntireBible (one file per book)",
+  "era": "puritan18c",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/01%20-%20Genesis.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/02%20-%20Exodus.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/03%20-%20Leviticus.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/04%20-%20Numbers.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/05%20-%20Deuteronomy.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/06%20-%20Joshua.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/07%20-%20Judges.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/08%20-%20Ruth.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/09%20-%201%20Samuel.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/10%20-%202%20Samuel.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/11%20-%201%20Kings.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/12%20-%202%20Kings.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/13%20-%201%20Chronicles.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/14%20-%202%20Chronicles.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/15%20-%20Ezra.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/16%20-%20Nehemiah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/17%20-%20Esther.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/18%20-%20Job.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/19%20-%20Psalms.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/20%20-%20Proverbs.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/21%20-%20Ecclesiastes.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/22%20-%20Song%20of%20Solomon.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/23%20-%20Isaiah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/24%20-%20Jeremiah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/25%20-%20Lamentations.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/26%20-%20Ezekiel.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/27%20-%20Daniel.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/28%20-%20Hosea.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/29%20-%20Joel.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/30%20-%20Amos.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/31%20-%20Obadiah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/32%20-%20Jonah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/33%20-%20Micah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/34%20-%20Nahum.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/35%20-%20Habakkuk.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/36%20-%20Zephaniah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/37%20-%20Haggai.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/38%20-%20Zechariah.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/39%20-%20Malachi.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/40%20-%20Matthew.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/41%20-%20Mark.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/42%20-%20Luke.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/43%20-%20John.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/44%20-%20Acts.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/45%20-%20Romans.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/46%20-%201%20Corinthians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/47%20-%202%20Corinthians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/48%20-%20Galatians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/49%20-%20Ephesians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/50%20-%20Philippians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/51%20-%20Colossians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/52%20-%201%20Thessalonians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/53%20-%202%20Thessalonians.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/54%20-%201%20Timothy.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/55%20-%202%20Timothy.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/56%20-%20Titus.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/57%20-%20Philemon.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/58%20-%20Hebrews.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/59%20-%20James.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/60%20-%201%20Peter.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/61%20-%202%20Peter.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/62%20-%201%20John.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/63%20-%202%20John.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/64%20-%203%20John.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/65%20-%20Jude.txt",
+    "https://archive.org/download/GillsCommentaryOnTheEntireBible/66%20-%20Revelation.txt"
+  ],
+  "sourcePage": "https://archive.org/details/GillsCommentaryOnTheEntireBible",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://archive.org/details/GillsCommentaryOnTheEntireBible",
+    "proofText": "publicdomain/mark",
+    "basis": "pd-mark"
+  },
+  "parser": "verse-commentary",
+  "parserOptions": {
+    "locatorFromRange": true,
+    "sectionMaxChars": 4000,
+    "headings": [
+      {
+        "pattern": "^INTRODUCTION TO ((?:[1-3] )?[A-Z ]+?) (\\d+)$",
+        "level": "chapter",
+        "chapter": "$2",
+        "label": "ch. $2",
+        "book": "$1"
+      },
+      {
+        "pattern": "^Ver(?:se)?\\.? (\\d+)(?:\\s*[-–]\\s*(\\d+))?\\.",
+        "level": "verse",
+        "verseEnd": "$2",
+        "paragraphStart": true
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": true,
+  "bookScope": [
+    [
+      "GEN"
+    ],
+    [
+      "EXO"
+    ],
+    [
+      "LEV"
+    ],
+    [
+      "NUM"
+    ],
+    [
+      "DEU"
+    ],
+    [
+      "JOS"
+    ],
+    [
+      "JDG"
+    ],
+    [
+      "RUT"
+    ],
+    [
+      "1SA"
+    ],
+    [
+      "2SA"
+    ],
+    [
+      "1KI"
+    ],
+    [
+      "2KI"
+    ],
+    [
+      "1CH"
+    ],
+    [
+      "2CH"
+    ],
+    [
+      "EZR"
+    ],
+    [
+      "NEH"
+    ],
+    [
+      "EST"
+    ],
+    [
+      "JOB"
+    ],
+    [
+      "PSA"
+    ],
+    [
+      "PRO"
+    ],
+    [
+      "ECC"
+    ],
+    [
+      "SNG"
+    ],
+    [
+      "ISA"
+    ],
+    [
+      "JER"
+    ],
+    [
+      "LAM"
+    ],
+    [
+      "EZK"
+    ],
+    [
+      "DAN"
+    ],
+    [
+      "HOS"
+    ],
+    [
+      "JOL"
+    ],
+    [
+      "AMO"
+    ],
+    [
+      "OBA"
+    ],
+    [
+      "JON"
+    ],
+    [
+      "MIC"
+    ],
+    [
+      "NAM"
+    ],
+    [
+      "HAB"
+    ],
+    [
+      "ZEP"
+    ],
+    [
+      "HAG"
+    ],
+    [
+      "ZEC"
+    ],
+    [
+      "MAL"
+    ],
+    [
+      "MAT"
+    ],
+    [
+      "MRK"
+    ],
+    [
+      "LUK"
+    ],
+    [
+      "JHN"
+    ],
+    [
+      "ACT"
+    ],
+    [
+      "ROM"
+    ],
+    [
+      "1CO"
+    ],
+    [
+      "2CO"
+    ],
+    [
+      "GAL"
+    ],
+    [
+      "EPH"
+    ],
+    [
+      "PHP"
+    ],
+    [
+      "COL"
+    ],
+    [
+      "1TH"
+    ],
+    [
+      "2TH"
+    ],
+    [
+      "1TI"
+    ],
+    [
+      "2TI"
+    ],
+    [
+      "TIT"
+    ],
+    [
+      "PHM"
+    ],
+    [
+      "HEB"
+    ],
+    [
+      "JAS"
+    ],
+    [
+      "1PE"
+    ],
+    [
+      "2PE"
+    ],
+    [
+      "1JN"
+    ],
+    [
+      "2JN"
+    ],
+    [
+      "3JN"
+    ],
+    [
+      "JUD"
+    ],
+    [
+      "REV"
+    ]
+  ],
+  "notes": "File names are per book (e.g. '40 - Matthew.txt'); a file that 404s skips the pack, see build-report.json."
+}

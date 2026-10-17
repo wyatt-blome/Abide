@@ -1,0 +1,14 @@
+{
+  "parser": "openbible-crossrefs",
+  "pack": "openbible",
+  "rawIndex": 0,
+  "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c/sources/extras/cross_references.txt",
+  "sourceSha256": "452b263f657d3e721d20341b6b82f1196fc98882d685bd4ef9050ae17f033f82",
+  "taken": [
+    {
+      "start": 0,
+      "lines": 60
+    }
+  ],
+  "note": "cut by scripts/make-fixtures.ts"
+}

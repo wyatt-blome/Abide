@@ -1,0 +1,35 @@
+{
+  "id": "spurgeon-morning-evening",
+  "author": "Charles H. Spurgeon",
+  "title": "Morning and Evening",
+  "edition": "CCEL text",
+  "era": "c19",
+  "types": [
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/spurgeon/morneve/cache/morneve.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/spurgeon/morneve",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/spurgeon/morneve",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "layout": "ccel",
+    "mappingMethod": "entryVerse",
+    "headings": [
+      {
+        "pattern": "^(Morning|Evening),? ([A-Z][a-z]+ \\d{1,2})\\.?$",
+        "level": "unit",
+        "label": "$1, $2",
+        "refLookahead": 3
+      }
+    ]
+  },
+  "defaultEnabled": true,
+  "largePack": false
+}

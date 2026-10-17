@@ -1,0 +1,41 @@
+{
+  "id": "justin-martyr-apologies",
+  "author": "Justin Martyr",
+  "title": "The First and Second Apologies",
+  "edition": "ANF 1, ed. Roberts and Donaldson (CCEL text)",
+  "era": "early",
+  "types": [
+    "apologetics"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/anf01",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/anf01",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "bodyStart": "^The First Apology of Justin",
+    "bodyEnd": "^Dialogue of Justin",
+    "headings": [
+      {
+        "pattern": "^(The First Apology|The Second Apology)",
+        "level": "unit",
+        "label": "$1"
+      },
+      {
+        "pattern": "^Chapter ([IVXLC]+)\\.",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "notes": "ANF 1 contains several authors; bodyStart/bodyEnd must be found or the pack fails (no misattribution)."
+}

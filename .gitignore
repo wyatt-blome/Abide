@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# abide
+/.cache/
+/coverage/
+
+# serwist (generated service worker)
+public/sw.js*
+public/swe-worker*

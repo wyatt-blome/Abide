@@ -1,0 +1,71 @@
+{
+  "id": "spurgeon-treasury-of-david",
+  "author": "Charles H. Spurgeon",
+  "title": "The Treasury of David",
+  "edition": "Gutenberg eBooks #79723 (Psalms 1–26) and #79727 (Psalms 27–57)",
+  "era": "c19",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://www.gutenberg.org/cache/epub/79723/pg79723.txt",
+    "https://www.gutenberg.org/cache/epub/79727/pg79727.txt"
+  ],
+  "sourcePage": "https://www.gutenberg.org/ebooks/79723",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.gutenberg.org/ebooks/79723",
+    "proofText": "Public domain in the USA",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "mappingMethod": "heading",
+    "locatorFromRange": true,
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^PSALM ([IVXLC]+|\\d+)\\.?$",
+        "level": "chapter",
+        "book": "PSA"
+      },
+      {
+        "pattern": "^EXPOSITION\\.?$",
+        "level": "label",
+        "label": "Exposition"
+      },
+      {
+        "pattern": "^EXPLANATORY NOTES AND QUAINT SAYINGS\\.?$",
+        "level": "label",
+        "label": "Explanatory Notes and Quaint Sayings"
+      },
+      {
+        "pattern": "^HINTS TO (?:THE )?VILLAGE PREACHER\\.?$",
+        "level": "label",
+        "label": "Hints to the Village Preacher"
+      },
+      {
+        "pattern": "^(?:TITLE|SUBJECT|DIVISION)\\.?",
+        "level": "label",
+        "label": "Introduction",
+        "paragraphStart": true
+      },
+      {
+        "pattern": "^Verses? (\\d+)(?:\\s*[-–]\\s*(\\d+))?\\.",
+        "level": "verse",
+        "verseEnd": "$2",
+        "paragraphStart": true
+      }
+    ]
+  },
+  "defaultEnabled": true,
+  "largePack": false,
+  "bookScope": [
+    [
+      "PSA"
+    ],
+    [
+      "PSA"
+    ]
+  ]
+}

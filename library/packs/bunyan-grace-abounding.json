@@ -1,0 +1,37 @@
+{
+  "id": "bunyan-grace-abounding",
+  "author": "John Bunyan",
+  "title": "Grace Abounding to the Chief of Sinners",
+  "edition": "Gutenberg eBook #654",
+  "era": "puritan18c",
+  "types": [
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://www.gutenberg.org/cache/epub/654/pg654.txt"
+  ],
+  "sourcePage": "https://www.gutenberg.org/ebooks/654",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.gutenberg.org/ebooks/654",
+    "proofText": "Public domain in the USA",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

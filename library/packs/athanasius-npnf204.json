@@ -1,0 +1,38 @@
+{
+  "id": "athanasius-npnf204",
+  "author": "Athanasius of Alexandria",
+  "title": "Select Works and Letters",
+  "edition": "NPNF2-04, ed. Archibald Robertson (CCEL text)",
+  "era": "early",
+  "types": [
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf204/cache/npnf204.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf204",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf204",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}
