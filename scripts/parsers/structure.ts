@@ -8,6 +8,7 @@
 // guessed from content.
 import type { VerseRange } from "../../src/db/types";
 import { bookRange, chapterCount, chapterRange, fmtRange, rangeProblem, shortBook } from "../lib/bible-meta";
+import { ccelBodyRange } from "../lib/ccel";
 import { bookFromName, findCitations, parseNumber } from "../lib/citations";
 import { type Normalized, normalizeWithMap, normalizeWs, rawToNorm, trimSpan } from "../lib/normalize";
 import type { ParseCtx, RawFile } from "./types";
@@ -55,8 +56,10 @@ export interface StructureOptions {
   maxHeadingLen?: number;
   /** Locator = formatted range (+ ", " sub-label), e.g. "Ps 23:1, Exposition". */
   locatorFromRange?: boolean;
-  /** Raw character bounds of the body (set by parsers that know the file layout, e.g. ccel-txt). */
+  /** Raw character bounds of the body (set by parsers that know the file layout). */
   bodyRange?: [number, number];
+  /** "ccel": body is between the table of contents and the back-matter indexes (lib/ccel.ts). */
+  layout?: "ccel" | "plain";
   /** Locator prefix used before the range when locatorFromRange (e.g. unit label). */
   keepUnitInLocator?: boolean;
 }
@@ -108,6 +111,26 @@ function group(spec: string | undefined, m: RegExpExecArray): string | undefined
   return g ? m[Number(g[1])] : spec;
 }
 
+/**
+ * A book named somewhere in a title line ("An Exposition … of the First Book of Moses, called
+ * Genesis"): exactly one distinct book (within scope, if given) must be named, else undefined.
+ */
+export function bookInTitle(title: string, scope?: string[]): string | undefined {
+  const words = title.replace(/[^\p{L}\p{N} ]+/gu, " ").split(/\s+/).filter(Boolean);
+  const found = new Set<string>();
+  for (let i = 0; i < words.length; i++) {
+    for (const n of [3, 2, 1]) {
+      if (i + n > words.length) continue;
+      const cand = words.slice(i, i + n).join(" ");
+      if (cand.length < 3 && n === 1) continue;
+      const t = cand === cand.toUpperCase() ? cand[0] + cand.slice(1).toLowerCase() : cand;
+      const code = bookFromName(t);
+      if (code && (!scope || scope.includes(code))) found.add(code);
+    }
+  }
+  return found.size === 1 ? [...found][0] : undefined;
+}
+
 interface State {
   book?: string; chapter?: number; ranges: VerseRange[]; intro: boolean; skipping: boolean;
   labels: { unit?: string; book?: string; chapter?: string; verse?: string; sub?: string };
@@ -137,22 +160,27 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
     if (s >= 0) first = s + 1;
     if (e >= 0) last = e;
   }
-  if (opts.bodyRange) {
-    const [bs, be] = opts.bodyRange;
+  const bodyRange = opts.bodyRange ?? (opts.layout === "ccel" ? ccelBodyRange(raw) : undefined);
+  if (bodyRange) {
+    const [bs, be] = bodyRange;
     const s = lines.findIndex((l) => l.start >= bs);
     if (s >= 0) first = Math.max(first, s);
     const e = lines.findIndex((l) => l.start >= be);
     if (e >= 0) last = Math.min(last, e);
   }
+  // bodyStart/bodyEnd select one work inside a multi-work file (ANF 1): when given they MUST be
+  // found, otherwise text of other authors could be attributed to this pack.
   if (opts.bodyStart) {
     const re = new RegExp(opts.bodyStart);
-    const s = lines.findIndex((l, i) => i >= first && re.test(l.text));
-    if (s >= 0) first = s;
+    const s = lines.findIndex((l, i) => i >= first && i < last && re.test(l.text));
+    if (s < 0) throw new Error(`bodyStart /${opts.bodyStart}/ not found in file ${file.rawIndex}`);
+    first = s;
   }
   if (opts.bodyEnd) {
     const re = new RegExp(opts.bodyEnd);
-    const e = lines.findIndex((l, i) => i > first && re.test(l.text));
-    if (e >= 0) last = Math.min(last, e);
+    const e = lines.findIndex((l, i) => i > first && i < last && re.test(l.text));
+    if (e < 0) throw new Error(`bodyEnd /${opts.bodyEnd}/ not found in file ${file.rawIndex}`);
+    last = e;
   }
 
   const st: State = { ranges: [], intro: false, skipping: false, labels: {}, unitIndex: 0 };
@@ -189,7 +217,7 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
   const resolveBook = (spec: string | undefined, m: RegExpExecArray, lineText: string): string | undefined => {
     const v = group(spec, m);
     if (!v) return undefined;
-    const code = /^[1-3A-Z]{3}$/.test(v) && chapterCount(meta, v) ? v : bookFromName(v);
+    const code = /^[1-3A-Z]{3}$/.test(v) && chapterCount(meta, v) ? v : bookFromName(v) ?? bookInTitle(v, scope);
     if (!code) { ctx.log(`[${ctx.packId}] heading book not recognised: "${lineText}"`); return undefined; }
     if (scope && !scope.includes(code)) {
       ctx.log(`[${ctx.packId}] heading book ${code} outside bookScope of file ${file.rawIndex}: "${lineText}"`);
@@ -274,7 +302,16 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
       st.ranges = [chapterRange(meta, st.book, c, ce)];
       return validateState(lineText);
     }
-    // verse
+    // verse (a rule may also set book/chapter, e.g. "Ro 8:28-30." section headings)
+    if (rule.book) {
+      const b = resolveBook(rule.book, m, lineText);
+      if (!b) { st.ranges = []; return false; }
+      st.book = b;
+    }
+    if (rule.chapter) {
+      const c = num(rule.chapter);
+      if (c) st.chapter = c;
+    }
     const v = num(rule.verse ?? "$1");
     const ve = num(rule.verseEnd) ?? v;
     if (!st.book || !st.chapter || !v) {
@@ -283,7 +320,8 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
       return false;
     }
     st.intro = false;
-    st.labels = { ...st.labels, verse: rule.label ? fill(rule.label, m, { verse: v, verseEnd: ve }) : undefined, sub: undefined };
+    // the sub-label ("Exposition") persists across verse headings within it
+    st.labels = { ...st.labels, verse: rule.label ? fill(rule.label, m, { verse: v, verseEnd: ve }) : undefined };
     st.ranges = [{ start: { book: st.book, chapter: st.chapter, verse: v }, end: { book: st.book, chapter: st.chapter, verse: ve! } }];
     return validateState(lineText);
   };

@@ -49,34 +49,6 @@ export function parseScriptureIndex(raw: string): Set<string> {
   return keys;
 }
 
-function ccelBounds(raw: string): { bodyStartLine?: string; lastIndexes: number } {
-  const lines = raw.split(/\r?\n/);
-  let lastIndexes = -1;
-  for (let i = lines.length - 1; i >= 0; i--) if (/^\s*Indexes\s*$/.test(lines[i])) { lastIndexes = i; break; }
-  return { lastIndexes };
-}
-
-/** Cut a CCEL file to its body: after the TOC, before the back-matter indexes. */
-export function ccelBody(raw: string): { text: string; offset: number } {
-  const toc = /^\s*Table of Contents\s*$/m.exec(raw);
-  let start = 0;
-  if (toc && toc.index < raw.length * 0.5) {
-    const rule = /^\s*_{10,}\s*$/m;
-    const after = raw.slice(toc.index);
-    const m = rule.exec(after);
-    if (m) start = toc.index + m.index + m[0].length;
-  }
-  const { lastIndexes } = ccelBounds(raw);
-  let end = raw.length;
-  if (lastIndexes >= 0) {
-    let pos = 0;
-    const lines = raw.split("\n");
-    for (let i = 0; i < lastIndexes; i++) pos += lines[i].length + 1;
-    if (pos > start) end = pos;
-  }
-  return { text: raw.slice(start, end), offset: start };
-}
-
 export const parseCcelTxt: ExcerptParser = (files, opts, ctx) => {
   const o = opts as CcelOptions;
   const out: ParsedExcerpt[] = [];
@@ -90,8 +62,7 @@ export const parseCcelTxt: ExcerptParser = (files, opts, ctx) => {
           return false;
         }
       : undefined;
-    const body = ccelBody(f.text);
-    const prep = prepareStructure(f, { ...o, bodyRange: [body.offset, body.offset + body.text.length] }, ctx);
+    const prep = prepareStructure(f, { ...o, layout: "ccel" }, ctx);
     for (const sec of prep.sections) {
       const xs = inlineExcerpts(prep, sec, { ...o, mappingMethod: confirm ? "scriptureIndex" : "inlineCitation" }, ctx, confirm);
       out.push(...xs);
