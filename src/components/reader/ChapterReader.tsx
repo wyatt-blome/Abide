@@ -325,7 +325,7 @@ export function ChapterReader(props: ChapterReaderProps) {
           </div>
         ) : mode.kind === "portion" && portion ? (
           <div className="flex items-center gap-2">
-            <ListenButton speech={speech} onListen={() => startListen()} disabled={!items.length} className="flex-1" />
+            <ListenButton speech={speech} onListen={() => startListen()} disabled={!items.length} className="min-w-0! flex-1" />
             {speech.state !== "idle" ? <Button iconOnly icon="stop" label="Stop" onClick={speech.stop} /> : null}
             <CheckBox
               checked={portion.done}
@@ -336,7 +336,7 @@ export function ChapterReader(props: ChapterReaderProps) {
             />
           </div>
         ) : (
-          <div className="flex items-stretch gap-2">
+          <div className="flex min-w-0 items-stretch gap-2">
             <Button
               iconOnly
               icon="chevronLeft"
@@ -344,11 +344,11 @@ export function ChapterReader(props: ChapterReaderProps) {
               disabled={!prev}
               onClick={() => go(prev)}
             />
-            <ListenButton speech={speech} onListen={() => startListen()} disabled={!items.length} className="flex-1 px-2" />
+            <ListenButton speech={speech} onListen={() => startListen()} disabled={!items.length} className="min-w-0! flex-1 px-2" />
             {speech.state !== "idle" ? (
               <Button iconOnly icon="stop" label="Stop" onClick={speech.stop} />
             ) : (
-              <Button className="flex-1 px-2" onClick={() => setPickerOpen(true)} aria-label={`${shortTitle}. Choose book and chapter`}>
+              <Button className="min-w-0! flex-1 px-2" onClick={() => setPickerOpen(true)} aria-label={`${shortTitle}. Choose book and chapter`}>
                 <span className="truncate">{shortTitle}</span>
               </Button>
             )}

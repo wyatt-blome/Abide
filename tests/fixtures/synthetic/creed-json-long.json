@@ -1,0 +1,34 @@
+{
+  "Metadata": {
+    "Title": "SYNTHETIC FIXTURE: structural placeholder text, not a real source",
+    "SourceAttribution": "Public Domain"
+  },
+  "Data": [
+    {
+      "Number": 1,
+      "Question": "Lorem ipsum dolor sit amet?",
+      "Answer": "Lorem lorem0 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem1 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem2 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem3 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem4 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem5 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem6 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem7 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem8 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem9 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem10 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem11 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem12 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem13 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem14 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem15 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem16 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem17 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem18 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem19 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem20 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem21 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem22 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem23 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem24 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem25 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem26 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem27 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem28 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem29 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem30 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem31 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem32 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem33 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem34 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem35 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem36 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem37 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem38 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod; lorem39 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod.",
+      "Proofs": [
+        {
+          "Id": 1,
+          "References": [
+            "Rom.8.28"
+          ]
+        }
+      ]
+    },
+    {
+      "Number": 2,
+      "Question": "Consectetur adipiscing elit?",
+      "Answer": "Lorem lorem0 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem1 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem2 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem3 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem4 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem5 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem6 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem7 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem8 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem9 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem10 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem11 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem12 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem13 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem14 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem15 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem16 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem17 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem18 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem19 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem20 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem21 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem22 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem23 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem24 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem25 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem26 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem27 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem28 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem29 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem30 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem31 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem32 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem33 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem34 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem35 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem36 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem37 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem38 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod, lorem39 ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod.",
+      "Proofs": [
+        {
+          "Id": 1,
+          "References": [
+            "Rom.8.29"
+          ]
+        }
+      ]
+    }
+  ]
+}

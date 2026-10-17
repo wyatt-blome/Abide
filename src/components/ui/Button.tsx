@@ -58,7 +58,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         className,
       )}
     >
-      {icon ? <Icon name={icon} size={ICON_SIZE[size]} /> : null}
+      {icon ? <Icon name={icon} size={ICON_SIZE[size]} className="shrink-0" /> : null}
       {iconOnly ? null : children}
     </button>
   );

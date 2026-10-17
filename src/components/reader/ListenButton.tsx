@@ -16,27 +16,27 @@ export function ListenButton({ speech, onListen, busy, listenLabel = "Listen", v
   if (!speech.supported) {
     return (
       <Button {...rest} variant={variant ?? "secondary"} icon="speaker" disabled aria-label="Listening isn't available in this browser">
-        {listenLabel}
+        <span className="truncate">{listenLabel}</span>
       </Button>
     );
   }
   if (speech.state === "speaking") {
     return (
       <Button {...rest} variant={variant ?? "primary"} icon="pause" onClick={speech.pause}>
-        Pause
+        <span className="truncate">Pause</span>
       </Button>
     );
   }
   if (speech.state === "paused") {
     return (
       <Button {...rest} variant={variant ?? "primary"} icon="play" onClick={speech.resume}>
-        Resume
+        <span className="truncate">Resume</span>
       </Button>
     );
   }
   return (
     <Button {...rest} variant={variant ?? "secondary"} icon="speaker" disabled={busy || rest.disabled} onClick={onListen}>
-      {busy ? "Loading…" : listenLabel}
+      <span className="truncate">{busy ? "Loading…" : listenLabel}</span>
     </Button>
   );
 }

@@ -79,6 +79,8 @@ export interface LinkOut {
   referenceEnteredByMe?: boolean;
   verseRanges: VerseRange[]; createdAt: number; updatedAt: number;
   verseKeys: VerseKey[];
+  /** When I confirmed the verse tags (set by repo.saveLinkOut, which refuses unconfirmed tags). */
+  tagsConfirmedAt?: number;
 }
 export type ReadingStyle = "canonical" | "chronological" | "blended";
 export interface ReadingPlan {

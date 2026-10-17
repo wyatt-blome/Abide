@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-17T17:31:08.900Z",
+  "generatedAt": "2026-10-17T18:22:42.581Z",
   "budgetBytes": 52428800,
-  "defaultOnBytes": 16791098,
+  "defaultOnBytes": 16901465,
   "built": [
     {
       "id": "belgic-confession",
@@ -10,11 +10,11 @@
       "sections": 10,
       "crossrefs": 0,
       "books": 25,
-      "sizeBytes": 282459,
+      "sizeBytes": 286539,
       "defaultEnabled": false,
       "largePack": false,
       "fetchedFrom": [
-        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json"
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/belgic_confession_of_faith.json"
       ]
     },
     {
@@ -24,11 +24,11 @@
       "sections": 1,
       "crossrefs": 0,
       "books": 21,
-      "sizeBytes": 127890,
+      "sizeBytes": 130814,
       "defaultEnabled": false,
       "largePack": false,
       "fetchedFrom": [
-        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/canons_of_dort.json"
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/canons_of_dort.json"
       ]
     },
     {
@@ -38,11 +38,11 @@
       "sections": 1,
       "crossrefs": 0,
       "books": 49,
-      "sizeBytes": 690576,
+      "sizeBytes": 714880,
       "defaultEnabled": true,
       "largePack": false,
       "fetchedFrom": [
-        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/heidelberg_catechism.json"
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/heidelberg_catechism.json"
       ]
     },
     {
@@ -56,7 +56,7 @@
       "defaultEnabled": true,
       "largePack": false,
       "fetchedFrom": [
-        "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/sources/extras/cross_references.txt"
+        "https://raw.githubusercontent.com/scrollmapper/bible_databases/e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c/sources/extras/cross_references.txt"
       ]
     },
     {
@@ -66,11 +66,11 @@
       "sections": 0,
       "crossrefs": 0,
       "books": 59,
-      "sizeBytes": 1207245,
+      "sizeBytes": 1245087,
       "defaultEnabled": true,
       "largePack": false,
       "fetchedFrom": [
-        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json"
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_confession_of_faith.json"
       ]
     },
     {
@@ -80,11 +80,11 @@
       "sections": 4,
       "crossrefs": 0,
       "books": 61,
-      "sizeBytes": 2143123,
+      "sizeBytes": 2191344,
       "defaultEnabled": true,
       "largePack": false,
       "fetchedFrom": [
-        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json"
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_larger_catechism.json"
       ]
     }
   ],

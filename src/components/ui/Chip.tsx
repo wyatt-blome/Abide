@@ -52,6 +52,8 @@ export interface ChipGroupProps<T extends string = string> {
   /** ... or pass <Chip> children yourself. */
   children?: ReactNode;
   className?: string;
+  /** One horizontally scrolling row instead of wrapping lines (saves height above a drill). */
+  scroll?: boolean;
 }
 
 export function ChipGroup<T extends string = string>({
@@ -63,6 +65,7 @@ export function ChipGroup<T extends string = string>({
   single,
   children,
   className,
+  scroll,
 }: ChipGroupProps<T>) {
   const toggle = (value: T, on: boolean) => {
     if (!onChange) return;
@@ -76,10 +79,19 @@ export function ChipGroup<T extends string = string>({
           {label}
         </span>
       ) : null}
-      <div role="group" aria-label={label} className="flex flex-wrap gap-2">
+      <div
+        role="group"
+        aria-label={label}
+        className={cx("flex gap-2", scroll ? "-mx-4 flex-nowrap overflow-x-auto px-4 pb-1 [scrollbar-width:thin]" : "flex-wrap")}
+      >
         {options
           ? options.map((o) => (
-              <Chip key={o.value} pressed={selected.includes(o.value)} onPressedChange={(on) => toggle(o.value, on)}>
+              <Chip
+                key={o.value}
+                pressed={selected.includes(o.value)}
+                onPressedChange={(on) => toggle(o.value, on)}
+                className={scroll ? "shrink-0 whitespace-nowrap" : undefined}
+              >
                 {o.label}
               </Chip>
             ))

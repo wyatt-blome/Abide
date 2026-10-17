@@ -37,7 +37,7 @@ export const STYLE_LABEL: Record<ReadingStyle, string> = {
 export const STYLE_HELP: Record<ReadingStyle, string> = {
   blended: "Old Testament, New Testament, and Psalms or Proverbs every day.",
   canonical: "Genesis to Revelation in order.",
-  chronological: "Roughly in the order events happened.",
+  chronological: "Chronological (app's ordering; see DECISIONS.md).",
 };
 
 export const minutesLabel = (m: number): string => (m <= 0 ? "" : `about ${m} min`);

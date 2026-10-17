@@ -2,7 +2,7 @@
   "parser": "creed-json-proofs",
   "pack": "heidelberg-catechism",
   "rawIndex": 0,
-  "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/heidelberg_catechism.json",
+  "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/heidelberg_catechism.json",
   "sourceSha256": "3720faa688778c569640a7779651d1fa3bc8bd065627fcb6bad60a9594a5cd94",
   "taken": {
     "jsonItems": 4

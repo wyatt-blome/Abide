@@ -221,7 +221,7 @@ function WorkCard({
       ) : (
         <p className="flex items-start gap-2 font-semibold text-danger">
           <Icon name="cross" size={20} className="mt-0.5 shrink-0" />
-          <span>{`Not built: ${skippedReason ?? ""}`}</span>
+          <span className="min-w-0 [overflow-wrap:anywhere]">{`Not built: ${skippedReason ?? ""}`}</span>
         </p>
       )}
 

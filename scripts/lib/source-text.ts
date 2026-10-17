@@ -3,7 +3,9 @@
 // disagree about what the source said.
 //
 // Source kinds:
-//  - plain text (.txt, OCR djvu.txt, CSV/TSV): UTF-8 decode (invalid bytes -> U+FFFD). A ZIP
+//  - plain text (.txt, OCR djvu.txt, CSV/TSV): UTF-8 decode (invalid bytes -> U+FFFD; the build
+//    logs every file that has one and drops any excerpt containing U+FFFD, and the verifier fails
+//    on one, so a decoding error can never be shown as the author's text). A ZIP
 //    archive (OpenBible primary) is unpacked and its first .txt entry is decoded the same way.
 //  - JSON (Creeds.json): the raw file text is what is hashed; excerpts point at a field
 //    (`sourcePaths`, e.g. "Data.0.Answer") and charOffset/partOffsets index into
@@ -11,7 +13,11 @@
 //    text meaningless, so the verifier decodes the JSON and checks the field value instead.
 //  - HTML (Machen): excerpts carry `sourceTransform: "html-text"`; the source text is
 //    htmlToText(raw), which removes markup only (tags, comments, scripts/styles) and decodes
-//    character entities. It never rewrites words.
+//    character entities. It never rewrites words. Block-level tags become "\n\n"; inline tags
+//    (<i>, <sup>, <a>…) are removed WITHOUT inserting a space, exactly as the verifier does, so
+//    "word<sup>1</sup>" reads "word1" in both. Numeric entities and the named ones in the table
+//    below are decoded; any other "&name;" is LEFT AS WRITTEN (and reported to onUnknownEntity,
+//    which the html-chapters parser logs), so the transform is total and deterministic.
 import { unzipSync, strFromU8 } from "fflate";
 
 export function isZip(buf: Uint8Array): boolean {
@@ -50,13 +56,17 @@ const NAMED_ENTITIES: Record<string, string> = {
   oelig: "œ", laquo: "«", raquo: "»", dagger: "†", Dagger: "‡",
 };
 
-export function decodeEntities(s: string): string {
-  return s.replace(/&(#x[0-9a-fA-F]+|#\d+|[A-Za-z]+);/g, (m, body: string) => {
+export function decodeEntities(s: string, onUnknownEntity?: (name: string) => void): string {
+  return s.replace(/&(#x[0-9a-fA-F]+|#\d+|[A-Za-z][A-Za-z0-9]*);/g, (m, body: string) => {
     if (body[0] === "#") {
       const cp = body[1] === "x" || body[1] === "X" ? parseInt(body.slice(2), 16) : parseInt(body.slice(1), 10);
-      return Number.isFinite(cp) && cp > 0 && cp < 0x110000 ? String.fromCodePoint(cp) : m;
+      if (Number.isFinite(cp) && cp > 0 && cp < 0x110000) return String.fromCodePoint(cp);
+      onUnknownEntity?.(m);
+      return m;
     }
-    return NAMED_ENTITIES[body] ?? m;
+    const v = NAMED_ENTITIES[body];
+    if (v === undefined) onUnknownEntity?.(m);
+    return v ?? m;
   });
 }
 
@@ -66,9 +76,9 @@ const BLOCK_TAGS = /^(p|div|h[1-6]|br|li|ul|ol|tr|td|th|table|blockquote|hr|sect
  * HTML -> text by removing markup only. Block-level tags become "\n\n" (paragraph breaks the
  * parser can see before whitespace normalization), inline tags vanish, entities are decoded.
  */
-export function htmlToText(html: string): string {
+export function htmlToText(html: string, onUnknownEntity?: (name: string) => void): string {
   let s = html.replace(/<!--[\s\S]*?-->/g, "");
   s = s.replace(/<(script|style)\b[\s\S]*?<\/\1\s*>/gi, "");
   s = s.replace(/<\/?([A-Za-z][A-Za-z0-9]*)\b[^>]*>/g, (_m, tag: string) => (BLOCK_TAGS.test(tag) ? "\n\n" : ""));
-  return decodeEntities(s);
+  return decodeEntities(s, onUnknownEntity);
 }

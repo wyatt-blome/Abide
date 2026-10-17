@@ -258,12 +258,12 @@ function SectionReader({ plan, classic, content, today }: { plan: BookPlan; clas
       <Provenance classic={classic} />
 
       <ActionBar label="Reading">
-        <div className="flex items-stretch gap-2">
+        <div className="flex min-w-0 items-stretch gap-2">
           <Button iconOnly icon="chevronLeft" label="Previous section" disabled={index === 0} onClick={() => goTo(index - 1)} />
-          <ListenButton speech={speech} onListen={listen} className="flex-1 px-2" />
+          <ListenButton speech={speech} onListen={listen} className="min-w-0! flex-1 px-2" />
           {speech.state !== "idle" ? <Button iconOnly icon="stop" label="Stop" onClick={speech.stop} /> : null}
-          <Button variant={done ? "secondary" : "success"} icon="check" className="flex-1 px-2" onClick={() => void markRead()}>
-            {done ? "Read" : "Mark read"}
+          <Button variant={done ? "secondary" : "success"} icon="check" className="min-w-0! flex-1 px-2" onClick={() => void markRead()}>
+            <span className="truncate">{done ? "Read" : "Mark read"}</span>
           </Button>
           <Button iconOnly icon="chevronRight" label="Next section" disabled={index >= n - 1} onClick={() => goTo(index + 1)} />
         </div>

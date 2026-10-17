@@ -94,6 +94,11 @@ function precacheEntries(): PrecacheEntry[] {
   if (libraryRev && fs.existsSync(path.join(libraryDir, "index.json"))) {
     entries.push({ url: "/library/index.json", revision: libraryRev });
   }
+  // /library/how-to-add and the Library manager read these (written by scripts/sync-pack-readme.ts).
+  for (const name of ["README.md", "packs-summary.json"]) {
+    const file = path.join(libraryDir, name);
+    if (fs.existsSync(file)) entries.push({ url: `/library/${name}`, revision: hashFile(file) });
+  }
 
   return entries;
 }

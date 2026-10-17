@@ -56,11 +56,17 @@ describe("notes and link-outs", () => {
     expect(n.verseKeys).toEqual(["ROM.8.28", "ROM.8.29", "ROM.8.30"]);
     expect((await db.userNotes.where("verseKeys").equals("ROM.8.29").toArray()).map((x) => x.id)).toEqual([n.id]);
   });
-  it("link-outs need a stated reference and ≥ 1 range", async () => {
-    const base = { url: "https://example.org/a", title: "Lorem", site: "example.org" };
+  it("link-outs need a stated reference, ≥ 1 range and confirmed tags", async () => {
+    const base = { url: "https://example.org/a", title: "Lorem", site: "example.org", tagsConfirmed: true };
     await expect(saveLinkOut({ ...base, statedReference: "  ", verseRanges: [R("PSA", 23, 1, 23, 6)] }, meta)).rejects.toThrow();
     await expect(saveLinkOut({ ...base, statedReference: "Psalm 23", verseRanges: [] }, meta)).rejects.toThrow();
-    const l = await saveLinkOut({ ...base, statedReference: "Psalm 23", verseRanges: [R("PSA", 23, 1, 23, 6)] }, meta);
+    await expect(
+      saveLinkOut({ ...base, tagsConfirmed: false, statedReference: "Psalm 23", verseRanges: [R("PSA", 23, 1, 23, 6)] }, meta),
+    ).rejects.toThrow(/Confirm/);
+    expect(await db.linkOuts.count()).toBe(0);
+    const l = await saveLinkOut({ ...base, statedReference: "Psalm 23", verseRanges: [R("PSA", 23, 1, 23, 6)] }, meta, T0);
+    expect(l.tagsConfirmedAt).toBe(T0);
+    expect("tagsConfirmed" in l).toBe(false);
     expect(l.verseKeys).toHaveLength(6);
     expect(await db.linkOuts.where("verseKeys").equals("PSA.23.4").count()).toBe(1);
   });

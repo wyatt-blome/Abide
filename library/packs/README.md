@@ -50,7 +50,8 @@ built from the work's own heading text (`$1`) or from numbers; they are locators
 | `era` | `early` · `medievalReformation` · `puritan18c` · `c19` · `c20early` · `modern` |
 | `types` | `commentary` `sermon` `apologetics` `theology` `confession` `catechism` `devotional` `crossref`; the first is the excerpts' `type` |
 | `rawUrls` | files to download, in order (`rawIndex` = position). `https://` only (`file://` is accepted for tests) |
-| `mirrors` | optional, `mirrors[i]` = ordered fallback URLs for `rawUrls[i]`; the URL actually used is recorded in the lockfile |
+| `mirrors` | optional, `mirrors[i]` = ordered fallback URLs for `rawUrls[i]`; the URL actually used is recorded in the lockfile (`fetchedFrom`) and in the index (`rawUrls`; the manifest's URLs are kept as `primaryUrls`). Pin GitHub raw URLs to a commit SHA, not `master` |
+| `mirrorEditions` | optional, `{ mirrorUrl: edition }`: the edition shown when a file came from that mirror (default: the edition plus "(copy at host/path)") |
 | `sourcePage` | page shown as "source" (also the excerpt `url` unless `urlTemplate` applies) |
 | `license.status` | `public-domain` or `CC-BY` |
 | `license.basis` | `rights-statement` · `published-before-1931` · `pd-mark` · `cc-by` |
@@ -62,7 +63,9 @@ built from the work's own heading text (`$1`) or from numbers; they are locators
 | `defaultEnabled` | enabled for new users; all default-on packs together must stay < 50 MB |
 | `largePack` | built only with `--include-large`; downloadable on demand in the app |
 | `ocr`, `ocrNote` | OCR-derived text; the note (e.g. `OCR text: may contain scanning errors`) is shown with excerpts |
-| `bookScope` | `bookScope[i]` = books `rawUrls[i]` covers. Headings naming a book outside the scope are dropped (logged); `[]` = unknown |
+
+Display fields (`author`, `title`, `edition`, `ocrNote`, heading `label`s, `introLocator`, `alternateSources[].note`, `mirrorEditions`) must be labels: ≤ 160 characters, one line, not more than one sentence (checked by `scripts/lint-content.ts` in `prebuild`).
+| `bookScope` | `bookScope[i]` = books `rawUrls[i]` covers. It only RESTRICTS: headings naming a book outside the scope are dropped (logged); for a one-book scope the book context comes from the file's own title line (`titlePattern`), never from the scope itself; `[]` = unknown |
 | `volumeMapSource` | page from which unknown (`[]`) `bookScope` entries are derived at build time; volumes still unknown are skipped |
 | `urlTemplate` | deep link, `{page}` and `{anchor}` (anchor from a heading rule's `anchor` template) |
 | `alternateSources` | other editions/files of the work, for reference and link checks only |
@@ -91,23 +94,27 @@ Heading rule: `{ pattern, flags?, level, label?, book?, chapter?, chapterEnd?, v
 Common options: `headings`, `layout: "ccel"` (body between the table of contents and the
 back-matter indexes), `bodyStart`/`bodyEnd` (line regexes; **must** be found — used to pick one
 work out of a multi-author volume), `gutenberg` (auto-detected header/footer stripping),
-`locatorFromRange` ("Ps 23:1, Exposition"), `maxChars` (default 1500), `sectionMaxChars`
-(full-section excerpts, default 12000), `fullSections` (default true), `minChars` (default 40),
-`mappingMethod`.
+`locatorFromRange` ("Ps 23:1, Exposition"), `maxChars` (default and maximum 1500), `sectionMaxChars`
+(full-section excerpts, default and maximum 12000), `fullSections` (default true), `minChars` (default 40),
+`mappingMethod`, `titlePattern` (regex, group 1 = the file's title line; default `^Title:\s*(.+)$`).
+Excerpts are never cut between words: a sentence longer than the limit is cut at its own `;`/`:`,
+and when no stop fits the excerpt is dropped (logged). Excerpts without a locator are dropped.
 
 | parser | for | maps by | specific options |
 |---|---|---|---|
 | `ccel-txt` | CCEL `cache/{work}.txt` | inline citations confirmed by the work's own *Index of Scripture References* (`scriptureIndex`); without an index, inline citations (`inlineCitation`) | `useIndex: "confirm" \| "ignore"` |
 | `verse-commentary` | book → chapter → verse commentaries | heading ranges (`heading`) | `alsoInline` |
 | `heading-range` | homilies, sermons, Treasury, Morning and Evening | the unit's heading/text line (`heading`, `sermonText`, `entryVerse`) | `mappingMethod` |
-| `inline-citation` | works citing scripture in running text | each citation maps the sentences around it (`inlineCitation`) | `bookIntro: BOOK`, `introLocator` |
+| `inline-citation` | works citing scripture in running text | each citation maps the sentences around it (`inlineCitation`) | `bookIntro: true \| BOOK` (the book is read from the work's title line; a BOOK only restricts it), `introLocator` |
 | `creed-json-proofs` | Creeds.json | proof texts (`proofText`) or printed citations (`inlineCitation`) | `mode`, `nested`, `textFields`, `locator`, `sectionLabels` |
 | `html-chapters` | HTML editions | inline citations, on markup-free text | `discoverLinks` (regex for chapter pages linked from `rawUrls[0]`) |
 | `openbible-crossrefs` | OpenBible TSV / zip | data rows, no text | `minVotes`, `maxPerVerse` |
 
 Citations are parsed by `scripts/lib/citations.ts` (capitalized book + chapter required;
 two-letter abbreviations need a period and chapter:verse; word-like names such as Job, Mark,
-Song need chapter:verse; `ver. 5` only with a heading context; every range validated against
+Song need chapter:verse; book names that are personal names (James, Daniel, Amos, Ezra, Titus,
+Esther, Joel, Jude, John, Luke, Acts, Numbers, Ruth) need an explicit verse (`3:5`, `iii. 5`,
+`3, ver. 5`); a capital roman chapter alone (`James II.`) is never a citation; `ver. 5` only with a heading context; every range validated against
 `public/bible/meta.json`). Anything ambiguous or invalid is dropped and logged.
 
 ## License bases

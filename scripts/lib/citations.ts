@@ -266,6 +266,12 @@ function parseTail(s: string, p: number, singleChapterBook: boolean, problems: s
   let q = skip(s, p, /^[  ]?(?:(?:chap|ch|c)\.[  ]?)?/);
   const groups: Group[] = [];
   let end = p;
+  if (singleChapterBook) {
+    // "Jude ver. 3": a verse of the only chapter, explicitly marked
+    const vs = skip(s, p, VER_SEP);
+    const vl = vs >= 0 ? readVerseList(s, vs, problems) : null;
+    if (vl) return { groups: [{ chapter: 1, verses: vl.verses, crossEnd: vl.crossEnd, explicit: true }], end: vl.end };
+  }
   for (let round = 0; ; round++) {
     const ch = readChapter(s, q);
     if (!ch) break;

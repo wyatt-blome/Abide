@@ -84,7 +84,7 @@ export function firstLetterOf(t: Token): string {
   return `${t.lead}${Array.from(t.core)[0]}${t.trail}`;
 }
 
-/** First-letter rendering of a passage: "In the beginning, God" → "I t b, G". */
+/** First-letter rendering of a passage: "Lorem ipsum dolor, Sit" → "L i d, S". */
 export function firstLetters(text: string): string {
   return tokenize(text).map(firstLetterOf).join(" ");
 }

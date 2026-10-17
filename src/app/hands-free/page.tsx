@@ -16,7 +16,7 @@ import type { MemoryPlan } from "@/db/types";
 import { requestWakeLock, setMediaHandlers, setMediaMetadata, setPlaybackState, clearMediaSession, type WakeLockHandle } from "@/lib/media";
 import { buildQueue } from "@/lib/queue";
 import { formatRange, formatRef, fromKey } from "@/lib/refs";
-import { cancel as cancelSpeech, isSupported as ttsSupported, speak } from "@/lib/tts";
+import { cancel as cancelSpeech, isSupported as ttsSupported, speak, speechErrorLabel } from "@/lib/tts";
 import { useHandsFreeMode, useSettings } from "@/components/providers/AppProviders";
 import { Button, cx, Icon, Stepper, Toggle } from "@/components/ui";
 import { firstHalf, loadPracticeVerses } from "@/components/practice/helpers";
@@ -107,6 +107,7 @@ function HandsFree() {
   const [items, setItems] = useState<HFItem[] | null>(null);
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [speechError, setSpeechError] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>("idle");
   const [running, setRunning] = useState(false);
@@ -150,6 +151,17 @@ function HandsFree() {
     if (!alive()) return false;
     const h = speak(text, { rate: live.current.rate, voice: live.current.voice });
     const r = await h.done;
+    if (r === "error" && alive()) {
+      // Speech failed (e.g. no voices installed): pause on this item instead of racing through.
+      gen.current++;
+      setSpeechError(speechErrorLabel());
+      setRunning(false);
+      setPlaybackState("paused");
+      wantWake.current = false;
+      void wake.current?.release();
+      wake.current = null;
+      return false;
+    }
     return alive() && r !== "cancel";
   }, []);
 
@@ -193,6 +205,7 @@ function HandsFree() {
       if (!items || !items.length) return;
       const my = ++gen.current;
       const alive = () => gen.current === my;
+      setSpeechError(null);
       setRunning(true);
       setPlaybackState("playing");
       void acquireWake().catch(() => {});
@@ -295,6 +308,11 @@ function HandsFree() {
         {loop ? " · Listen loop" : ""}
       </h1>
 
+      {speechError ? (
+        <p role="alert" className="mt-2 font-semibold">
+          {speechError}
+        </p>
+      ) : null}
       {!speechOk ? <p className="mt-2 font-semibold">Read-aloud isn&apos;t available in this browser.</p> : null}
       {error ? (
         <p role="alert" className="mt-4 text-[20px] font-bold">

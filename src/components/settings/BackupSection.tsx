@@ -45,7 +45,8 @@ export function BackupSection() {
   const doExport = async () => {
     setBusy(true);
     try {
-      const backup = await exportBackup();
+      const at = Date.now();
+      const backup = await exportBackup(at, { stampLastBackup: true });
       const json = backupToJson(backup);
       const name = backupFilename();
       const blob = new Blob([json], { type: "application/json" });
@@ -60,7 +61,7 @@ export function BackupSection() {
         }
       }
       if (!shared) downloadBlob(blob, name);
-      await update({ lastBackupAt: Date.now() });
+      await update({ lastBackupAt: at });
       toast("Backup saved", { tone: "success" });
     } catch (e) {
       toast(e instanceof Error ? e.message : "Backup failed.", { tone: "error" });

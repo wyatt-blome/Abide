@@ -23,7 +23,7 @@ export function ActionBar({ children, className, label = "Actions" }: ActionBarP
         className,
       )}
     >
-      <div className="mx-auto flex max-w-[44rem] items-stretch gap-3 px-[max(16px,var(--safe-left))] py-3 [&>*]:flex-1">
+      <div className="mx-auto flex max-w-[44rem] items-stretch gap-3 px-[max(16px,var(--safe-left))] py-3 [&>*]:min-w-0 [&>*]:flex-1">
         {children}
       </div>
     </div>

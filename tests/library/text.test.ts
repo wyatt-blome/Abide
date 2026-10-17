@@ -1,6 +1,6 @@
 // normalizeWs and sentence-boundary cutting (placeholder text only).
 import { describe, expect, it } from "vitest";
-import { MAX_EXCERPT, sentenceEnds, windowAround, windowFromStart, windowParagraphs } from "../../scripts/lib/cut";
+import { MAX_EXCERPT, endsAtBoundary, sentenceEnds, windowAround, windowFromStart, windowParagraphs } from "../../scripts/lib/cut";
 import { normalizeWithMap, normalizeWs, rawToNorm } from "../../scripts/lib/normalize";
 
 describe("normalizeWs", () => {
@@ -36,7 +36,7 @@ describe("sentence cutting", () => {
   });
   it("cuts at sentence ends, ≤ 1500 chars, never adding text", () => {
     const t = sent(40);
-    const w = windowFromStart(t, 0, t.length);
+    const w = windowFromStart(t, 0, t.length)!;
     const cut = t.slice(w.start, w.end);
     expect(cut.length).toBeLessThanOrEqual(MAX_EXCERPT);
     expect(cut.endsWith("dolor.")).toBe(true);
@@ -48,7 +48,7 @@ describe("sentence cutting", () => {
   it("keeps the focus (citation) inside the window and flags both sides", () => {
     const t = sent(80);
     const focus = t.indexOf("Lorem40 ");
-    const w = windowAround(t, 0, t.length, focus, focus + 7);
+    const w = windowAround(t, 0, t.length, focus, focus + 7)!;
     expect(w.start).toBeLessThanOrEqual(focus);
     expect(w.end).toBeGreaterThanOrEqual(focus + 7);
     expect(w.end - w.start).toBeLessThanOrEqual(MAX_EXCERPT);
@@ -65,8 +65,33 @@ describe("sentence cutting", () => {
     const p3 = sent(10);
     const t = `${p1} ${p2} ${p3}`;
     const ends = [p1.length, p1.length + 1 + p2.length, t.length];
-    const w = windowParagraphs(t, 0, t.length, ends);
+    const w = windowParagraphs(t, 0, t.length, ends)!;
     expect(w.end).toBe(ends[0] + 1 + p2.length <= MAX_EXCERPT ? ends[1] : ends[0]);
     expect(w.truncatedEnd).toBe(true);
+  });
+  it("never cuts between words: an over-long sentence is cut at its own ';'/':' clause stops", () => {
+    const clause = (i: number) => `lorem${i} ${"ipsum ".repeat(10).trim()} dolor`;
+    const t = `Lorem ${Array.from({ length: 40 }, (_, i) => clause(i)).join("; ")}.`; // one sentence, > 1500 chars
+    expect(t.length).toBeGreaterThan(MAX_EXCERPT);
+    const w = windowFromStart(t, 0, t.length)!;
+    const cut = t.slice(w.start, w.end);
+    expect(cut.length).toBeLessThanOrEqual(MAX_EXCERPT);
+    expect(cut.endsWith(";")).toBe(true);
+    expect(endsAtBoundary(cut)).toBe(true);
+    expect(w.truncatedEnd).toBe(true);
+    const focus = t.indexOf("lorem30 ");
+    const a = windowAround(t, 0, t.length, focus, focus + 7)!;
+    expect(a.start).toBeLessThanOrEqual(focus);
+    expect(endsAtBoundary(t.slice(a.start, a.end))).toBe(true);
+  });
+  it("returns null (drop) when no sentence or clause stop fits", () => {
+    const t = `Lorem ${"ipsum ".repeat(400)}dolor.`;
+    expect(windowFromStart(t, 0, t.length)).toBeNull();
+    expect(windowAround(t, 0, t.length, 10, 15)).toBeNull();
+  });
+  it("puts a numbered-list marker at the start of the next sentence", () => {
+    const t = "Lorem ipsum dolor. 4. Sit amet lorem. 5. Consectetur.";
+    const ends = sentenceEnds(t, 0, t.length).map((e) => t.slice(0, e));
+    expect(ends).toEqual(["Lorem ipsum dolor.", "Lorem ipsum dolor. 4. Sit amet lorem.", t]);
   });
 });

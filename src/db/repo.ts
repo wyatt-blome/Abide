@@ -93,24 +93,32 @@ export async function saveUserNote(input: UserNoteInput, meta: BibleMeta, now = 
   return note;
 }
 
-export type LinkOutInput = Omit<LinkOut, "id" | "createdAt" | "updatedAt" | "verseKeys"> & {
+export type LinkOutInput = Omit<LinkOut, "id" | "createdAt" | "updatedAt" | "verseKeys" | "tagsConfirmedAt"> & {
   id?: string; createdAt?: number;
+  /** The user ticked "Confirm tags" for exactly these verse ranges. Unconfirmed tags are refused. */
+  tagsConfirmed: boolean;
 };
 
-/** Throws unless the link has a stated reference and at least one verse range. */
-export function validateLinkOut(input: Pick<LinkOut, "statedReference" | "verseRanges">): void {
+/** Throws unless the link has a stated reference, at least one verse range, and confirmed tags. */
+export function validateLinkOut(input: Pick<LinkOut, "statedReference" | "verseRanges"> & { tagsConfirmed?: boolean }): void {
   if (!input.statedReference || !input.statedReference.trim()) {
     throw new Error("A link needs the reference as stated on the page.");
   }
   if (!Array.isArray(input.verseRanges) || input.verseRanges.length < 1) {
     throw new Error("A link needs at least one verse range.");
   }
+  if (input.tagsConfirmed !== true) {
+    throw new Error("Confirm the verse tags before saving the link.");
+  }
 }
 
 export async function saveLinkOut(input: LinkOutInput, meta: BibleMeta, now = Date.now()): Promise<LinkOut> {
   validateLinkOut(input);
+  const { tagsConfirmed: _confirmed, ...fields } = input;
+  void _confirmed;
   const link: LinkOut = {
-    ...input,
+    ...fields,
+    tagsConfirmedAt: now,
     statedReference: input.statedReference.trim(),
     id: input.id ?? newId(),
     createdAt: input.createdAt ?? now,

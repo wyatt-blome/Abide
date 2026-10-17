@@ -41,11 +41,17 @@ export const backupSchema = z.object({
 
 export const backupFilename = (date: string = todayISO(), appName = APP_NAME): string => `${appName}-backup-${date}.json`;
 
-export async function exportBackup(now = Date.now()): Promise<BackupFile> {
+/**
+ * Snapshot every backed-up table. With `stampLastBackup`, the settings row inside the file carries
+ * `lastBackupAt = now` (the time of this export), so restoring it does not bring back an older stamp;
+ * the caller writes the same stamp to Dexie once the export succeeded.
+ */
+export async function exportBackup(now = Date.now(), opts: { stampLastBackup?: boolean } = {}): Promise<BackupFile> {
   const tables: Partial<Record<BackupTable, Row[]>> = {};
   await db.transaction("r", BACKUP_TABLES.map((t) => db.table(t)), async () => {
     for (const t of BACKUP_TABLES) tables[t] = (await db.table(t).toArray()) as Row[];
   });
+  if (opts.stampLastBackup) tables.settings = (tables.settings ?? []).map((r) => ({ ...r, lastBackupAt: now, updatedAt: now }));
   return { schemaVersion: BACKUP_SCHEMA_VERSION, exportedAt: now, appName: APP_NAME, tables };
 }
 

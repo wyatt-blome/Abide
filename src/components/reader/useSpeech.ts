@@ -11,7 +11,8 @@ import { useSettings } from "@/components/providers/AppProviders";
 import {
   clearMediaSession, requestWakeLock, setMediaHandlers, setMediaMetadata, setPlaybackState, type WakeLockHandle,
 } from "@/lib/media";
-import { cancel, charIndexToWordIndex, isSupported, speakSequence, wordStartOffsets, type SpeakResult } from "@/lib/tts";
+import { cancel, charIndexToWordIndex, isSupported, speakSequence, speechErrorLabel, wordStartOffsets, type SpeakResult } from "@/lib/tts";
+import { useToast } from "@/components/ui";
 
 export interface SpeechItem {
   key: string;
@@ -46,6 +47,8 @@ export interface Speech extends SpeechControls {
   current: SpeechItem | null;
   /** Word index inside the current item; -1 before the first boundary. */
   word: number;
+  /** UI label when speaking failed (e.g. no voices installed); speech is then paused on the item. */
+  error: string | null;
 }
 
 interface View {
@@ -53,9 +56,10 @@ interface View {
   index: number;
   word: number;
   items: SpeechItem[];
+  error: string | null;
 }
 
-const IDLE: View = { state: "idle", index: -1, word: -1, items: [] };
+const IDLE: View = { state: "idle", index: -1, word: -1, items: [], error: null };
 
 interface EngineDeps {
   setView: (fn: (v: View) => View) => void;
@@ -96,7 +100,7 @@ function createEngine({ setView, prefs: initialPrefs }: EngineDeps): SpeechContr
     const list = items;
     const offsets = list.map((it) => wordStartOffsets(it.text));
     current = at;
-    setView(() => ({ state: "speaking", index: at, word: -1, items: list }));
+    setView(() => ({ state: "speaking", index: at, word: -1, items: list, error: null }));
     setPlaybackState("playing");
     if (!wake) {
       void requestWakeLock().then((w) => {
@@ -124,6 +128,14 @@ function createEngine({ setView, prefs: initialPrefs }: EngineDeps): SpeechContr
         },
         onEnd: (result) => {
           if (run !== my || result === "cancel") return; // pause/stop/skip set their own state
+          if (result === "error") {
+            // Pause on the item that failed (Resume retries it) rather than skipping ahead.
+            setView((v) => ({ ...v, state: "paused", word: -1, error: speechErrorLabel() }));
+            setPlaybackState("paused");
+            releaseWake();
+            opts?.onFinish?.(result);
+            return;
+          }
           current = -1;
           setView(() => IDLE);
           teardown();
@@ -202,6 +214,10 @@ export function useSpeech(): Speech {
     engine.setPrefs({ voice: settings.ttsVoice, rate: settings.ttsRate });
   }, [engine, settings.ttsVoice, settings.ttsRate]);
   useEffect(() => () => engine.dispose(), [engine]);
+  const toast = useToast();
+  useEffect(() => {
+    if (view.error) toast(view.error, { tone: "error" });
+  }, [view.error, toast]);
 
   return {
     supported,
@@ -209,6 +225,7 @@ export function useSpeech(): Speech {
     index: view.index,
     current: view.index >= 0 ? view.items[view.index] ?? null : null,
     word: view.word,
+    error: view.error,
     start: engine.start,
     pause: engine.pause,
     resume: engine.resume,

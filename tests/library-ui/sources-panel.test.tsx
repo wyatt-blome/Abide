@@ -175,4 +175,16 @@ describe("SourcesPanel (Romans 8)", () => {
     expect(within(card).getByText(SL.answer)).toBeTruthy();
     expect(within(card).getByText(ex.locator)).toBeTruthy();
   });
+
+  it("captions a Psalm superscription as such, separately from the section heading (Psalm 23)", async () => {
+    const PSA23: VerseRange = { start: r("PSA", 23, 1), end: r("PSA", 23, 6) };
+    const sup = headingsInRange(await loadHeadings(), PSA23).filter((h) => h.level === "d");
+    expect(sup.length).toBeGreaterThan(0);
+    renderPanel(PSA23);
+    const panel = await screen.findByTestId("sources-panel");
+    await within(panel).findByText(sup[0].text, undefined, { timeout: 20000 });
+    expect(within(panel).getAllByText(SL.superscriptionSource)).toHaveLength(sup.length);
+    const sup0 = within(panel).getByText(sup[0].text);
+    expect(sup0.nextElementSibling?.textContent).toBe(SL.superscriptionSource);
+  });
 });

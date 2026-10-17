@@ -48,6 +48,7 @@ export function ModePills({ mode, onChange, hasHeadings, exclude }: ModePillsPro
       <ChipGroup<DrillMode>
         label="Practice mode"
         single
+        scroll
         options={modes.map((m) => ({ value: m, label: MODE_LABEL[m] }))}
         selected={[mode]}
         onChange={(s) => s[0] && onChange(s[0])}

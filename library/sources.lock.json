@@ -4,33 +4,33 @@
     "belgic-confession": {
       "files": [
         {
-          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json",
-          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json",
+          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/belgic_confession_of_faith.json",
+          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/belgic_confession_of_faith.json",
           "sha256": "aa1d7ac52c7d7c2651dd8cd32c31dbb235886492b7a9417510da2171e15c4108",
           "bytes": 53984,
-          "fetchedAt": "2026-10-17T17:19:34.617Z"
+          "fetchedAt": "2026-10-17T18:19:15.663Z"
         }
       ]
     },
     "canons-of-dort": {
       "files": [
         {
-          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/canons_of_dort.json",
-          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/canons_of_dort.json",
+          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/canons_of_dort.json",
+          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/canons_of_dort.json",
           "sha256": "1fcda5d0ad26b856e0c7d9446fac3877d2497758a15751bdd355812b26877d9c",
           "bytes": 71048,
-          "fetchedAt": "2026-10-17T17:19:34.617Z"
+          "fetchedAt": "2026-10-17T18:19:15.663Z"
         }
       ]
     },
     "heidelberg-catechism": {
       "files": [
         {
-          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/heidelberg_catechism.json",
-          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/heidelberg_catechism.json",
+          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/heidelberg_catechism.json",
+          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/heidelberg_catechism.json",
           "sha256": "3720faa688778c569640a7779651d1fa3bc8bd065627fcb6bad60a9594a5cd94",
           "bytes": 136661,
-          "fetchedAt": "2026-10-17T17:19:34.617Z"
+          "fetchedAt": "2026-10-17T18:19:15.663Z"
         }
       ]
     },
@@ -38,7 +38,7 @@
       "files": [
         {
           "url": "https://a.openbible.info/data/cross-references.zip",
-          "fetchedFrom": "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/sources/extras/cross_references.txt",
+          "fetchedFrom": "https://raw.githubusercontent.com/scrollmapper/bible_databases/e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c/sources/extras/cross_references.txt",
           "sha256": "452b263f657d3e721d20341b6b82f1196fc98882d685bd4ef9050ae17f033f82",
           "bytes": 8293834,
           "fetchedAt": "2026-10-17T17:19:34.617Z"
@@ -48,22 +48,22 @@
     "westminster-confession": {
       "files": [
         {
-          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json",
-          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json",
+          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_confession_of_faith.json",
+          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_confession_of_faith.json",
           "sha256": "90f793e3444f9a6a834c29fc7b6ba21250b33e92979525b5d5158bed16c24f06",
           "bytes": 277737,
-          "fetchedAt": "2026-10-17T17:19:34.617Z"
+          "fetchedAt": "2026-10-17T18:19:15.663Z"
         }
       ]
     },
     "westminster-larger-catechism": {
       "files": [
         {
-          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json",
-          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json",
+          "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_larger_catechism.json",
+          "fetchedFrom": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_larger_catechism.json",
           "sha256": "755274a3ba67aa840021dcefde55e357851a95f87daab52bcd2407d131d7cab5",
           "bytes": 321579,
-          "fetchedAt": "2026-10-17T17:19:34.617Z"
+          "fetchedAt": "2026-10-17T18:19:15.663Z"
         }
       ]
     }

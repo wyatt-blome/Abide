@@ -2,6 +2,8 @@
 
 // About: the app name, its verse read from the bundled BSB, and the sources the app's data came
 // from (URLs read from public/bible/sources.json, the library index and content/classics.ts).
+// License labels come from the same files: sources.json `license.status` (copied from the
+// downloaded license table) and the library index `works[].license.status`.
 
 import { APP_NAME, APP_NAME_VERSE } from "@/config";
 import { loadSources } from "@/lib/bible";
@@ -20,6 +22,15 @@ interface TranslationSource {
 }
 
 const dirOf = (url: string) => url.slice(0, url.lastIndexOf("/") + 1);
+
+/** Display form of a library license status token (unknown tokens are shown as stored). */
+const WORK_STATUS_LABEL: Record<string, string> = { "public-domain": "Public domain", "CC-BY": "CC BY" };
+
+/** The license statuses recorded for a set of works, as one label ("" when none is recorded). */
+function worksLicense(works: { license?: { status?: string } }[]): string {
+  const statuses = [...new Set(works.map((w) => w.license?.status).filter((x): x is string => !!x))];
+  return statuses.map((x) => WORK_STATUS_LABEL[x] ?? x).join(", ");
+}
 
 function Ext({ href }: { href: string }) {
   return (
@@ -87,18 +98,18 @@ export function AboutSection({ verseText }: { verseText?: string }) {
         {bsb ? (
           <Attribution
             name={bsb.name ?? "Berean Standard Bible"}
-            license="Public domain"
+            license={bsb.license?.status}
             urls={[bsb.text?.url ?? "", bsb.headings?.files?.[0]?.url ? dirOf(bsb.headings.files[0].url) : "", bsb.license?.proofUrl ?? ""]}
           />
         ) : null}
         {(["WEB", "KJV"] as const).map((id) => {
           const s = tr(id);
-          return s ? <Attribution key={id} name={s.name ?? id} license="Public domain" urls={[s.text?.url ?? "", s.license?.proofUrl ?? ""]} /> : null;
+          return s ? <Attribution key={id} name={s.name ?? id} license={s.license?.status} urls={[s.text?.url ?? "", s.license?.proofUrl ?? ""]} /> : null;
         })}
         {openbible.length ? (
-          <Attribution name="OpenBible.info cross-references" license="CC BY" urls={openbible.map((w) => w.sourcePage)} />
+          <Attribution name="OpenBible.info cross-references" license={worksLicense(openbible)} urls={openbible.map((w) => w.sourcePage)} />
         ) : null}
-        {creeds.length ? <Attribution name="Creeds.json" license="Public domain" urls={creeds.map((w) => w.sourcePage)} /> : null}
+        {creeds.length ? <Attribution name="Creeds.json" license={worksLicense(creeds)} urls={creeds.map((w) => w.sourcePage)} /> : null}
         <Attribution name="CCEL (Christian Classics Ethereal Library)" urls={[...worksOn("ccel.org"), ...classicsOn("ccel.org")]} />
         <Attribution name="Project Gutenberg" urls={[...worksOn("gutenberg.org"), ...classicsOn("gutenberg.org")]} />
         <Attribution name="Internet Archive (archive.org)" urls={[...worksOn("archive.org"), ...classicsOn("archive.org")]} />

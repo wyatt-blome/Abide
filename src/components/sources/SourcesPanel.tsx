@@ -7,7 +7,7 @@
 //   4 Cross-references (OpenBible.info)  5 From my reading (user notes)  6 Links
 
 import Link from "next/link";
-import { useMemo, useState, type ReactNode } from "react";
+import { Fragment, useMemo, useState, type ReactNode } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/db/db";
 import type { BookPlan, BsbHeading, Era, LinkOut, SourceType, TranslationId, UserNote, VerseRange, VerseRef } from "@/db/types";
@@ -248,7 +248,8 @@ export function SourcesPanel({ range, translation }: SourcesPanelProps) {
 function Outline({ meta, headings, range }: { meta: BibleMeta; headings: BsbHeading[]; range: VerseRange }) {
   const r = clampRange(meta, range);
   const segs = outlineSegments(meta, headings, r);
-  const anyHeading = segs.some((s) => s.headings.length > 0);
+  // The Story drill uses section headings only (not Psalm superscriptions).
+  const anyHeading = segs.some((s) => s.headings.some((h) => h.level !== "d"));
   return (
     <>
       <ol className="flex flex-col gap-2">
@@ -256,12 +257,20 @@ function Outline({ meta, headings, range }: { meta: BibleMeta; headings: BsbHead
           <li key={toKey(s.start)} className="bordered flex flex-col gap-1 rounded-2xl bg-surface px-4 py-3">
             {s.headings.length ? (
               <>
-                {s.headings.map((h, i) => (
-                  <p key={i} className={cx("reading font-bold", h.level === "ms" && "uppercase")}>
-                    {h.text}
-                  </p>
-                ))}
-                <span className="text-[14px] text-muted">{SL.headingSource}</span>
+                {s.headings.map((h, i) => {
+                  // Psalm superscriptions (level "d") are BSB text too, captioned as such.
+                  const sup = h.level === "d";
+                  const next = s.headings[i + 1];
+                  const lastOfKind = !next || (next.level === "d") !== sup;
+                  return (
+                    <Fragment key={i}>
+                      <p className={cx("reading font-bold", h.level === "ms" && "uppercase")}>{h.text}</p>
+                      {lastOfKind ? (
+                        <span className="text-[14px] text-muted">{sup ? SL.superscriptionSource : SL.headingSource}</span>
+                      ) : null}
+                    </Fragment>
+                  );
+                })}
               </>
             ) : (
               <span className="text-[14px] font-bold text-muted">{SL.versesOnly}</span>

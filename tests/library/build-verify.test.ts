@@ -1,6 +1,6 @@
 // End-to-end: build a temporary library from SYNTHETIC fixtures (file:// rawUrls), verify it,
 // then tamper with it and check that the verifier names the offending excerpt.
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -8,6 +8,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { buildLibrary } from "../../scripts/build-library";
 import { cachePath } from "../../scripts/lib/fetch";
 import { verifyAll } from "../../scripts/verify-excerpts";
+import { endsAtBoundary } from "../../scripts/lib/cut";
 import { configureLibrary, crossRefsForRange, excerptsForRange, loadLibraryIndex, sectionFor } from "../../src/lib/library";
 import type { ExcerptShard, LibraryIndex } from "../../src/lib/library";
 
@@ -62,6 +63,7 @@ beforeAll(() => {
   }));
   writePack(manifest("t-html", "html-chapters.html", {
     parser: "html-chapters",
+    parserOptions: { headings: [{ pattern: "^(?:CHAPTER|Chapter) ([IVX]+|\\d+)\\.?(.{0,80})$", level: "unit", label: "ch. $1" }] },
     license: lic("SYNTHETIC FIXTURE", { basis: "published-before-1931" }),
   }));
   writePack(manifest("openbible", "openbible-crossrefs.txt", {
@@ -207,5 +209,134 @@ describe("build + verify", () => {
     expect(full?.fullSection).toBe(true);
     const xr = await crossRefsForRange({ start: { book: "GEN", chapter: 1, verse: 1 }, end: { book: "GEN", chapter: 1, verse: 1 } });
     expect(xr.map((x) => x.votes)).toEqual([70, 50]);
+  });
+
+  it("drops (and logs) excerpts without a locator from the source structure", async () => {
+    writePack(manifest("t-noloc", "html-chapters.html", { parser: "html-chapters", license: lic("SYNTHETIC FIXTURE", { basis: "published-before-1931" }) }));
+    const r = await buildLibrary({ ...P, quiet: true, only: ["t-noloc"] });
+    expect(r.skipped.map((x) => x.id)).toEqual(["t-noloc"]);
+    expect(readFileSync(P.logPath, "utf8")).toMatch(/\[t-noloc\] excerpt at file 0 offset \d+ has no locator/);
+    rmSync(path.join(P.packsDir, "t-noloc.json"));
+  });
+});
+
+describe("verify: fresh cache, mirrors and structural checks", () => {
+  it("records the mirror actually fetched and re-downloads from it into an empty cache", async () => {
+    const primary = pathToFileURL(path.join(dir, "gone", "cross-references.zip")).href;
+    const mirror = pathToFileURL(path.join(dir, "src", "openbible-crossrefs.txt")).href;
+    writePack(manifest("openbible", "openbible-crossrefs.txt", {
+      types: ["crossref"], era: "modern", parser: "openbible-crossrefs", defaultEnabled: true, rawUrls: [primary], mirrors: [[mirror]],
+      mirrorEditions: { [mirror]: "Placeholder data, mirror copy" },
+      license: { status: "CC-BY", proofUrl: mirror, proofText: "CC-BY", basis: "cc-by" }, parserOptions: { minVotes: 3 },
+    }));
+    const r = await buildLibrary({ ...P, quiet: true, only: ["openbible"] });
+    expect(r.built.map((b) => b.id)).toEqual(["openbible"]);
+    const index = JSON.parse(readFileSync(path.join(P.outDir, "index.json"), "utf8")) as LibraryIndex;
+    const w = index.works.find((x) => x.id === "openbible") as LibraryIndex["works"][number] & { primaryUrls: string[] };
+    expect(w.rawUrls).toEqual([mirror]);
+    expect(w.primaryUrls).toEqual([primary]);
+    expect(w.edition).toBe("Placeholder data, mirror copy");
+    const lock = JSON.parse(readFileSync(P.lockPath, "utf8"));
+    expect(lock.packs.openbible.files[0]).toMatchObject({ url: primary, fetchedFrom: mirror });
+    // cache file named after the URL actually fetched
+    expect(existsSync(cachePath(P.cacheDir, "openbible", 0, mirror))).toBe(true);
+    expect(existsSync(cachePath(P.cacheDir, "openbible", 0, primary))).toBe(false);
+
+    // fresh clone: no cache at all -> every pack re-downloads (fetchedFrom first) and passes
+    const aside = `${P.cacheDir}.aside`;
+    renameSync(P.cacheDir, aside);
+    const v = await verifyAll({ outDir: P.outDir, lockPath: P.lockPath, cacheDir: P.cacheDir, quiet: true });
+    expect(v.failures).toEqual([]);
+    expect(v.downloaded).toContain(mirror);
+    expect(v.downloaded.length).toBe(index.works.length);
+    expect(v.crossrefsChecked).toBeGreaterThan(0);
+    rmSync(P.cacheDir, { recursive: true, force: true });
+    renameSync(aside, P.cacheDir);
+  });
+
+  it("fails when cross-reference rows differ from the source", async () => {
+    const f = path.join(P.outDir, "openbible", "GEN.json");
+    const orig = readFileSync(f, "utf8");
+    const shard = JSON.parse(orig);
+    shard.crossrefs[0].votes += 1;
+    writeFileSync(f, JSON.stringify(shard));
+    const v = await verifyAll({ outDir: P.outDir, lockPath: P.lockPath, cacheDir: P.cacheDir, quiet: true });
+    expect(v.failures.map((x) => `${x.id} ${x.reason}`).join()).toMatch(/openbible\/GEN\.json cross references row 0/);
+    writeFileSync(f, orig);
+  });
+
+  it("fails on unlisted pack dirs, missing index.json, count mismatches and nothing checked", async () => {
+    const ok = () => verifyAll({ outDir: P.outDir, lockPath: P.lockPath, cacheDir: P.cacheDir, quiet: true });
+    expect((await ok()).ok).toBe(true);
+    mkdirSync(path.join(P.outDir, "t-rogue"));
+    expect((await ok()).failures.map((x) => x.id)).toContain("t-rogue");
+    rmSync(path.join(P.outDir, "t-rogue"), { recursive: true });
+
+    const indexPath = path.join(P.outDir, "index.json");
+    const orig = readFileSync(indexPath, "utf8");
+    renameSync(indexPath, `${indexPath}.aside`);
+    const noIndex = await ok();
+    expect(noIndex.ok).toBe(false);
+    expect(noIndex.failures[0].reason).toMatch(/no index\.json/);
+    renameSync(`${indexPath}.aside`, indexPath);
+
+    const index = JSON.parse(orig) as LibraryIndex;
+    index.works.find((w) => w.id === "t-creed")!.excerptCount += 1;
+    writeFileSync(indexPath, JSON.stringify(index));
+    expect((await ok()).failures.map((x) => x.reason).join()).toMatch(/excerptCount is \d+ but the shards hold/);
+
+    // every shard emptied: nothing would be checked
+    const emptied = JSON.parse(orig) as LibraryIndex;
+    const saved = new Map<string, string>();
+    for (const w of emptied.works) {
+      if (w.id === "openbible") continue;
+      for (const b of emptied.books[w.id]) {
+        const f = path.join(P.outDir, w.id, `${b}.json`);
+        saved.set(f, readFileSync(f, "utf8"));
+        writeFileSync(f, JSON.stringify({ workId: w.id, book: b, excerpts: [] }));
+      }
+    }
+    writeFileSync(indexPath, orig);
+    const none = await ok();
+    expect(none.checked).toBe(0);
+    expect(none.failures.map((x) => x.reason).join()).toMatch(/works list excerpts but none was checked/);
+    for (const [f, t] of saved) writeFileSync(f, t);
+    expect((await ok()).ok).toBe(true);
+  });
+
+  it("fails on U+FFFD, over-long text, mid-sentence truncation and a blank locator", async () => {
+    const f = path.join(P.outDir, "t-verse", "ROM.json");
+    const orig = readFileSync(f, "utf8");
+    const { sha256 } = await import("../../scripts/lib/hash");
+    const cases: [string, (e: ExcerptShard["excerpts"][number]) => void, RegExp][] = [
+      ["fffd", (e) => { e.text = e.text.replace(/o/, "\uFFFD"); e.verbatimHash = sha256(e.text); }, /U\+FFFD/],
+      ["long", (e) => { e.text = e.text + " " + "x".repeat(1600); e.verbatimHash = sha256(e.text); }, /limit 1500/],
+      ["midword", (e) => { e.text = e.text.slice(0, e.text.lastIndexOf(" ") + 3); e.truncatedEnd = true; e.verbatimHash = sha256(e.text); }, /does not end at a sentence/],
+      ["locator", (e) => { e.locator = "  "; }, /locator blank/],
+    ];
+    for (const [name, mutate, re] of cases) {
+      const shard = JSON.parse(orig) as ExcerptShard;
+      const victim = shard.excerpts.find((e) => !e.fullSection)!;
+      mutate(victim);
+      writeFileSync(f, JSON.stringify(shard));
+      const v = await verifyAll({ outDir: P.outDir, lockPath: P.lockPath, cacheDir: P.cacheDir, quiet: true });
+      expect(v.failures.filter((x) => x.id === victim.id).map((x) => x.reason).join(), name).toMatch(re);
+      writeFileSync(f, orig);
+    }
+  });
+});
+
+// Regression for the audit: the shipped library never ends a truncated excerpt mid-sentence.
+const REAL_OUT = path.join(__dirname, "..", "..", "public", "library");
+describe.skipIf(!existsSync(path.join(REAL_OUT, "index.json")))("public/library (built)", () => {
+  it("every truncatedEnd excerpt ends at the source's own stop", () => {
+    const index = JSON.parse(readFileSync(path.join(REAL_OUT, "index.json"), "utf8")) as LibraryIndex;
+    const bad: string[] = [];
+    for (const w of index.works)
+      for (const b of index.books[w.id] ?? []) {
+        const shard = JSON.parse(readFileSync(path.join(REAL_OUT, w.id, `${b}.json`), "utf8")) as ExcerptShard;
+        for (const e of shard.excerpts ?? []) if (e.truncatedEnd && !endsAtBoundary(e.text)) bad.push(e.id);
+      }
+    expect(bad).toEqual([]);
   });
 });

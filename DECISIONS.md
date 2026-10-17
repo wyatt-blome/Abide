@@ -372,3 +372,46 @@ Built by `npm run build:bible` (`scripts/build-bible.ts`, helpers in `scripts/bi
 - **About** reads John 15:4 from the bundled BSB (`APP_NAME_VERSE`), and lists source URLs from
   `public/bible/sources.json`, the library index (`sourcePage`) and `content/classics.ts`.
 - **Sync.** `src/lib/sync.ts` defines `SyncAdapter` (push/pull/status) with a `NoopSyncAdapter`; nothing syncs yet.
+
+## Context Library — audit fixes
+- **No word-level cuts** (supersedes "cut at a space and flagged"). A window is whole sentences; when one sentence alone
+  exceeds the limit it is whole clauses ending at the original's own `;`/`:`; when not even that fits, nothing is emitted
+  (logged). Creeds: if the Answer has no stop within the room left after the Question, the excerpt is the Question alone
+  (`truncatedEnd`, the full section via `sectionId`). WLC Q.105/Q.145 now end at a `;`. A numbered-list marker ("… end.
+  4. Next") starts the next sentence, so excerpts no longer end with the next item's "4."/"6.".
+- **Verifier** (`scripts/verify-excerpts.ts`, `scripts/lib/verify-core.ts`, also the build's self-check): no U+FFFD; ≤ 1,500
+  chars (full sections ≤ 12,000; manifests may only lower `maxChars`/`sectionMaxChars`); `truncatedEnd` text ends with
+  `. ! ? ; :` (+ closing quote/bracket) and the source continues with a space; JSON parts: all but the last are whole
+  fields, a cut last part needs `truncatedEnd`, `truncatedStart` iff the first part starts inside its field; locators and
+  work author/title/edition/ocrNote are label-shaped. Cross-reference shards are re-derived from the cached source with
+  the same parser + `crossrefShards()` and compared row by row. Fails on: `public/library` without `index.json`, a
+  directory or file there that the index does not list, shard files not in `index.books`, non-section excerpt count ≠
+  `excerptCount`, row count ≠ `crossrefCount`, and 0 excerpts checked while a work lists some.
+- **Mirrors.** Cache files are named after the URL actually fetched (`{n}-{basename(fetchedFrom)}`); lookup and download
+  order is lockfile `fetchedFrom`, then `url`, then mirrors (the build uses the lockfile hint only while it is still the
+  url or a mirror). index `rawUrls` = URLs fetched, `primaryUrls` = manifest URLs; when a mirror was used the edition is
+  `mirrorEditions[url]` (OpenBible: "…, copy in scrollmapper/bible_databases (sources/extras)"). Verified for real by
+  moving `.cache/sources` aside: `npm run verify` re-downloaded all 6 packs and passed.
+- **Pinned GitHub sources.** Creeds.json at `2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5` and scrollmapper/bible_databases at
+  `e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c` (resolved with `git ls-remote …/refs/heads/master`; api.github.com refused).
+  rawUrls, proofUrl and sourcePage use the SHA; every sha256 is unchanged.
+- **Locators.** An excerpt without a locator from the source's structure is dropped and logged (no fallback to the title).
+- **Book context.** `bookScope` only restricts. A one-book file's context comes from its own title line (`titlePattern`,
+  default `^Title:\s*(.+)$`, first 400 lines) via `bookInTitle`; not found → logged, headings needing a book are dropped.
+  `bookIntro` (Luther's Preface) likewise takes the book from the title line ("…to the Romans" → ROM); the manifest's code
+  only restricts. Gill's chapter rule now captures the book printed in "INTRODUCTION TO GENESIS 1".
+- **Citations.** James, Daniel, Amos, Ezra, Titus, Esther, Joel, Jude, John, Luke, Acts, Mark, Numbers, Job, Ruth
+  (unnumbered) need an explicit verse (`3:5`, `iii. 5`, `3, ver. 5`, `Jude ver. 3`; a bare "Jude 3" is dropped); a capital
+  roman chapter alone ("James II.", "Matt. V.") is never a citation. Scripture index: an unrecognised book line resets the
+  book; cross-chapter entries are expanded; a citation range is confirmed only if every chapter it spans is indexed.
+- **HTML transform** (`sourceTransform: "html-text"`): the verifier applies the same deterministic `htmlToText`: block tags
+  → "\n\n", inline tags (`<sup>`, `<i>`…) removed without inserting a space, numeric + tabled named entities decoded,
+  unknown named entities left as written (logged by the parser). UTF-8 is decoded non-fatally; the build logs files with
+  U+FFFD and drops excerpts containing one, the verifier fails on one.
+- **Lint guard** (`scripts/lib/content-lint.ts`, used by `tests/lint-guard.test.ts` and the new `prebuild` step
+  `tsx scripts/lint-content.ts`): also measures `+` chains, template literals, `[…].join()` and the direct text children
+  of one JSX element against 160; `content/` may hold only `.ts`; content strings may not end in `. ! ?` or read as prose
+  (≥ 3 lowercase function words plus another lowercase word — Title Case titles such as "Grace Abounding to the Chief of
+  Sinners" pass); pack display fields must be label-shaped.
+- **Library manager.** The manifest `proofText` is labelled "License proof found in source:" for built packs and
+  "Claimed by manifest (not yet verified)" for packs that were not built.

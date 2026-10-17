@@ -17,7 +17,9 @@ export const parseHtmlChapters: ExcerptParser = (files, opts, ctx) => {
   const o = opts as HtmlOptions;
   const out: ParsedExcerpt[] = [];
   for (const f of files) {
-    const text = htmlToText(f.text);
+    const unknown = new Set<string>();
+    const text = htmlToText(f.text, (e) => unknown.add(e));
+    if (unknown.size) ctx.log(`[${ctx.packId}] ${f.url}: entities left undecoded (kept as written): ${[...unknown].slice(0, 20).join(" ")}`);
     const prep = prepareStructure({ ...f, text }, { ...o, gutenberg: false }, ctx);
     for (const sec of prep.sections)
       for (const x of inlineExcerpts(prep, sec, o, ctx)) out.push({ ...x, sourceTransform: "html-text" });

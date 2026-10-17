@@ -7,6 +7,7 @@ import { ERA_LABELS, MAPPING_LABELS, TYPE_LABELS } from "@/lib/library";
 export const SL = {
   outline: "Outline",
   headingSource: "Heading: Berean Standard Bible",
+  superscriptionSource: "Psalm superscription: Berean Standard Bible",
   versesOnly: "Verses",
   storyDrill: "Story of the Passage drill",
   bookIntro: "Book introduction",

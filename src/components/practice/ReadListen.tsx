@@ -3,10 +3,10 @@
 // Read & Listen: one verse at a time (swipe or Prev/Next), read aloud with word highlight.
 // Rate (0.6–1.4) and voice are saved to settings (ttsRate, ttsVoice).
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
   cancel, charIndexToWordIndex, clampRate, getVoices, isSupported, MAX_RATE, MIN_RATE, onVoicesChanged, speak, speakSequence,
-  wordStartOffsets, type SpeakHandle,
+  speechErrorLabel, wordStartOffsets, type SpeakHandle, type SpeakResult,
 } from "@/lib/tts";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ActionBar, Button, cx } from "@/components/ui";
@@ -20,6 +20,8 @@ export interface ReadListenProps {
   nextModeLabel?: string;
 }
 
+const noopSubscribe = () => () => {};
+
 export function ReadListen({ verses, onNextMode, nextModeLabel }: ReadListenProps) {
   const { settings, update } = useSettings();
   const rateId = useId();
@@ -29,7 +31,14 @@ export function ReadListen({ verses, onNextMode, nextModeLabel }: ReadListenProp
   const [playing, setPlaying] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const handle = useRef<SpeakHandle | null>(null);
-  const supported = typeof window !== "undefined" && isSupported();
+  const supported = useSyncExternalStore(noopSubscribe, isSupported, () => true);
+  // Shown when speaking failed (no voices installed, engine error) instead of silently skipping.
+  const [speechError, setSpeechError] = useState<string | null>(null);
+  const ended = (r: SpeakResult) => {
+    setPlaying(false);
+    setWord(-1);
+    if (r === "error") setSpeechError(speechErrorLabel());
+  };
   const v = verses[Math.min(index, verses.length - 1)];
   const offsets = useMemo(() => (v ? wordStartOffsets(v.text) : []), [v]);
   const words = useMemo(() => (v ? v.text.match(/\S+/g) ?? [] : []), [v]);
@@ -60,15 +69,13 @@ export function ReadListen({ verses, onNextMode, nextModeLabel }: ReadListenProp
   const playOne = () => {
     if (!v) return;
     stop();
+    setSpeechError(null);
     setPlaying(true);
     handle.current = speak(v.text, {
       rate: settings.ttsRate,
       voice: settings.ttsVoice,
       onBoundary: (ci) => setWord(charIndexToWordIndex(offsets, ci)),
-      onEnd: () => {
-        setPlaying(false);
-        setWord(-1);
-      },
+      onEnd: ended,
     });
   };
 
@@ -77,6 +84,7 @@ export function ReadListen({ verses, onNextMode, nextModeLabel }: ReadListenProp
     const from = index;
     const list = verses.slice(from);
     let cur = from;
+    setSpeechError(null);
     setPlaying(true);
     handle.current = speakSequence(
       list.map((x) => x.text),
@@ -90,10 +98,7 @@ export function ReadListen({ verses, onNextMode, nextModeLabel }: ReadListenProp
           setWord(-1);
         },
         onBoundary: (ci) => setWord(charIndexToWordIndex(wordStartOffsets(verses[cur].text), ci)),
-        onEnd: () => {
-          setPlaying(false);
-          setWord(-1);
-        },
+        onEnd: ended,
       },
     );
   };
@@ -119,6 +124,11 @@ export function ReadListen({ verses, onNextMode, nextModeLabel }: ReadListenProp
       {verses.length > 1 ? <p className="text-[15px] text-muted">Swipe left or right for the next verse.</p> : null}
 
       {!supported ? <p className="text-muted">Read-aloud isn&apos;t available in this browser.</p> : null}
+      {speechError ? (
+        <p role="alert" className="font-semibold">
+          {speechError}
+        </p>
+      ) : null}
 
       <div className="flex flex-col gap-1">
         <label htmlFor={rateId} className="font-semibold">

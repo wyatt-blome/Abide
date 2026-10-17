@@ -11,6 +11,7 @@ import { PEEK_PENALTY } from "@/lib/scoring";
 import { wordTokens, type Token } from "@/lib/text";
 import { cx, haptic, Icon } from "@/components/ui";
 import { expectedLetter } from "./helpers";
+import { useReducedMotion } from "@/components/reader/hooks";
 import { KEYBOARD_SPACER_CLASS, LetterKeyboard } from "./LetterKeyboard";
 
 export interface TypeItem {
@@ -156,6 +157,23 @@ export function TypeFirst({ items, onComplete, headingsCaption, maxMisses = 2 }:
     onCompleteRef.current({ perItem, misses: state.totalMisses, peeks: state.peeks });
   }, [done, items, words, state]);
 
+  // Keep the current word visible above the fixed keyboard: when it moves behind the keyboard
+  // (or above the top of the screen), scroll it to the middle of the visible area.
+  const textRef = useRef<HTMLDivElement>(null);
+  const keyboardRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  useEffect(() => {
+    if (done) return;
+    const word = textRef.current?.querySelector<HTMLElement>('[data-word-status="current"]');
+    const kb = keyboardRef.current?.getBoundingClientRect();
+    if (!word || !kb || kb.height === 0 || typeof window.scrollBy !== "function") return;
+    const r = word.getBoundingClientRect();
+    const visibleBottom = kb.top - 12;
+    if (r.bottom <= visibleBottom && r.top >= 8) return;
+    const target = Math.max(8, (visibleBottom - r.height) / 2);
+    window.scrollBy({ top: r.top - target, behavior: reducedMotion ? "auto" : "smooth" });
+  }, [state.idx, done, reducedMotion]);
+
   const firstTry = state.status.filter((s) => s === "first").length;
 
   return (
@@ -184,7 +202,7 @@ export function TypeFirst({ items, onComplete, headingsCaption, maxMisses = 2 }:
         </span>
       </div>
 
-      <div className="reading flex flex-col gap-3" data-testid="type-first-text">
+      <div ref={textRef} className="reading flex flex-col gap-3" data-testid="type-first-text">
         {items.map((it, ii) => (
           <div key={it.id}>
             {it.headings?.length ? (
@@ -218,7 +236,7 @@ export function TypeFirst({ items, onComplete, headingsCaption, maxMisses = 2 }:
         {state.message}
       </p>
       <div aria-hidden="true" className={KEYBOARD_SPACER_CLASS} />
-      <LetterKeyboard onKey={press} onHint={hint} disabled={done} />
+      <LetterKeyboard ref={keyboardRef} onKey={press} onHint={hint} disabled={done} />
     </div>
   );
 }

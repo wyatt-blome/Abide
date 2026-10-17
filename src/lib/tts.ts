@@ -52,6 +52,23 @@ export interface SequenceOptions extends Omit<SpeakOptions, "onEnd" | "onStart">
 
 // ---------------- support / voices ----------------
 
+/** onError code used when the engine has no voice to speak with. */
+export const NO_VOICE_ERROR = "no-voice";
+/** UI labels for a speech failure. */
+export const NO_VOICES_LABEL = "No voices installed for read-aloud on this device.";
+export const SPEECH_FAILED_LABEL = "Read-aloud stopped: this device couldn't speak the text.";
+
+/** True when speech is supported but the device reports no voices (after they had time to load). */
+export function noVoicesInstalled(): boolean {
+  const s = synth();
+  return !!s && s.getVoices().length === 0;
+}
+
+/** The label to show after a speak() / speakSequence() call ended with "error". */
+export function speechErrorLabel(): string {
+  return noVoicesInstalled() ? NO_VOICES_LABEL : SPEECH_FAILED_LABEL;
+}
+
 export function isSupported(): boolean {
   return typeof window !== "undefined" && "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
 }
@@ -222,7 +239,16 @@ function speakOne(
       if (!isCurrent()) return;
       opts.onBoundary?.(offset + e.charIndex, (e as SpeechSynthesisEvent & { charLength?: number }).charLength, e.name);
     };
-    u.onend = () => finish(isCurrent() ? "end" : "cancel");
+    u.onend = () => {
+      // With no voices installed some engines "end" at once without ever starting: report it
+      // instead of letting callers race through every item.
+      if (!started && isCurrent() && s.getVoices().length === 0) {
+        opts.onError?.(NO_VOICE_ERROR);
+        finish("error");
+        return;
+      }
+      finish(isCurrent() ? "end" : "cancel");
+    };
     u.onerror = (e) => {
       const err = (e as SpeechSynthesisErrorEvent).error;
       if (err === "interrupted" || err === "canceled") finish("cancel");

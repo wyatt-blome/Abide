@@ -6,7 +6,7 @@
 //   reload). Nothing is written to IndexedDB or Cache Storage, the fetch uses `cache: "no-store"`,
 //   and the service worker routes api.esv.org NetworkOnly.
 // - One request per chapter (always well under the API's per-query verse limit). Plain text with
-//   verse numbers ("[16] For God so loved…"), no headings, footnotes or passage references.
+//   verse numbers ("[16] …verse text…"), no headings, footnotes or passage references.
 // - The copyright notice is requested from the API (include-copyright) and shown as the API
 //   returns it; if none is found, ESV_FALLBACK_NOTICE (a license label) is shown instead.
 

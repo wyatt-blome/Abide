@@ -99,6 +99,7 @@ function AddLinkForm({ onClose, initialRanges, initialUrl, initialTitle, initial
           statedReference: stated.trim(),
           referenceEnteredByMe: enteredByMe || undefined,
           verseRanges: ranges,
+          tagsConfirmed: confirmed,
         },
         m,
       );

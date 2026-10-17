@@ -34,6 +34,15 @@ describe("backup", () => {
     expect(backupFilename("2026-10-17")).toBe(`${APP_NAME}-backup-2026-10-17.json`);
   });
 
+  it("the exported settings row carries this export's lastBackupAt (not the previous one)", async () => {
+    await db.settings.update("singleton", { lastBackupAt: 1000 });
+    const b = await exportBackup(5000, { stampLastBackup: true });
+    expect(b.tables.settings?.[0].lastBackupAt).toBe(5000);
+    // Dexie is untouched by the export itself (the UI stamps it after a successful save).
+    expect((await db.settings.get("singleton"))?.lastBackupAt).toBe(1000);
+    expect((await exportBackup(6000)).tables.settings?.[0].lastBackupAt).toBe(1000);
+  });
+
   it("export → clear → import (replace) restores everything", async () => {
     const before = await exportBackup(1);
     const json = backupToJson(before);

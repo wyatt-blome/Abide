@@ -106,7 +106,7 @@ export function ReferencePicker({ value, onChange, multiple = false, label }: Re
       : null;
 
   return (
-    <fieldset className="flex flex-col gap-3" aria-describedby={error ? `${id}-err` : undefined}>
+    <fieldset className="flex min-w-0 flex-col gap-3" aria-describedby={error ? `${id}-err` : undefined}>
       <legend className="mb-1 text-[17px] font-bold">{label}</legend>
 
       {value.length ? (
@@ -114,7 +114,7 @@ export function ReferencePicker({ value, onChange, multiple = false, label }: Re
           {value.map((r, i) => (
             <li key={`${formatRange(r)}-${i}`} className="bordered flex min-h-12 items-center gap-2 rounded-xl bg-surface pl-3">
               <Icon name="check" size={20} className="text-success" />
-              <span className="flex-1 font-semibold">{formatRange(r, meta ?? undefined)}</span>
+              <span className="min-w-0 flex-1 font-semibold [overflow-wrap:anywhere]">{formatRange(r, meta ?? undefined)}</span>
               {multiple || value.length > 1 ? (
                 <Button variant="ghost" icon="close" iconOnly label={`Remove ${formatRange(r, meta ?? undefined)}`} onClick={() => remove(i)} />
               ) : null}

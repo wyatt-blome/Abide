@@ -5,6 +5,7 @@
 // key is (360 − 2·2px padding − 6·2px gaps) / 7 ≈ 49px wide, so every key is ≥ 48px. No text input
 // is focused, so the OS keyboard never opens.
 
+import type { Ref } from "react";
 import { cx, Icon } from "@/components/ui";
 
 export const KEY_ROWS: string[][] = [
@@ -33,6 +34,8 @@ export interface LetterKeyboardProps {
   disabled?: boolean;
   /** Label of the hint key. Default "Hint". */
   hintLabel?: string;
+  /** The fixed keyboard element (callers measure it to keep text above it). */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const keyCls = cx(
@@ -40,9 +43,10 @@ const keyCls = cx(
   "[border-width:var(--border-width)] border-solid border-border active:bg-surface-strong disabled:opacity-40",
 );
 
-export function LetterKeyboard({ onKey, onHint, disabled, hintLabel = "Hint" }: LetterKeyboardProps) {
+export function LetterKeyboard({ onKey, onHint, disabled, hintLabel = "Hint", ref }: LetterKeyboardProps) {
   return (
     <div
+      ref={ref}
       role="group"
       aria-label="Letter keyboard"
       className={cx(

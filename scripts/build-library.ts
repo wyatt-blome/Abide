@@ -192,9 +192,11 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
       const files: { url: string; text: string; buf: Uint8Array; lf: LockFile }[] = [];
       const fetchOne = async (u: { url: string; mirrors: string[] }, n: number) => {
         const prev = prevFiles.find((p) => p.url === u.url);
+        // the lockfile's last working URL is tried first only while it is still url or a mirror
+        const hint = prev && [u.url, ...u.mirrors].includes(prev.fetchedFrom) ? prev.fetchedFrom : undefined;
         let got;
         try {
-          got = await getSource({ cacheDir, packId: m.id, rawIndex: n, url: u.url, mirrors: u.mirrors, fetchedFromHint: prev?.fetchedFrom });
+          got = await getSource({ cacheDir, packId: m.id, rawIndex: n, url: u.url, mirrors: u.mirrors, fetchedFromHint: hint });
         } catch (e) {
           const fe = e as FetchError;
           const why = fe.kind === "blocked" ? "blocked by network proxy (HTTP 403)" : fe.message;
