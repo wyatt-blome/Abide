@@ -1,0 +1,38 @@
+{
+  "id": "chrysostom-matthew",
+  "author": "John Chrysostom",
+  "title": "Homilies on the Gospel of Saint Matthew",
+  "edition": "NPNF1-10 (CCEL text)",
+  "era": "early",
+  "types": [
+    "sermon",
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf110/cache/npnf110.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf110",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf110",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "layout": "ccel",
+    "mappingMethod": "sermonText",
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^Homily ([IVXLC]+)\\.?(.{0,100})$",
+        "level": "unit",
+        "label": "Homily $1",
+        "refFromLine": true,
+        "refLookahead": 3
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

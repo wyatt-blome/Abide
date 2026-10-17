@@ -1,0 +1,276 @@
+{
+  "generatedAt": "2026-10-17T17:31:08.900Z",
+  "budgetBytes": 52428800,
+  "defaultOnBytes": 16791098,
+  "built": [
+    {
+      "id": "belgic-confession",
+      "title": "Belgic Confession",
+      "excerpts": 41,
+      "sections": 10,
+      "crossrefs": 0,
+      "books": 25,
+      "sizeBytes": 282459,
+      "defaultEnabled": false,
+      "largePack": false,
+      "fetchedFrom": [
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json"
+      ]
+    },
+    {
+      "id": "canons-of-dort",
+      "title": "Canons of Dort",
+      "excerpts": 46,
+      "sections": 1,
+      "crossrefs": 0,
+      "books": 21,
+      "sizeBytes": 127890,
+      "defaultEnabled": false,
+      "largePack": false,
+      "fetchedFrom": [
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/canons_of_dort.json"
+      ]
+    },
+    {
+      "id": "heidelberg-catechism",
+      "title": "Heidelberg Catechism",
+      "excerpts": 127,
+      "sections": 1,
+      "crossrefs": 0,
+      "books": 49,
+      "sizeBytes": 690576,
+      "defaultEnabled": true,
+      "largePack": false,
+      "fetchedFrom": [
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/heidelberg_catechism.json"
+      ]
+    },
+    {
+      "id": "openbible",
+      "title": "Cross References",
+      "excerpts": 0,
+      "sections": 0,
+      "crossrefs": 99573,
+      "books": 66,
+      "sizeBytes": 12750154,
+      "defaultEnabled": true,
+      "largePack": false,
+      "fetchedFrom": [
+        "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/sources/extras/cross_references.txt"
+      ]
+    },
+    {
+      "id": "westminster-confession",
+      "title": "Westminster Confession of Faith",
+      "excerpts": 172,
+      "sections": 0,
+      "crossrefs": 0,
+      "books": 59,
+      "sizeBytes": 1207245,
+      "defaultEnabled": true,
+      "largePack": false,
+      "fetchedFrom": [
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json"
+      ]
+    },
+    {
+      "id": "westminster-larger-catechism",
+      "title": "Westminster Larger Catechism",
+      "excerpts": 194,
+      "sections": 4,
+      "crossrefs": 0,
+      "books": 61,
+      "sizeBytes": 2143123,
+      "defaultEnabled": true,
+      "largePack": false,
+      "fetchedFrom": [
+        "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "id": "ambrose-npnf210",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf210/cache/npnf210.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "athanasius-npnf204",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf204/cache/npnf204.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "augustine-city-of-god",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf102/cache/npnf102.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "augustine-confessions",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf101/cache/npnf101.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "augustine-psalms",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf108/cache/npnf108.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "augustine-tractates-john",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf107/cache/npnf107.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "barnes-nt-notes",
+      "reason": "largePack (build with --include-large)"
+    },
+    {
+      "id": "baxter-reformed-pastor",
+      "reason": "source unreachable: https://ccel.org/ccel/b/baxter/pastor/cache/pastor.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "baxter-saints-rest",
+      "reason": "source unreachable: https://ccel.org/ccel/b/baxter/saints_rest/cache/saints_rest.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "bunyan-grace-abounding",
+      "reason": "source unreachable: https://www.gutenberg.org/cache/epub/654/pg654.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "bunyan-pilgrims-progress",
+      "reason": "source unreachable: https://www.gutenberg.org/cache/epub/131/pg131.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "butler-analogy",
+      "reason": "source unreachable: https://ccel.org/ccel/b/butler/analogy/cache/analogy.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "calvin-commentaries",
+      "reason": "source unreachable: https://ccel.org/ccel/c/calvin/calcom08/cache/calcom08.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "calvin-institutes",
+      "reason": "source unreachable: https://ccel.org/ccel/c/calvin/institutes/cache/institutes.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "chrysostom-john",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf114/cache/npnf114.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "chrysostom-matthew",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf110/cache/npnf110.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "chrysostom-romans",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/npnf111/cache/npnf111.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "clarke-commentary",
+      "reason": "largePack (build with --include-large)"
+    },
+    {
+      "id": "edwards-works-1",
+      "reason": "source unreachable: https://ccel.org/ccel/e/edwards/works1/cache/works1.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "gill-exposition",
+      "reason": "largePack (build with --include-large)"
+    },
+    {
+      "id": "henry-commentary",
+      "reason": "source unreachable: https://ccel.org/ccel/h/henry/mhc1/cache/mhc1.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "hodge-ephesians",
+      "reason": "source unreachable: https://ccel.org/ccel/h/hodge/ephesians/cache/ephesians.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "hodge-systematic-theology",
+      "reason": "source unreachable: https://ccel.org/ccel/h/hodge/theology1/cache/theology1.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "irenaeus-against-heresies",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "jfb-commentary",
+      "reason": "largePack (build with --include-large)"
+    },
+    {
+      "id": "justin-martyr-apologies",
+      "reason": "source unreachable: https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "luther-galatians",
+      "reason": "source unreachable: https://www.gutenberg.org/cache/epub/1549/pg1549.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "luther-large-catechism",
+      "reason": "source unreachable: https://ccel.org/ccel/l/luther/largecatechism/cache/largecatechism.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "luther-preface-romans",
+      "reason": "source unreachable: https://ccel.org/ccel/l/luther/prefacetoromans/cache/prefacetoromans.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "luther-small-catechism",
+      "reason": "source unreachable: https://ccel.org/ccel/l/luther/smallcat/cache/smallcat.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "luther-table-talk",
+      "reason": "source unreachable: https://ccel.org/ccel/l/luther/tabletalk/cache/tabletalk.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "machen-christianity-liberalism",
+      "reason": "source unreachable: https://www.ccel.org/m/machen/liberalism/home.html (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "murray-abide-in-christ",
+      "reason": "source unreachable: https://archive.org/download/abideinchrist01murr/abideinchrist01murr_djvu.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "murray-school-of-prayer",
+      "reason": "source unreachable: https://ccel.org/ccel/m/murray/prayer/cache/prayer.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "owen-mortification",
+      "reason": "source unreachable: https://ccel.org/ccel/o/owen/mort/cache/mort.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "paley-evidences",
+      "reason": "source unreachable: https://www.gutenberg.org/cache/epub/14780/pg14780.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "pascal-pensees",
+      "reason": "source unreachable: https://www.gutenberg.org/cache/epub/18269/pg18269.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "ryle-holiness",
+      "reason": "source unreachable: https://ccel.org/ccel/r/ryle/holiness/cache/holiness.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "ryle-matthew",
+      "reason": "source unreachable: https://ccel.org/ccel/r/ryle/matthew/cache/matthew.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "spurgeon-morning-evening",
+      "reason": "source unreachable: https://ccel.org/ccel/s/spurgeon/morneve/cache/morneve.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "spurgeon-sermons",
+      "reason": "largePack (build with --include-large)"
+    },
+    {
+      "id": "spurgeon-treasury-of-david",
+      "reason": "source unreachable: https://www.gutenberg.org/cache/epub/79723/pg79723.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "watson-body-of-divinity",
+      "reason": "source unreachable: https://ccel.org/ccel/w/watson/divinity/cache/divinity.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "wesley-notes-nt",
+      "reason": "source unreachable: https://ccel.org/ccel/w/wesley/notes/cache/notes.txt (blocked by network proxy (HTTP 403))"
+    },
+    {
+      "id": "wesley-sermons",
+      "reason": "source unreachable: https://ccel.org/ccel/w/wesley/sermons/cache/sermons.txt (blocked by network proxy (HTTP 403))"
+    }
+  ],
+  "rejected": [],
+  "exitCode": 0,
+  "errors": []
+}

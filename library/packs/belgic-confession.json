@@ -1,0 +1,31 @@
+{
+  "id": "belgic-confession",
+  "author": "Guido de Bres",
+  "title": "Belgic Confession",
+  "edition": "Creeds.json (SourceUrl: apostles-creed.org belgic_confession.pdf)",
+  "era": "medievalReformation",
+  "types": [
+    "confession"
+  ],
+  "rawUrls": [
+    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json"
+  ],
+  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/belgic_confession_of_faith.json",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json",
+    "proofText": "\"SourceAttribution\": \"Public Domain\"",
+    "basis": "rights-statement"
+  },
+  "parser": "creed-json-proofs",
+  "parserOptions": {
+    "mode": "inline",
+    "textFields": [
+      "Content"
+    ],
+    "locator": "Article {Article}"
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "notes": "No proof-text fields; indexed only by the citations printed in each article."
+}

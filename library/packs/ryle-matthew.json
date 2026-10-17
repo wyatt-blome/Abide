@@ -1,0 +1,46 @@
+{
+  "id": "ryle-matthew",
+  "author": "J. C. Ryle",
+  "title": "Expository Thoughts on Matthew",
+  "edition": "CCEL text",
+  "era": "c19",
+  "types": [
+    "commentary",
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/r/ryle/matthew/cache/matthew.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/ryle/matthew",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/ryle/matthew",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "layout": "ccel",
+    "mappingMethod": "heading",
+    "locatorFromRange": true,
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^MATTHEW (\\d+|[IVXLC]+)[:.] ?(\\d+)(?:\\s*[-–]\\s*(\\d+))?\\.?$",
+        "level": "unit",
+        "book": "MAT",
+        "chapter": "$1",
+        "verse": "$2",
+        "verseEnd": "$3",
+        "flags": "i"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "bookScope": [
+    [
+      "MAT"
+    ]
+  ]
+}

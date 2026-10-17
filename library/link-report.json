@@ -1,0 +1,2899 @@
+{
+  "checkedAt": "2026-10-17T17:22:57.681Z",
+  "totals": {
+    "ok": 6,
+    "blocked": 283,
+    "not-found": 0,
+    "error": 0
+  },
+  "packsToDrop": [
+    {
+      "id": "ambrose-npnf210",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "athanasius-npnf204",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "augustine-city-of-god",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "augustine-confessions",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "augustine-psalms",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "augustine-tractates-john",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "barnes-nt-notes",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "baxter-reformed-pastor",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "baxter-saints-rest",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "bunyan-grace-abounding",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "bunyan-pilgrims-progress",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "butler-analogy",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "calvin-commentaries",
+      "built": false,
+      "reason": "45 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "calvin-institutes",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "chrysostom-john",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "chrysostom-matthew",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "chrysostom-romans",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "clarke-commentary",
+      "built": false,
+      "reason": "6 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "edwards-works-1",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "gill-exposition",
+      "built": false,
+      "reason": "66 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "henry-commentary",
+      "built": false,
+      "reason": "6 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "hodge-ephesians",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "hodge-systematic-theology",
+      "built": false,
+      "reason": "3 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "irenaeus-against-heresies",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "jfb-commentary",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "justin-martyr-apologies",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "luther-galatians",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "luther-large-catechism",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "luther-preface-romans",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "luther-small-catechism",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "luther-table-talk",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "machen-christianity-liberalism",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "murray-abide-in-christ",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "murray-school-of-prayer",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "owen-mortification",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "paley-evidences",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "pascal-pensees",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "ryle-holiness",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "ryle-matthew",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "spurgeon-morning-evening",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "spurgeon-sermons",
+      "built": false,
+      "reason": "63 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "spurgeon-treasury-of-david",
+      "built": false,
+      "reason": "2 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "watson-body-of-divinity",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "wesley-notes-nt",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    },
+    {
+      "id": "wesley-sermons",
+      "built": false,
+      "reason": "1 raw file(s) unreachable (blocked)"
+    }
+  ],
+  "builtPackFailures": [],
+  "results": [
+    {
+      "url": "https://a.openbible.info/data/cross-references.zip",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "openbible:lock.url",
+        "openbible:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://archive.org/details/abideinchrist01murr",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "murray-abide-in-christ:proofUrl",
+        "murray-abide-in-christ:sourcePage"
+      ]
+    },
+    {
+      "url": "https://archive.org/details/GillsCommentaryOnTheEntireBible",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:proofUrl",
+        "gill-exposition:sourcePage"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/abideinchrist01murr/abideinchrist01murr_djvu.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "murray-abide-in-christ:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/01%20-%20Genesis.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/02%20-%20Exodus.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/03%20-%20Leviticus.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[2]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/04%20-%20Numbers.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[3]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/05%20-%20Deuteronomy.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[4]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/06%20-%20Joshua.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[5]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/07%20-%20Judges.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[6]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/08%20-%20Ruth.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[7]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/09%20-%201%20Samuel.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[8]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/10%20-%202%20Samuel.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[9]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/11%20-%201%20Kings.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[10]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/12%20-%202%20Kings.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[11]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/13%20-%201%20Chronicles.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[12]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/14%20-%202%20Chronicles.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[13]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/15%20-%20Ezra.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[14]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/16%20-%20Nehemiah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[15]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/17%20-%20Esther.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[16]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/18%20-%20Job.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[17]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/19%20-%20Psalms.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[18]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/20%20-%20Proverbs.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[19]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/21%20-%20Ecclesiastes.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[20]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/22%20-%20Song%20of%20Solomon.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[21]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/23%20-%20Isaiah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[22]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/24%20-%20Jeremiah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[23]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/25%20-%20Lamentations.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[24]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/26%20-%20Ezekiel.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[25]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/27%20-%20Daniel.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[26]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/28%20-%20Hosea.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[27]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/29%20-%20Joel.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[28]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/30%20-%20Amos.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[29]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/31%20-%20Obadiah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[30]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/32%20-%20Jonah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[31]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/33%20-%20Micah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[32]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/34%20-%20Nahum.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[33]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/35%20-%20Habakkuk.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[34]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/36%20-%20Zephaniah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[35]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/37%20-%20Haggai.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[36]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/38%20-%20Zechariah.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[37]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/39%20-%20Malachi.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[38]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/40%20-%20Matthew.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[39]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/41%20-%20Mark.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[40]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/42%20-%20Luke.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[41]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/43%20-%20John.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[42]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/44%20-%20Acts.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[43]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/45%20-%20Romans.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[44]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/46%20-%201%20Corinthians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[45]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/47%20-%202%20Corinthians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[46]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/48%20-%20Galatians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[47]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/49%20-%20Ephesians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[48]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/50%20-%20Philippians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[49]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/51%20-%20Colossians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[50]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/52%20-%201%20Thessalonians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[51]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/53%20-%202%20Thessalonians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[52]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/54%20-%201%20Timothy.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[53]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/55%20-%202%20Timothy.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[54]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/56%20-%20Titus.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[55]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/57%20-%20Philemon.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[56]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/58%20-%20Hebrews.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[57]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/59%20-%20James.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[58]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/60%20-%201%20Peter.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[59]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/61%20-%202%20Peter.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[60]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/62%20-%201%20John.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[61]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/63%20-%202%20John.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[62]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/64%20-%203%20John.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[63]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/65%20-%20Jude.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[64]"
+      ]
+    },
+    {
+      "url": "https://archive.org/download/GillsCommentaryOnTheEntireBible/66%20-%20Revelation.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "gill-exposition:rawUrls[65]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/b/barnes/ntnotes/cache/ntnotes.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "barnes-nt-notes:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/b/baxter/pastor/cache/pastor.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "baxter-reformed-pastor:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/b/baxter/saints_rest/cache/saints_rest.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "baxter-saints-rest:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/b/butler/analogy/cache/analogy.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "butler-analogy:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/barnes/ntnotes",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "barnes-nt-notes:proofUrl",
+        "barnes-nt-notes:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/baxter/pastor",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "baxter-reformed-pastor:proofUrl",
+        "baxter-reformed-pastor:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/baxter/saints_rest",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "baxter-saints-rest:proofUrl",
+        "baxter-saints-rest:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/butler/analogy",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "butler-analogy:proofUrl",
+        "butler-analogy:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom01/cache/calcom01.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom02/cache/calcom02.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom03/cache/calcom03.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[2]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom04/cache/calcom04.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[3]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom05/cache/calcom05.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[4]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom06/cache/calcom06.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[5]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom07/cache/calcom07.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[6]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom08/cache/calcom08.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[7]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom09/cache/calcom09.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[8]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom10/cache/calcom10.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[9]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom11/cache/calcom11.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[10]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom12/cache/calcom12.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[11]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom13/cache/calcom13.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[12]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom14/cache/calcom14.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[13]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom15/cache/calcom15.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[14]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom16/cache/calcom16.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[15]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom17/cache/calcom17.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[16]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom18/cache/calcom18.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[17]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom19/cache/calcom19.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[18]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom20/cache/calcom20.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[19]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom21/cache/calcom21.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[20]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom22/cache/calcom22.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[21]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom23/cache/calcom23.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[22]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom24/cache/calcom24.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[23]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom25/cache/calcom25.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[24]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom26/cache/calcom26.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[25]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom27/cache/calcom27.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[26]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom28/cache/calcom28.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[27]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom29/cache/calcom29.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[28]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom30/cache/calcom30.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[29]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom31/cache/calcom31.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[30]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom32/cache/calcom32.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[31]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom33/cache/calcom33.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[32]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom34/cache/calcom34.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[33]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom35/cache/calcom35.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[34]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom36/cache/calcom36.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[35]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom37/cache/calcom37.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[36]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom38/cache/calcom38.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[37]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom39/cache/calcom39.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[38]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom40/cache/calcom40.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[39]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom41/cache/calcom41.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[40]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom42/cache/calcom42.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[41]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom43/cache/calcom43.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[42]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom44/cache/calcom44.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[43]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/calcom45/cache/calcom45.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:rawUrls[44]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/c/calvin/institutes/cache/institutes.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-institutes:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/calvin",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:volumeMapSource"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/calvin/calcom38",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:proofUrl"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/calvin/commentaries",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-commentaries:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/calvin/institutes",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "calvin-institutes:proofUrl",
+        "calvin-institutes:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/e/edwards/works1/cache/works1.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "edwards-works-1:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/edwards/works1",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "edwards-works-1:proofUrl",
+        "edwards-works-1:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/henry/mhc1/cache/mhc1.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/henry/mhc2/cache/mhc2.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/henry/mhc3/cache/mhc3.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:rawUrls[2]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/henry/mhc4/cache/mhc4.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:rawUrls[3]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/henry/mhc5/cache/mhc5.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:rawUrls[4]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/henry/mhc6/cache/mhc6.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:rawUrls[5]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/hodge/ephesians/cache/ephesians.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "hodge-ephesians:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/hodge/theology1/cache/theology1.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "hodge-systematic-theology:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/hodge/theology2/cache/theology2.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "hodge-systematic-theology:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/h/hodge/theology3/cache/theology3.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "hodge-systematic-theology:rawUrls[2]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/henry/mhc1",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "henry-commentary:proofUrl",
+        "henry-commentary:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/hodge/ephesians",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "hodge-ephesians:proofUrl",
+        "hodge-ephesians:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/hodge/theology1",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "hodge-systematic-theology:proofUrl",
+        "hodge-systematic-theology:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/j/jamieson/jfb/cache/jfb.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "jfb-commentary:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/jamieson/jfb",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "jfb-commentary:proofUrl",
+        "jfb-commentary:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/l/luther/largecatechism/cache/largecatechism.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-large-catechism:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/l/luther/prefacetoromans/cache/prefacetoromans.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-preface-romans:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/l/luther/smallcat/cache/smallcat.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-small-catechism:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/l/luther/tabletalk/cache/tabletalk.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-table-talk:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/luther/largecatechism",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-large-catechism:proofUrl",
+        "luther-large-catechism:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/luther/prefacetoromans",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-preface-romans:proofUrl",
+        "luther-preface-romans:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/luther/smallcat",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-small-catechism:proofUrl",
+        "luther-small-catechism:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/luther/tabletalk",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-table-talk:proofUrl",
+        "luther-table-talk:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/m/murray/prayer/cache/prayer.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "murray-school-of-prayer:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/murray/prayer",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "murray-school-of-prayer:proofUrl",
+        "murray-school-of-prayer:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/o/owen/mort/cache/mort.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "owen-mortification:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/owen/mort",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "owen-mortification:proofUrl",
+        "owen-mortification:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/r/ryle/holiness/cache/holiness.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "ryle-holiness:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/r/ryle/matthew/cache/matthew.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "ryle-matthew:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/ryle/holiness",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "ryle-holiness:proofUrl",
+        "ryle-holiness:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/ryle/matthew",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "ryle-matthew:proofUrl",
+        "ryle-matthew:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "irenaeus-against-heresies:rawUrls[0]",
+        "justin-martyr-apologies:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf101/cache/npnf101.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-confessions:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf102/cache/npnf102.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-city-of-god:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf107/cache/npnf107.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-tractates-john:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf108/cache/npnf108.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-psalms:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf110/cache/npnf110.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "chrysostom-matthew:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf111/cache/npnf111.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "chrysostom-romans:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf114/cache/npnf114.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "chrysostom-john:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf204/cache/npnf204.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "athanasius-npnf204:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/schaff/npnf210/cache/npnf210.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "ambrose-npnf210:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/morneve/cache/morneve.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-morning-evening:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons01/cache/sermons01.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons02/cache/sermons02.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons03/cache/sermons03.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[2]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons04/cache/sermons04.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[3]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons05/cache/sermons05.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[4]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons06/cache/sermons06.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[5]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons07/cache/sermons07.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[6]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons08/cache/sermons08.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[7]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons09/cache/sermons09.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[8]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons10/cache/sermons10.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[9]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons11/cache/sermons11.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[10]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons12/cache/sermons12.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[11]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons13/cache/sermons13.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[12]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons14/cache/sermons14.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[13]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons15/cache/sermons15.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[14]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons16/cache/sermons16.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[15]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons17/cache/sermons17.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[16]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons18/cache/sermons18.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[17]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons19/cache/sermons19.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[18]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons20/cache/sermons20.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[19]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons21/cache/sermons21.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[20]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons22/cache/sermons22.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[21]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons23/cache/sermons23.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[22]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons24/cache/sermons24.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[23]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons25/cache/sermons25.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[24]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons26/cache/sermons26.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[25]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons27/cache/sermons27.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[26]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons28/cache/sermons28.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[27]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons29/cache/sermons29.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[28]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons30/cache/sermons30.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[29]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons31/cache/sermons31.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[30]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons32/cache/sermons32.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[31]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons33/cache/sermons33.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[32]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons34/cache/sermons34.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[33]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons35/cache/sermons35.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[34]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons36/cache/sermons36.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[35]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons37/cache/sermons37.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[36]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons38/cache/sermons38.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[37]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons39/cache/sermons39.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[38]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons40/cache/sermons40.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[39]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons41/cache/sermons41.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[40]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons42/cache/sermons42.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[41]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons43/cache/sermons43.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[42]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons44/cache/sermons44.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[43]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons45/cache/sermons45.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[44]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons46/cache/sermons46.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[45]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons47/cache/sermons47.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[46]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons48/cache/sermons48.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[47]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons49/cache/sermons49.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[48]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons50/cache/sermons50.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[49]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons51/cache/sermons51.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[50]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons52/cache/sermons52.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[51]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons53/cache/sermons53.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[52]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons54/cache/sermons54.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[53]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons55/cache/sermons55.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[54]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons56/cache/sermons56.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[55]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons57/cache/sermons57.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[56]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons58/cache/sermons58.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[57]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons59/cache/sermons59.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[58]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons60/cache/sermons60.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[59]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons61/cache/sermons61.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[60]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons62/cache/sermons62.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[61]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/s/spurgeon/sermons63/cache/sermons63.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:rawUrls[62]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/anf01",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "irenaeus-against-heresies:proofUrl",
+        "irenaeus-against-heresies:sourcePage",
+        "justin-martyr-apologies:proofUrl",
+        "justin-martyr-apologies:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf101",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-confessions:proofUrl",
+        "augustine-confessions:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf102",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-city-of-god:proofUrl",
+        "augustine-city-of-god:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf107",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-tractates-john:proofUrl",
+        "augustine-tractates-john:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf108",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-psalms:proofUrl",
+        "augustine-psalms:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf110",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "chrysostom-matthew:proofUrl",
+        "chrysostom-matthew:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf111",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "chrysostom-romans:proofUrl",
+        "chrysostom-romans:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf114",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "chrysostom-john:proofUrl",
+        "chrysostom-john:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf204",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "athanasius-npnf204:proofUrl",
+        "athanasius-npnf204:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/schaff/npnf210",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "ambrose-npnf210:proofUrl",
+        "ambrose-npnf210:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/spurgeon/morneve",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-morning-evening:proofUrl",
+        "spurgeon-morning-evening:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/spurgeon/sermons01",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-sermons:proofUrl",
+        "spurgeon-sermons:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/w/watson/divinity/cache/divinity.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "watson-body-of-divinity:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/w/wesley/notes/cache/notes.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "wesley-notes-nt:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/w/wesley/sermons/cache/sermons.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "wesley-sermons:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/watson/divinity",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "watson-body-of-divinity:proofUrl",
+        "watson-body-of-divinity:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/wesley/notes",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "wesley-notes-nt:proofUrl",
+        "wesley-notes-nt:sourcePage"
+      ]
+    },
+    {
+      "url": "https://ccel.org/ccel/wesley/sermons",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "wesley-sermons:proofUrl",
+        "wesley-sermons:sourcePage"
+      ]
+    },
+    {
+      "url": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/belgic_confession_of_faith.json",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy policy (403 body from the proxy, not the site)",
+      "usedBy": [
+        "belgic-confession:sourcePage"
+      ]
+    },
+    {
+      "url": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/canons_of_dort.json",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy policy (403 body from the proxy, not the site)",
+      "usedBy": [
+        "canons-of-dort:sourcePage"
+      ]
+    },
+    {
+      "url": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/heidelberg_catechism.json",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy policy (403 body from the proxy, not the site)",
+      "usedBy": [
+        "heidelberg-catechism:sourcePage"
+      ]
+    },
+    {
+      "url": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/westminster_confession_of_faith.json",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy policy (403 body from the proxy, not the site)",
+      "usedBy": [
+        "westminster-confession:sourcePage"
+      ]
+    },
+    {
+      "url": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/westminster_larger_catechism.json",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy policy (403 body from the proxy, not the site)",
+      "usedBy": [
+        "westminster-larger-catechism:sourcePage"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json",
+      "kind": "ok",
+      "status": 200,
+      "usedBy": [
+        "belgic-confession:lock.fetchedFrom",
+        "belgic-confession:lock.url",
+        "belgic-confession:proofUrl",
+        "belgic-confession:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/canons_of_dort.json",
+      "kind": "ok",
+      "status": 200,
+      "usedBy": [
+        "canons-of-dort:lock.fetchedFrom",
+        "canons-of-dort:lock.url",
+        "canons-of-dort:proofUrl",
+        "canons-of-dort:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/heidelberg_catechism.json",
+      "kind": "ok",
+      "status": 200,
+      "usedBy": [
+        "heidelberg-catechism:lock.fetchedFrom",
+        "heidelberg-catechism:lock.url",
+        "heidelberg-catechism:proofUrl",
+        "heidelberg-catechism:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json",
+      "kind": "ok",
+      "status": 200,
+      "usedBy": [
+        "westminster-confession:lock.fetchedFrom",
+        "westminster-confession:lock.url",
+        "westminster-confession:proofUrl",
+        "westminster-confession:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json",
+      "kind": "ok",
+      "status": 200,
+      "usedBy": [
+        "westminster-larger-catechism:lock.fetchedFrom",
+        "westminster-larger-catechism:lock.url",
+        "westminster-larger-catechism:proofUrl",
+        "westminster-larger-catechism:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/sources/extras/cross_references.txt",
+      "kind": "ok",
+      "status": 200,
+      "usedBy": [
+        "openbible:lock.fetchedFrom",
+        "openbible:mirrors[0]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:proofUrl",
+        "clarke-commentary:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/vol1.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/vol2.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/vol3.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:rawUrls[2]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/vol4.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:rawUrls[3]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/vol5.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:rawUrls[4]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/c/clarke/commentary/vol6.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "clarke-commentary:rawUrls[5]"
+      ]
+    },
+    {
+      "url": "https://www.ccel.org/m/machen/liberalism/home.html",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "machen-christianity-liberalism:proofUrl",
+        "machen-christianity-liberalism:rawUrls[0]",
+        "machen-christianity-liberalism:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/131/pg131.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "bunyan-pilgrims-progress:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/14780/pg14780.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "paley-evidences:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/1549/pg1549.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-galatians:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/18269/pg18269.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "pascal-pensees:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/654/pg654.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "bunyan-grace-abounding:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/79723/pg79723.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-treasury-of-david:rawUrls[0]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/cache/epub/79727/pg79727.txt",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-treasury-of-david:rawUrls[1]"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/131",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "bunyan-pilgrims-progress:proofUrl",
+        "bunyan-pilgrims-progress:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/14780",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "paley-evidences:proofUrl",
+        "paley-evidences:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/1549",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "luther-galatians:proofUrl",
+        "luther-galatians:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/18269",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "pascal-pensees:proofUrl",
+        "pascal-pensees:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/3296",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-confessions:alternateSources"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/45304",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-city-of-god:alternateSources"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/45305",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "augustine-city-of-god:alternateSources"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/654",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "bunyan-grace-abounding:proofUrl",
+        "bunyan-grace-abounding:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/79723",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "spurgeon-treasury-of-david:proofUrl",
+        "spurgeon-treasury-of-david:sourcePage"
+      ]
+    },
+    {
+      "url": "https://www.openbible.info/labs/cross-references/",
+      "kind": "blocked",
+      "status": 403,
+      "detail": "sandbox proxy refused CONNECT (403)",
+      "usedBy": [
+        "openbible:proofUrl",
+        "openbible:sourcePage"
+      ]
+    }
+  ]
+}

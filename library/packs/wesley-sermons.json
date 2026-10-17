@@ -1,0 +1,37 @@
+{
+  "id": "wesley-sermons",
+  "author": "John Wesley",
+  "title": "Sermons on Several Occasions",
+  "edition": "CCEL text",
+  "era": "puritan18c",
+  "types": [
+    "sermon"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/w/wesley/sermons/cache/sermons.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/wesley/sermons",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/wesley/sermons",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "layout": "ccel",
+    "mappingMethod": "sermonText",
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^(?:SERMON|Sermon) (\\d+|[IVXLC]+)\\.?\\b.{0,100}$",
+        "level": "unit",
+        "label": "Sermon $1",
+        "refFromLine": true,
+        "refLookahead": 6
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

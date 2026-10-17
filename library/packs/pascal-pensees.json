@@ -1,0 +1,37 @@
+{
+  "id": "pascal-pensees",
+  "author": "Blaise Pascal",
+  "title": "Pensées",
+  "edition": "Gutenberg eBook #18269, trans. W. F. Trotter",
+  "era": "puritan18c",
+  "types": [
+    "apologetics"
+  ],
+  "rawUrls": [
+    "https://www.gutenberg.org/cache/epub/18269/pg18269.txt"
+  ],
+  "sourcePage": "https://www.gutenberg.org/ebooks/18269",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.gutenberg.org/ebooks/18269",
+    "proofText": "Public domain in the USA",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

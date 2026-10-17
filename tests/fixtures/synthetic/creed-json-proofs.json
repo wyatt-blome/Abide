@@ -1,0 +1,29 @@
+{
+  "Metadata": {
+    "Title": "SYNTHETIC FIXTURE: structural placeholder text, not a real source",
+    "SourceAttribution": "Public Domain"
+  },
+  "Data": [
+    {
+      "Number": 1,
+      "Question": "Lorem ipsum dolor sit amet?",
+      "Answer": "Consectetur adipiscing elit, sed do eiusmod tempor. Ut enim ad minim veniam.",
+      "Proofs": [
+        { "Id": 1, "References": ["Rom.8.28", "Ps.23"] },
+        { "Id": 2, "References": ["1Cor.6.19,1Cor.6.20"] }
+      ]
+    },
+    {
+      "Number": 2,
+      "Question": "Quis nostrud \"exercitation\" ullamco?",
+      "Answer": "Laboris nisi ut aliquip ex ea commodo consequat.",
+      "Proofs": [{ "Id": 1, "References": ["Rom.8.99", "Xyz.1.1"] }]
+    },
+    {
+      "Number": 3,
+      "Question": "Duis aute irure?",
+      "Answer": "Dolor in reprehenderit.",
+      "Proofs": []
+    }
+  ]
+}

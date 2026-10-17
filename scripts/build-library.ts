@@ -109,6 +109,16 @@ function discoverLinks(m: Manifest, homeHtml: string): string[] {
   return out;
 }
 
+/**
+ * The copy of an excerpt stored in book B's shard lists only the verseRanges that touch B (an
+ * excerpt citing 30 proof texts in 20 books would otherwise be stored 20 times with all 30).
+ * The union over shards is the full mapping; text, id and verification fields are identical.
+ */
+function forShard(ex: LibraryExcerpt, book: string): LibraryExcerpt {
+  const rs = ex.verseRanges.filter((r) => booksOfRange(r).includes(book));
+  return rs.length === ex.verseRanges.length ? ex : { ...ex, verseRanges: rs };
+}
+
 function urlFor(m: Manifest, anchor?: string): string {
   if (!m.urlTemplate) return m.sourcePage;
   if (m.urlTemplate.includes("{anchor}") && !anchor) return m.sourcePage;
@@ -287,7 +297,7 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
       for (const [b, list] of [...books.entries()].sort((a, c) => bookIndex(a[0]) - bookIndex(c[0]))) {
         const body = parser.kind === "crossrefs"
           ? ({ workId: m.id, book: b, crossrefs: list as CrossRef[] } satisfies CrossRefShard)
-          : ({ workId: m.id, book: b, excerpts: list as LibraryExcerpt[] } satisfies ExcerptShard);
+          : ({ workId: m.id, book: b, excerpts: (list as LibraryExcerpt[]).map((ex) => forShard(ex, b)) } satisfies ExcerptShard);
         const json = JSON.stringify(body);
         shard.set(b, json);
         size += Buffer.byteLength(json);

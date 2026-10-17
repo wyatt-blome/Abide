@@ -1,0 +1,31 @@
+{
+  "id": "westminster-confession",
+  "author": "Westminster Assembly",
+  "title": "Westminster Confession of Faith",
+  "edition": "Creeds.json (SourceUrl: archive.org humbleadviceofas00west, 1647)",
+  "era": "puritan18c",
+  "types": [
+    "confession"
+  ],
+  "rawUrls": [
+    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json"
+  ],
+  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/westminster_confession_of_faith.json",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_confession_of_faith.json",
+    "proofText": "\"SourceAttribution\": \"Public Domain\"",
+    "basis": "rights-statement"
+  },
+  "parser": "creed-json-proofs",
+  "parserOptions": {
+    "mode": "proofs",
+    "nested": "Sections",
+    "textFields": [
+      "Content"
+    ],
+    "locator": "Chapter {parent.Chapter}, Section {Section}"
+  },
+  "defaultEnabled": true,
+  "largePack": false
+}

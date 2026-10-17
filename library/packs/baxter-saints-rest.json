@@ -1,0 +1,38 @@
+{
+  "id": "baxter-saints-rest",
+  "author": "Richard Baxter",
+  "title": "The Saints' Everlasting Rest",
+  "edition": "CCEL text",
+  "era": "puritan18c",
+  "types": [
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/b/baxter/saints_rest/cache/saints_rest.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/baxter/saints_rest",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/baxter/saints_rest",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

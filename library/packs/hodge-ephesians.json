@@ -1,0 +1,47 @@
+{
+  "id": "hodge-ephesians",
+  "author": "Charles Hodge",
+  "title": "Commentary on the Epistle to the Ephesians",
+  "edition": "CCEL text",
+  "era": "c19",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/h/hodge/ephesians/cache/ephesians.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/hodge/ephesians",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/hodge/ephesians",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "verse-commentary",
+  "parserOptions": {
+    "layout": "ccel",
+    "locatorFromRange": true,
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^CHAPTER ([IVX]+)\\.?$",
+        "level": "chapter",
+        "label": "ch. $1",
+        "flags": "i"
+      },
+      {
+        "pattern": "^(?:Ver(?:se)?\\.?|VERSE|VERS\\.) (\\d+)(?:\\s*[-–]\\s*(\\d+))?\\.",
+        "level": "verse",
+        "verseEnd": "$2",
+        "paragraphStart": true
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "bookScope": [
+    [
+      "EPH"
+    ]
+  ]
+}

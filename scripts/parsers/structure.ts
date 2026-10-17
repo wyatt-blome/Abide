@@ -7,6 +7,7 @@
 // Matt. iv. 23", "PSALM XXIII", "VERSE 20.", "Chapter 8", "28. And we know ..."). Nothing is
 // guessed from content.
 import type { VerseRange } from "../../src/db/types";
+import { BOOK_BY_CODE } from "../../src/lib/books";
 import { bookRange, chapterCount, chapterRange, fmtRange, rangeProblem, shortBook } from "../lib/bible-meta";
 import { ccelBodyRange } from "../lib/ccel";
 import { bookFromName, findCitations, parseNumber } from "../lib/citations";
@@ -191,6 +192,8 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
   const snapshot = (): State => ({ ...st, ranges: [...st.ranges], labels: { ...st.labels } });
   const locatorOf = (s: State): string => {
     const l = s.labels;
+    // book intro: "Romans, Introduction" (the label comes from the rule, default "Introduction")
+    if (s.intro && s.book) return [l.unit, BOOK_BY_CODE[s.book]?.name ?? s.book, l.book ?? "Introduction"].filter(Boolean).join(", ");
     if (opts.locatorFromRange && s.ranges.length) {
       const r = fmtRange(meta, s.ranges[0]);
       return [opts.keepUnitInLocator ? l.unit : undefined, r, l.sub].filter(Boolean).join(", ");
@@ -298,7 +301,7 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
       st.chapter = c;
       const ce = num(rule.chapterEnd) ?? c;
       st.intro = false;
-      st.labels = { ...st.labels, chapter: rule.label ? fill(rule.label, m, { chapter: c, book: shortBook(st.book) }) : undefined, verse: undefined, sub: undefined };
+      st.labels = { ...st.labels, book: undefined, chapter: rule.label ? fill(rule.label, m, { chapter: c, book: shortBook(st.book) }) : undefined, verse: undefined, sub: undefined };
       st.ranges = [chapterRange(meta, st.book, c, ce)];
       return validateState(lineText);
     }

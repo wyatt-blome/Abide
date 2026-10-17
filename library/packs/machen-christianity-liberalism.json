@@ -1,0 +1,35 @@
+{
+  "id": "machen-christianity-liberalism",
+  "author": "J. Gresham Machen",
+  "title": "Christianity and Liberalism",
+  "edition": "1923 (CCEL HTML)",
+  "era": "c20early",
+  "types": [
+    "apologetics",
+    "theology"
+  ],
+  "rawUrls": [
+    "https://www.ccel.org/m/machen/liberalism/home.html"
+  ],
+  "sourcePage": "https://www.ccel.org/m/machen/liberalism/home.html",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://www.ccel.org/m/machen/liberalism/home.html",
+    "proofText": "Machen",
+    "basis": "published-before-1931",
+    "yearPattern": "\\b(19[0-2]\\d)\\b"
+  },
+  "parser": "html-chapters",
+  "parserOptions": {
+    "discoverLinks": "\\.html",
+    "headings": [
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVX]+|\\d+)\\.?(.{0,80})$",
+        "level": "unit",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

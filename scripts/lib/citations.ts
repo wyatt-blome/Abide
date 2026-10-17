@@ -189,7 +189,6 @@ function readVerse(s: string, p: number): Num | null {
 
 interface Group { chapter: number; chapterEnd?: number; verses?: [number, number][]; crossEnd?: { chapter: number; verse: number } }
 
-const SP = /^[  ]?/;
 function skip(s: string, p: number, re: RegExp): number {
   const m = re.exec(s.slice(p, p + 16));
   return m ? p + m[0].length : -1;
@@ -327,7 +326,7 @@ function groupsToRanges(meta: BibleMeta, code: string, groups: Group[], problems
   return out;
 }
 
-const RELATIVE_RE = /(?<![\p{L}])(?:[Vv]er(?:s(?:es?)?)?\.?|[Vv]v\.|VER(?:SES?)?\.?)[  ]?(?<v1>\d{1,3})(?![\d:])(?:[  ]?[-–][  ]?(?<v2>\d{1,3})(?![\d]))?/gu;
+const RELATIVE_RE = /(?<![\p{L}])(?:[Vv]er(?:s(?:es?)?)?\.?|[Vv]v\.|VER(?:SES?)?\.?)[  ]?(?<v1>\d{1,3})(?!\d)(?!:\d)(?:[  ]?[-–][  ]?(?<v2>\d{1,3})(?![\d]))?/gu;
 
 /**
  * Find every citation in `text`. Each result lists the valid ranges and the problems that caused

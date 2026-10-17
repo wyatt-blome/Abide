@@ -1,0 +1,40 @@
+{
+  "id": "hodge-systematic-theology",
+  "author": "Charles Hodge",
+  "title": "Systematic Theology",
+  "edition": "CCEL text, vols. I–III",
+  "era": "c19",
+  "types": [
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/h/hodge/theology1/cache/theology1.txt",
+    "https://ccel.org/ccel/h/hodge/theology2/cache/theology2.txt",
+    "https://ccel.org/ccel/h/hodge/theology3/cache/theology3.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/hodge/theology1",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/hodge/theology1",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "headings": [
+      {
+        "pattern": "^(?:PART|Part) ([IVX]+)\\.?",
+        "level": "unit",
+        "label": "Part $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+)\\.?",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

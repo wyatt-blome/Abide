@@ -1,0 +1,55 @@
+{
+  "id": "augustine-tractates-john",
+  "author": "Augustine of Hippo",
+  "title": "Tractates on the Gospel of John",
+  "edition": "NPNF1-07, trans. John Gibb and James Innes (CCEL text)",
+  "era": "early",
+  "types": [
+    "commentary",
+    "sermon"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf107/cache/npnf107.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf107",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf107",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "heading-range",
+  "parserOptions": {
+    "layout": "ccel",
+    "mappingMethod": "heading",
+    "sectionMaxChars": 6000,
+    "headings": [
+      {
+        "pattern": "^Tractate ([IVXLC]+)\\.?$",
+        "level": "unit",
+        "label": "Tractate $1",
+        "book": "JHN"
+      },
+      {
+        "pattern": "^Chapter ([IVXLC]+)\\.\\s*(\\d+)(?:\\s*[-–]\\s*(\\d+))?\\.?$",
+        "level": "verse",
+        "chapter": "$1",
+        "verse": "$2",
+        "verseEnd": "$3"
+      },
+      {
+        "pattern": "^Homily ([IVXLC]+)\\.(.*)$",
+        "level": "unit",
+        "label": "Homily $1 on 1 John",
+        "refFromLine": true,
+        "refLookahead": 2
+      },
+      {
+        "pattern": "^(?:The )?Soliloquies",
+        "level": "skip"
+      }
+    ]
+  },
+  "defaultEnabled": true,
+  "largePack": false
+}

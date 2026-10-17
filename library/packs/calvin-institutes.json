@@ -1,0 +1,38 @@
+{
+  "id": "calvin-institutes",
+  "author": "John Calvin",
+  "title": "Institutes of the Christian Religion",
+  "edition": "trans. Henry Beveridge (CCEL text)",
+  "era": "medievalReformation",
+  "types": [
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/c/calvin/institutes/cache/institutes.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/calvin/institutes",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/calvin/institutes",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) (FIRST|SECOND|THIRD|FOURTH|First|Second|Third|Fourth)\\.?",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) (\\d+|[IVXLC]+)\\.",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

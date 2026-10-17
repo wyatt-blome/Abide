@@ -1,0 +1,32 @@
+{
+  "id": "openbible",
+  "author": "OpenBible.info",
+  "title": "Cross References",
+  "edition": "OpenBible.info cross-reference data",
+  "era": "modern",
+  "types": [
+    "crossref"
+  ],
+  "rawUrls": [
+    "https://a.openbible.info/data/cross-references.zip"
+  ],
+  "mirrors": [
+    [
+      "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/sources/extras/cross_references.txt"
+    ]
+  ],
+  "sourcePage": "https://www.openbible.info/labs/cross-references/",
+  "license": {
+    "status": "CC-BY",
+    "proofUrl": "https://www.openbible.info/labs/cross-references/",
+    "proofText": "CC-BY",
+    "basis": "cc-by"
+  },
+  "parser": "openbible-crossrefs",
+  "parserOptions": {
+    "minVotes": 3,
+    "maxPerVerse": 5
+  },
+  "defaultEnabled": true,
+  "largePack": false
+}

@@ -1,0 +1,16 @@
+{
+  "Metadata": {
+    "Title": "SYNTHETIC FIXTURE: structural placeholder text, not a real source",
+    "SourceAttribution": "Public Domain"
+  },
+  "Data": [
+    {
+      "Chapter": "1",
+      "Title": "Lorem",
+      "Sections": [
+        { "Section": "A1", "Content": "Lorem ipsum dolor sit amet \"consectetur\" (Rom. 3:19). Sed do eiusmod tempor." },
+        { "Section": "R1", "Content": "Ut enim ad minim veniam, quis nostrud exercitation." }
+      ]
+    }
+  ]
+}

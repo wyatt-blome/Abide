@@ -151,3 +151,49 @@ Built by `npm run build:bible` (`scripts/build-bible.ts`, helpers in `scripts/bi
 - **Dexie database name** is a fixed constant (not derived from APP_NAME) so a rename does not orphan on-device data.
 - **Reference parsing without meta** uses the sentinel 999 for "end of chapter/book" (`refs.END`), resolved by `clampRange(meta, r)`;
   with meta the parser validates and resolves ranges itself.
+
+## Context Library
+- **Verbatim definition.** An excerpt is valid iff `normalizeWs(source).startsWith(text, charOffset)`, where
+  `normalizeWs` only joins line-wrap hyphenation before a lowercase letter (`exam-\nple` → `example`) and collapses
+  whitespace runs to one space (`scripts/lib/normalize.ts`). `charOffset` is a UTF-16 index into that normalized text of
+  raw file `rawIndex`. Build and verifier share `scripts/lib/verify-core.ts`; the build self-checks before writing.
+- **JSON sources (Creeds.json).** Offsets into the JSON file text are meaningless because of escapes, so excerpts carry
+  `sourcePaths` (`Data.0.Question`, `Data.0.Answer`) and `partOffsets`; the verifier decodes the JSON and checks each
+  part against `normalizeWs(field value)`. Q&A text = Question and Answer joined by `\n` (normalized values never
+  contain a newline). The plain `Answer`/`Content` fields are used, not the `…WithProofs` variants with `[1]` markers.
+- **HTML sources (Machen).** Source text = `htmlToText(raw)`: markup and comments removed, entities decoded, words
+  untouched; excerpts carry `sourceTransform: "html-text"`.
+- **Creeds.json license.** Each file's `Metadata.SourceAttribution` is `"Public Domain"`; `proofText` is the exact
+  string `"SourceAttribution": "Public Domain"` as it appears in the raw file. (The repo README notes that some *other*
+  creeds in that repo are copyrighted; none of those are used.)
+- **Belgic Confession and Canons of Dort** have no proof-text fields but print citations inline ("(Rom. 3:19)"), so they
+  are indexed by those citations (`mode: "inline"`), not listed-only. Not default-on.
+- **Excerpt length.** ≤ 1,500 chars, cut at the original's sentence boundaries (abbreviations, roman numerals after a
+  book abbreviation, and "ver. 5" are not boundaries). A single sentence longer than the limit is cut at a space and
+  flagged. Full sections (`fullSection: true`, ≤ 12,000 chars or the pack's `sectionMaxChars`) back "Read full section"
+  via `sectionId`; Henry uses 3,000 to stay inside the default-on budget.
+- **Shard ranges.** An excerpt citing proofs in many books is stored in each book's shard, but each copy lists only the
+  `verseRanges` that touch that book (WLC shrank from 6.2 MB to 2.1 MB). Text, id and hash are identical across copies;
+  the verifier checks copies agree.
+- **Stable ids.** `{packId}:{hash8}` with hash8 = sha256 of `rawIndex|sourcePaths|charOffset|length|section flag`, so
+  ids survive rebuilds of an unchanged source. `verbatimHash` = sha256(text) hex.
+- **OpenBible budget.** Rows with ≥ 3 votes, at most the 5 highest-voted per "from" verse (99,573 rows, 26,194 verses,
+  12.2 MB). All rows ≥ 3 votes would be 24.9 MB, half the default-on budget before Henry is added.
+  Shards sorted by votes desc. The zip primary is unpacked to its `.txt` (`scripts/lib/source-text.ts`).
+- **Unreachable vs. rejected.** Network failure → pack skipped (exit 0, warning; `--strict` → exit 1). License proof not
+  found in the fetched files/proof page, or no pre-1931 year for `published-before-1931` → pack rejected, exit 1 after
+  the other packs are processed. If the proof page itself is unreachable the pack is skipped, not rejected.
+- **`published-before-1931` proofText** identifies the edition (e.g. "Machen"); the license evidence is the year < 1931
+  found in the source header (CCEL "Print Basis", "Copyright, 1923", imprint lines, or the pack's `yearPattern`).
+- **Multi-author volumes** (ANF 1 → Justin Martyr, Irenaeus): one pack per author with `bodyStart`/`bodyEnd`; when given
+  these must be found or parsing fails, so text is never attributed to the wrong author.
+- **Calvin volume map.** Only calcom08 → Psalms and calcom38 → Romans are fixed; other volumes are mapped at build time
+  from https://ccel.org/ccel/calvin, and volumes still unmapped are skipped (logged).
+- **Augustine's Psalms numbering** is taken from the NPNF headings as printed; the manifest notes to confirm on the first
+  real build that they use the English numbering.
+- **Node + proxy.** Downloads spawn `curl` (honours `HTTPS_PROXY` and the CA bundle); without curl, undici's
+  `EnvHttpProxyAgent`, then plain `fetch`. `check-links` classifies proxy refusals (403 on CONNECT, or the proxy's own
+  403 JSON body for github.com pages) as "blocked", separate from real 404s.
+- **Lint guard** (`tests/lint-guard.test.ts`): no literal > 160 chars in `src/` or `content/`; `content/` literals must
+  look like a URL, id/slug, book code/verse key, reference, setting token or short title (≤ 80 chars, ≤ 12 words, no
+  sentence punctuation or quotation marks).

@@ -1,0 +1,58 @@
+# library build 2026-10-17T17:31:08.900Z
+- ambrose-npnf210: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf210/cache/npnf210.txt (blocked by network proxy (HTTP 403))
+- athanasius-npnf204: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf204/cache/npnf204.txt (blocked by network proxy (HTTP 403))
+- augustine-city-of-god: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf102/cache/npnf102.txt (blocked by network proxy (HTTP 403))
+- augustine-confessions: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf101/cache/npnf101.txt (blocked by network proxy (HTTP 403))
+- augustine-psalms: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf108/cache/npnf108.txt (blocked by network proxy (HTTP 403))
+- augustine-tractates-john: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf107/cache/npnf107.txt (blocked by network proxy (HTTP 403))
+- barnes-nt-notes: skipped (largePack; use --include-large)
+- baxter-reformed-pastor: skipped — source unreachable: https://ccel.org/ccel/b/baxter/pastor/cache/pastor.txt (blocked by network proxy (HTTP 403))
+- baxter-saints-rest: skipped — source unreachable: https://ccel.org/ccel/b/baxter/saints_rest/cache/saints_rest.txt (blocked by network proxy (HTTP 403))
+✓ belgic-confession: 41 excerpts (+10 full sections), 25 books, 276 KiB
+- bunyan-grace-abounding: skipped — source unreachable: https://www.gutenberg.org/cache/epub/654/pg654.txt (blocked by network proxy (HTTP 403))
+- bunyan-pilgrims-progress: skipped — source unreachable: https://www.gutenberg.org/cache/epub/131/pg131.txt (blocked by network proxy (HTTP 403))
+- butler-analogy: skipped — source unreachable: https://ccel.org/ccel/b/butler/analogy/cache/analogy.txt (blocked by network proxy (HTTP 403))
+[calvin-commentaries] volume map source unreachable (blocked by proxy (403 on CONNECT): https://ccel.org/ccel/calvin); volumes without a known map are skipped
+[calvin-commentaries] 43 volume(s) without a book map skipped: https://ccel.org/ccel/c/calvin/calcom01/cache/calcom01.txt, https://ccel.org/ccel/c/calvin/calcom02/cache/calcom02.txt, https://ccel.org/ccel/c/calvin/calcom03/cache/calcom03.txt, https://ccel.org/ccel/c/calvin/calcom04/cache/calcom04.txt, https://ccel.org/ccel/c/calvin/calcom05/cache/calcom05.txt, https://ccel.org/ccel/c/calvin/calcom06/cache/calcom06.txt, https://ccel.org/ccel/c/calvin/calcom07/cache/calcom07.txt, https://ccel.org/ccel/c/calvin/calcom09/cache/calcom09.txt, https://ccel.org/ccel/c/calvin/calcom10/cache/calcom10.txt, https://ccel.org/ccel/c/calvin/calcom11/cache/calcom11.txt, https://ccel.org/ccel/c/calvin/calcom12/cache/calcom12.txt, https://ccel.org/ccel/c/calvin/calcom13/cache/calcom13.txt, https://ccel.org/ccel/c/calvin/calcom14/cache/calcom14.txt, https://ccel.org/ccel/c/calvin/calcom15/cache/calcom15.txt, https://ccel.org/ccel/c/calvin/calcom16/cache/calcom16.txt, https://ccel.org/ccel/c/calvin/calcom17/cache/calcom17.txt, https://ccel.org/ccel/c/calvin/calcom18/cache/calcom18.txt, https://ccel.org/ccel/c/calvin/calcom19/cache/calcom19.txt, https://ccel.org/ccel/c/calvin/calcom20/cache/calcom20.txt, https://ccel.org/ccel/c/calvin/calcom21/cache/calcom21.txt, https://ccel.org/ccel/c/calvin/calcom22/cache/calcom22.txt, https://ccel.org/ccel/c/calvin/calcom23/cache/calcom23.txt, https://ccel.org/ccel/c/calvin/calcom24/cache/calcom24.txt, https://ccel.org/ccel/c/calvin/calcom25/cache/calcom25.txt, https://ccel.org/ccel/c/calvin/calcom26/cache/calcom26.txt, https://ccel.org/ccel/c/calvin/calcom27/cache/calcom27.txt, https://ccel.org/ccel/c/calvin/calcom28/cache/calcom28.txt, https://ccel.org/ccel/c/calvin/calcom29/cache/calcom29.txt, https://ccel.org/ccel/c/calvin/calcom30/cache/calcom30.txt, https://ccel.org/ccel/c/calvin/calcom31/cache/calcom31.txt, https://ccel.org/ccel/c/calvin/calcom32/cache/calcom32.txt, https://ccel.org/ccel/c/calvin/calcom33/cache/calcom33.txt, https://ccel.org/ccel/c/calvin/calcom34/cache/calcom34.txt, https://ccel.org/ccel/c/calvin/calcom35/cache/calcom35.txt, https://ccel.org/ccel/c/calvin/calcom36/cache/calcom36.txt, https://ccel.org/ccel/c/calvin/calcom37/cache/calcom37.txt, https://ccel.org/ccel/c/calvin/calcom39/cache/calcom39.txt, https://ccel.org/ccel/c/calvin/calcom40/cache/calcom40.txt, https://ccel.org/ccel/c/calvin/calcom41/cache/calcom41.txt, https://ccel.org/ccel/c/calvin/calcom42/cache/calcom42.txt, https://ccel.org/ccel/c/calvin/calcom43/cache/calcom43.txt, https://ccel.org/ccel/c/calvin/calcom44/cache/calcom44.txt, https://ccel.org/ccel/c/calvin/calcom45/cache/calcom45.txt
+- calvin-commentaries: skipped — source unreachable: https://ccel.org/ccel/c/calvin/calcom08/cache/calcom08.txt (blocked by network proxy (HTTP 403))
+- calvin-institutes: skipped — source unreachable: https://ccel.org/ccel/c/calvin/institutes/cache/institutes.txt (blocked by network proxy (HTTP 403))
+[canons-of-dort] Head 1, Article 1: "verse 23" relative verse reference without a heading context
+✓ canons-of-dort: 46 excerpts (+1 full sections), 21 books, 125 KiB
+- chrysostom-john: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf114/cache/npnf114.txt (blocked by network proxy (HTTP 403))
+- chrysostom-matthew: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf110/cache/npnf110.txt (blocked by network proxy (HTTP 403))
+- chrysostom-romans: skipped — source unreachable: https://ccel.org/ccel/s/schaff/npnf111/cache/npnf111.txt (blocked by network proxy (HTTP 403))
+- clarke-commentary: skipped (largePack; use --include-large)
+- edwards-works-1: skipped — source unreachable: https://ccel.org/ccel/e/edwards/works1/cache/works1.txt (blocked by network proxy (HTTP 403))
+- gill-exposition: skipped (largePack; use --include-large)
+✓ heidelberg-catechism: 127 excerpts (+1 full sections), 49 books, 674 KiB
+- henry-commentary: skipped — source unreachable: https://ccel.org/ccel/h/henry/mhc1/cache/mhc1.txt (blocked by network proxy (HTTP 403))
+- hodge-ephesians: skipped — source unreachable: https://ccel.org/ccel/h/hodge/ephesians/cache/ephesians.txt (blocked by network proxy (HTTP 403))
+- hodge-systematic-theology: skipped — source unreachable: https://ccel.org/ccel/h/hodge/theology1/cache/theology1.txt (blocked by network proxy (HTTP 403))
+- irenaeus-against-heresies: skipped — source unreachable: https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt (blocked by network proxy (HTTP 403))
+- jfb-commentary: skipped (largePack; use --include-large)
+- justin-martyr-apologies: skipped — source unreachable: https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt (blocked by network proxy (HTTP 403))
+- luther-galatians: skipped — source unreachable: https://www.gutenberg.org/cache/epub/1549/pg1549.txt (blocked by network proxy (HTTP 403))
+- luther-large-catechism: skipped — source unreachable: https://ccel.org/ccel/l/luther/largecatechism/cache/largecatechism.txt (blocked by network proxy (HTTP 403))
+- luther-preface-romans: skipped — source unreachable: https://ccel.org/ccel/l/luther/prefacetoromans/cache/prefacetoromans.txt (blocked by network proxy (HTTP 403))
+- luther-small-catechism: skipped — source unreachable: https://ccel.org/ccel/l/luther/smallcat/cache/smallcat.txt (blocked by network proxy (HTTP 403))
+- luther-table-talk: skipped — source unreachable: https://ccel.org/ccel/l/luther/tabletalk/cache/tabletalk.txt (blocked by network proxy (HTTP 403))
+- machen-christianity-liberalism: skipped — source unreachable: https://www.ccel.org/m/machen/liberalism/home.html (blocked by network proxy (HTTP 403))
+- murray-abide-in-christ: skipped — source unreachable: https://archive.org/download/abideinchrist01murr/abideinchrist01murr_djvu.txt (blocked by network proxy (HTTP 403))
+- murray-school-of-prayer: skipped — source unreachable: https://ccel.org/ccel/m/murray/prayer/cache/prayer.txt (blocked by network proxy (HTTP 403))
+[openbible] 99573 cross references kept; 145491 below minVotes=3; 99732 beyond maxPerVerse=5; 3 unparseable or outside versification
+✓ openbible: 99573 cross references, 66 books, 12451 KiB
+- owen-mortification: skipped — source unreachable: https://ccel.org/ccel/o/owen/mort/cache/mort.txt (blocked by network proxy (HTTP 403))
+- paley-evidences: skipped — source unreachable: https://www.gutenberg.org/cache/epub/14780/pg14780.txt (blocked by network proxy (HTTP 403))
+- pascal-pensees: skipped — source unreachable: https://www.gutenberg.org/cache/epub/18269/pg18269.txt (blocked by network proxy (HTTP 403))
+- ryle-holiness: skipped — source unreachable: https://ccel.org/ccel/r/ryle/holiness/cache/holiness.txt (blocked by network proxy (HTTP 403))
+- ryle-matthew: skipped — source unreachable: https://ccel.org/ccel/r/ryle/matthew/cache/matthew.txt (blocked by network proxy (HTTP 403))
+- spurgeon-morning-evening: skipped — source unreachable: https://ccel.org/ccel/s/spurgeon/morneve/cache/morneve.txt (blocked by network proxy (HTTP 403))
+- spurgeon-sermons: skipped (largePack; use --include-large)
+- spurgeon-treasury-of-david: skipped — source unreachable: https://www.gutenberg.org/cache/epub/79723/pg79723.txt (blocked by network proxy (HTTP 403))
+- watson-body-of-divinity: skipped — source unreachable: https://ccel.org/ccel/w/watson/divinity/cache/divinity.txt (blocked by network proxy (HTTP 403))
+- wesley-notes-nt: skipped — source unreachable: https://ccel.org/ccel/w/wesley/notes/cache/notes.txt (blocked by network proxy (HTTP 403))
+- wesley-sermons: skipped — source unreachable: https://ccel.org/ccel/w/wesley/sermons/cache/sermons.txt (blocked by network proxy (HTTP 403))
+✓ westminster-confession: 172 excerpts (+0 full sections), 59 books, 1179 KiB
+✓ westminster-larger-catechism: 194 excerpts (+4 full sections), 61 books, 2093 KiB
+WARNING: 40 pack(s) skipped because their sources could not be fetched (see build-report.json)
+default-on total: 16.01 MB (budget < 50 MB)

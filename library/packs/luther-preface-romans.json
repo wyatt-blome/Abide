@@ -1,0 +1,28 @@
+{
+  "id": "luther-preface-romans",
+  "author": "Martin Luther",
+  "title": "Preface to the Letter of St. Paul to the Romans",
+  "edition": "CCEL text",
+  "era": "medievalReformation",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/l/luther/prefacetoromans/cache/prefacetoromans.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/luther/prefacetoromans",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/luther/prefacetoromans",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "bookIntro": "ROM",
+    "introLocator": "Preface to Romans"
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

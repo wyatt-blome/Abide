@@ -1,0 +1,46 @@
+{
+  "id": "augustine-confessions",
+  "author": "Augustine of Hippo",
+  "title": "Confessions",
+  "edition": "NPNF1-01, trans. J. G. Pilkington (CCEL text)",
+  "era": "early",
+  "types": [
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf101/cache/npnf101.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf101",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf101",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "bodyEnd": "^(?:The Letters of St\\. Augustin|LETTERS)\\.?$",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\.",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "alternateSources": [
+    {
+      "url": "https://www.gutenberg.org/ebooks/3296",
+      "note": "Pusey translation (Gutenberg)"
+    }
+  ],
+  "notes": "NPNF1-01 also contains the Letters; bodyEnd stops before them."
+}

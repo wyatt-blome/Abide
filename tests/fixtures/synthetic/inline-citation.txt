@@ -1,0 +1,19 @@
+SYNTHETIC FIXTURE: structural placeholder text, not a real source
+
+*** START OF THE PROJECT GUTENBERG EBOOK LOREM ***
+
+CHAPTER I.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam (1 Cor. xv. 22; Gal. ii. 20), quis nostrud exercitation. Duis aute
+irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+
+Lorem ipsum is 5 dolor sit amet. Job said 3 things, Mark 4 lorem, and
+the Song 2 ipsum; nothing here is a citation at all, lorem ipsum dolor.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem (Is. 53:5)
+accusantium doloremque laudantium, totam rem aperiam. Lorem ver. 7 ipsum
+dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.
+
+*** END OF THE PROJECT GUTENBERG EBOOK LOREM ***

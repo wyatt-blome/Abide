@@ -1,0 +1,139 @@
+{
+  "id": "henry-commentary",
+  "author": "Matthew Henry",
+  "title": "Commentary on the Whole Bible",
+  "edition": "CCEL text (mhc1–mhc6)",
+  "era": "puritan18c",
+  "types": [
+    "commentary"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/h/henry/mhc1/cache/mhc1.txt",
+    "https://ccel.org/ccel/h/henry/mhc2/cache/mhc2.txt",
+    "https://ccel.org/ccel/h/henry/mhc3/cache/mhc3.txt",
+    "https://ccel.org/ccel/h/henry/mhc4/cache/mhc4.txt",
+    "https://ccel.org/ccel/h/henry/mhc5/cache/mhc5.txt",
+    "https://ccel.org/ccel/h/henry/mhc6/cache/mhc6.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/henry/mhc1",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/henry/mhc1",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "verse-commentary",
+  "parserOptions": {
+    "layout": "ccel",
+    "locatorFromRange": true,
+    "sectionMaxChars": 3000,
+    "headings": [
+      {
+        "pattern": "^An Exposition,? [Ww]ith Practical Observations,? [Oo]f (.{3,120})$",
+        "level": "book",
+        "book": "$1",
+        "intro": true,
+        "label": "Introduction"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) (\\d+|[IVXLC]+)\\.?$",
+        "level": "chapter",
+        "label": "ch. $1"
+      },
+      {
+        "pattern": "^(?:PSALM|Psalm) (\\d+|[IVXLC]+)\\.?$",
+        "level": "chapter",
+        "book": "PSA",
+        "label": "Psalm $1"
+      },
+      {
+        "pattern": "^Verses? (\\d+)(?:\\s*[-–]\\s*(\\d+))?\\.?$",
+        "level": "verse",
+        "verseEnd": "$2"
+      }
+    ]
+  },
+  "defaultEnabled": true,
+  "largePack": false,
+  "bookScope": [
+    [
+      "GEN",
+      "EXO",
+      "LEV",
+      "NUM",
+      "DEU"
+    ],
+    [
+      "JOS",
+      "JDG",
+      "RUT",
+      "1SA",
+      "2SA",
+      "1KI",
+      "2KI",
+      "1CH",
+      "2CH",
+      "EZR",
+      "NEH",
+      "EST"
+    ],
+    [
+      "JOB",
+      "PSA",
+      "PRO",
+      "ECC",
+      "SNG"
+    ],
+    [
+      "ISA",
+      "JER",
+      "LAM",
+      "EZK",
+      "DAN",
+      "HOS",
+      "JOL",
+      "AMO",
+      "OBA",
+      "JON",
+      "MIC",
+      "NAM",
+      "HAB",
+      "ZEP",
+      "HAG",
+      "ZEC",
+      "MAL"
+    ],
+    [
+      "MAT",
+      "MRK",
+      "LUK",
+      "JHN"
+    ],
+    [
+      "ACT",
+      "ROM",
+      "1CO",
+      "2CO",
+      "GAL",
+      "EPH",
+      "PHP",
+      "COL",
+      "1TH",
+      "2TH",
+      "1TI",
+      "2TI",
+      "TIT",
+      "PHM",
+      "HEB",
+      "JAS",
+      "1PE",
+      "2PE",
+      "1JN",
+      "2JN",
+      "3JN",
+      "JUD",
+      "REV"
+    ]
+  ],
+  "notes": "Book intro excerpts (isBookIntro) are the verbatim opening of Henry's introduction, cut at a paragraph boundary, plus the full section."
+}

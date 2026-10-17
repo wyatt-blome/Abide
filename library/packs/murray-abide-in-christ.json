@@ -1,0 +1,35 @@
+{
+  "id": "murray-abide-in-christ",
+  "author": "Andrew Murray",
+  "title": "Abide in Christ",
+  "edition": "archive.org abideinchrist01murr (scan of the 1895 edition)",
+  "era": "c19",
+  "types": [
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://archive.org/download/abideinchrist01murr/abideinchrist01murr_djvu.txt"
+  ],
+  "sourcePage": "https://archive.org/details/abideinchrist01murr",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://archive.org/details/abideinchrist01murr",
+    "proofText": "ABIDE IN CHRIST",
+    "basis": "published-before-1931",
+    "yearPattern": "\\b(18[5-9]\\d)\\b"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "headings": [
+      {
+        "pattern": "^([A-Z][A-Z\\-' ]{2,40})\\.?$",
+        "level": "label",
+        "label": "$1"
+      }
+    ]
+  },
+  "defaultEnabled": true,
+  "largePack": false,
+  "ocr": true,
+  "ocrNote": "OCR text: may contain scanning errors"
+}

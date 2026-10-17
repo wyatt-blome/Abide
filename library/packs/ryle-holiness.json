@@ -1,0 +1,39 @@
+{
+  "id": "ryle-holiness",
+  "author": "J. C. Ryle",
+  "title": "Holiness",
+  "edition": "CCEL text",
+  "era": "c19",
+  "types": [
+    "theology",
+    "devotional"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/r/ryle/holiness/cache/holiness.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/ryle/holiness",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/ryle/holiness",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

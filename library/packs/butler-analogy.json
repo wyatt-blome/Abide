@@ -1,0 +1,38 @@
+{
+  "id": "butler-analogy",
+  "author": "Joseph Butler",
+  "title": "The Analogy of Religion",
+  "edition": "CCEL text",
+  "era": "puritan18c",
+  "types": [
+    "apologetics"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/b/butler/analogy/cache/analogy.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/butler/analogy",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/butler/analogy",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

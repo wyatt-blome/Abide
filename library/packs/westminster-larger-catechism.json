@@ -1,0 +1,31 @@
+{
+  "id": "westminster-larger-catechism",
+  "author": "Westminster Assembly",
+  "title": "Westminster Larger Catechism",
+  "edition": "Creeds.json (SourceUrl: archive.org humbleadviceofas200west, 1647)",
+  "era": "puritan18c",
+  "types": [
+    "catechism"
+  ],
+  "rawUrls": [
+    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json"
+  ],
+  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/westminster_larger_catechism.json",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json",
+    "proofText": "\"SourceAttribution\": \"Public Domain\"",
+    "basis": "rights-statement"
+  },
+  "parser": "creed-json-proofs",
+  "parserOptions": {
+    "mode": "proofs",
+    "textFields": [
+      "Question",
+      "Answer"
+    ],
+    "locator": "Q. {Number}"
+  },
+  "defaultEnabled": true,
+  "largePack": false
+}

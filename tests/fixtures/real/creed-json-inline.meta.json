@@ -1,0 +1,11 @@
+{
+  "parser": "creed-json-inline",
+  "pack": "canons-of-dort",
+  "rawIndex": 0,
+  "url": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/canons_of_dort.json",
+  "sourceSha256": "1fcda5d0ad26b856e0c7d9446fac3877d2497758a15751bdd355812b26877d9c",
+  "taken": {
+    "jsonItems": 1
+  },
+  "note": "cut by scripts/make-fixtures.ts"
+}

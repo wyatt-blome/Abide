@@ -1,0 +1,42 @@
+{
+  "id": "irenaeus-against-heresies",
+  "author": "Irenaeus of Lyons",
+  "title": "Against Heresies",
+  "edition": "ANF 1, ed. Roberts and Donaldson (CCEL text)",
+  "era": "early",
+  "types": [
+    "apologetics",
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/anf01/cache/anf01.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/anf01",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/anf01",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "bodyStart": "^Iren(?:æ|ae)us Against Heresies",
+    "bodyEnd": "^Fragments from the Lost Writings of Iren",
+    "headings": [
+      {
+        "pattern": "^Book ([IVXLC]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^Chapter ([IVXLC]+)\\.",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false,
+  "notes": "ANF 1 contains several authors; bodyStart/bodyEnd must be found or the pack fails."
+}

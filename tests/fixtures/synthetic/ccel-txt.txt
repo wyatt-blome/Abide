@@ -1,0 +1,60 @@
+                     SYNTHETIC FIXTURE: structural placeholder text, not a real source
+
+   About Lorem Ipsum by Dolor Sit
+
+   Title:          Lorem Ipsum
+   URL:            http://www.ccel.org/ccel/example/lorem.html
+   Author(s):      Dolor Sit (100-200)
+   Publisher:      Grand Rapids, MI: Christian Classics Ethereal Library
+   Print Basis:    New York: Lorem Publishing Co., 1890
+   Rights:         Public Domain
+   CCEL Subjects:  All; Classic
+     __________________________________________________________________
+
+                               Table of Contents
+
+   Book I.
+   Chapter 1.—Lorem ipsum dolor (Rom. viii. 28).
+     __________________________________________________________________
+
+Book I.
+
+Chapter 1.—Lorem ipsum dolor sit amet.
+
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+   tempor incididunt ut labore (Rom. viii. 28) et dolore magna aliqua. Ut
+   enim ad minim veniam, quis nostrud exer-
+   citation ullamco laboris nisi ut aliquip.
+
+   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+   dolore eu fugiat nulla pariatur (Gen. i. 1). Excepteur sint occaecat
+   cupidatat non proident, sunt in culpa qui officia deserunt.
+
+Chapter 2.—Sed ut perspiciatis.
+
+   Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+   accusantium doloremque laudantium (John iii. 16, 17), totam rem aperiam.
+   Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+   fugit (Ps. 151:2), sed quia consequuntur magni dolores eos.
+
+   Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, ver. 5,
+   consectetur, adipisci velit. Lorem Mark 4 ipsum dolor sit amet is 5 more.
+     __________________________________________________________________
+
+   Indexes
+
+   Index of Scripture References
+
+   Romans
+
+   [1]8:28
+
+   John
+
+   [2]3:16   [3]3:17
+
+     __________________________________________________________________
+
+References
+
+   1. http://www.ccel.org/ccel/example/lorem.html#i-p1

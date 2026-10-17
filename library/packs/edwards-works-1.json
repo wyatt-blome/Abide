@@ -1,0 +1,39 @@
+{
+  "id": "edwards-works-1",
+  "author": "Jonathan Edwards",
+  "title": "The Works of Jonathan Edwards, Vol. 1",
+  "edition": "CCEL text",
+  "era": "puritan18c",
+  "types": [
+    "theology",
+    "sermon"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/e/edwards/works1/cache/works1.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/edwards/works1",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/edwards/works1",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "inline-citation",
+  "parserOptions": {
+    "layout": "ccel",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}

@@ -1,0 +1,38 @@
+{
+  "id": "ambrose-npnf210",
+  "author": "Ambrose of Milan",
+  "title": "Select Works and Letters",
+  "edition": "NPNF2-10, trans. H. de Romestin (CCEL text)",
+  "era": "early",
+  "types": [
+    "theology"
+  ],
+  "rawUrls": [
+    "https://ccel.org/ccel/s/schaff/npnf210/cache/npnf210.txt"
+  ],
+  "sourcePage": "https://ccel.org/ccel/schaff/npnf210",
+  "license": {
+    "status": "public-domain",
+    "proofUrl": "https://ccel.org/ccel/schaff/npnf210",
+    "proofText": "Rights: Public Domain",
+    "basis": "rights-statement"
+  },
+  "parser": "ccel-txt",
+  "parserOptions": {
+    "useIndex": "confirm",
+    "headings": [
+      {
+        "pattern": "^(?:BOOK|Book) ([IVXLC]+|\\d+|[A-Z][a-z]+)\\.?$",
+        "level": "unit",
+        "label": "Book $1"
+      },
+      {
+        "pattern": "^(?:CHAPTER|Chapter) ([IVXLC]+|\\d+)\\b[.:]?.{0,100}$",
+        "level": "label",
+        "label": "ch. $1"
+      }
+    ]
+  },
+  "defaultEnabled": false,
+  "largePack": false
+}
