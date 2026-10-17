@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/db/db";
 import { introduceDueChunks } from "@/db/repo";
-import type { MemoryPlan } from "@/db/types";
+import type { MemoryPlan, PassageCard, VerseCard } from "@/db/types";
 import { diffDays, todayISO } from "@/lib/isoDate";
 import { AD_HOC_ID } from "@/lib/planActions";
 import { planProgress } from "@/lib/progress";
@@ -13,6 +13,7 @@ import { buildQueue, formatSummary } from "@/lib/queue";
 import { formatRange } from "@/lib/refs";
 import { ActionBar, Card, EmptyState, Icon, PageHeader } from "@/components/ui";
 import { linkButtonClass } from "@/components/memorize/linkButton";
+import { useNow } from "@/components/memorize/useNow";
 
 const STATUS_TITLE: Record<MemoryPlan["status"], string> = { active: "Active", paused: "Paused", mastered: "Mastered" };
 
@@ -35,8 +36,7 @@ export default function MemorizePage() {
     void introduceDueChunks().catch(() => {});
   }, []);
 
-  // eslint-disable-next-line react-hooks/purity -- the list is a live snapshot; "now" is read per render on purpose
-  const now = Date.now();
+  const now = useNow();
   const queue = useMemo(() => (data ? buildQueue({ ...data, now }) : null), [data, now]);
 
   const groups = useMemo(() => {
@@ -115,7 +115,7 @@ export default function MemorizePage() {
   );
 }
 
-function PlanRow({ plan, data, now }: { plan: MemoryPlan; data: { verseCards: import("@/db/types").VerseCard[]; passageCards: import("@/db/types").PassageCard[] }; now: number }) {
+function PlanRow({ plan, data, now }: { plan: MemoryPlan; data: { verseCards: VerseCard[]; passageCards: PassageCard[] }; now: number }) {
   const prog = planProgress(plan, data.verseCards, data.passageCards, now);
   const pct = prog.total ? Math.round((prog.known / prog.total) * 100) : 0;
   const starts = plan.status === "active" ? startsLabel(plan.startDate, now) : null;

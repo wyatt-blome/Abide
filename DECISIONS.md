@@ -197,3 +197,48 @@ Built by `npm run build:bible` (`scripts/build-bible.ts`, helpers in `scripts/bi
 - **Lint guard** (`tests/lint-guard.test.ts`): no literal > 160 chars in `src/` or `content/`; `content/` literals must
   look like a URL, id/slug, book code/verse key, reference, setting token or short title (≤ 80 chars, ≤ 12 words, no
   sentence punctuation or quotation marks).
+
+## Memorize UI
+- **Routes** (static, query params so the shells are precached): `/memorize`, `/memorize/new`, `/memorize/plan?id=`,
+  `/memorize/practice?plan=&target=&mode=` (target `run` | `chunk:N` | `verse:KEY`), `/memorize/practice?queue=today`,
+  `/hands-free?source=queue | ?plan= | ?plan=&loop=1&repeats=N&gap=S`, `/progress`. `useSearchParams` users sit in `<Suspense>`.
+- **Maturity (src/lib/progress.ts).** new = no card or reps 0; learning = reps < 2, or the last review was an Again
+  (scheduled interval < 1 day); mature = interval (due − lastReviewed) or FSRS stability ≥ 21 days; young = the rest.
+  "Known" = young or mature. Mastered = every verse mature + last passage run graded ≥ 4 (single-chunk plans: every
+  verse's last grade ≥ 4). After each recorded attempt an active, fully introduced plan that meets this is set to
+  `status: "mastered"` (mastered plans still appear in the queue; only paused plans are left out).
+- **Forecast** = current due dates only, bucketed by local day for 30 days; overdue counts on day 0; reps-0 cards excluded.
+  Bible % read = distinct non-empty verses in done reading portions ÷ 31,086.
+- **Recording.** Every finished drill records (Read & Listen is never graded). Verse/chunk targets → `recordVerseReview`
+  per verse that has a card (verses of not-yet-introduced chunks are practised but not scheduled). Whole-passage target
+  with a passage card → `recordPassageRun`. Cumulative run-through of a partly introduced plan (and the new-chunk
+  run-through in the daily session) → only verses graded 1 are re-reviewed as Again; others keep their schedule,
+  matching the passage-run rule. Assisted modes (Progressive Hide, First Letters) are capped at grade 4 (FSRS Good),
+  since the text is on screen and accuracy is self-reported (1 − 0.03 per peek). Type First Letters accuracy =
+  first-try words ÷ words − 0.03 per hint. Reference drill: a wrong reference pick caps that verse's accuracy at 0.919
+  (grade ≤ 3). Multi-verse recall/speech attempts are aligned once and matches counted per verse.
+- **Daily session.** The queue is snapshotted at the start (after `introduceDueChunks`); a new chunk is two steps
+  (learn the chunk, default Read & Listen → then Type; then the cumulative run-through). At the end the queue is rebuilt
+  and anything still due (Again cards) is offered as another round. The streak is recorded after every attempt when the
+  queue is empty or ≥ 10 graded reviews were logged today.
+- **Keyboard.** A–Z in alphabetical order, 3 rows × 9 (27th key = Hint), full-bleed, 64 px tall: the widest keys a phone
+  allows (≈ 40 px on a 360 px screen; a QWERTY 10-key row would be ≈ 35 px). Physical keys work too ("?" = hint).
+  Numbers: the first letter of the spoken word (40 → f). A word is revealed after 2 misses.
+- **Story of the Passage** uses BSB headings of levels s1/s2/ms within the plan range (Psalm superscriptions, level d,
+  are not section headings), captioned "Heading: Berean Standard Bible". Phase 2 (verses grouped under headings) is
+  optional ("Finish here"). Without headings the UI shows "No BSB headings in this range" and offers no drill.
+- **Ad hoc plan (src/lib/planActions.ts).** One plan with `starterId: "ad-hoc"` collects "Memorize this" ranges. New
+  verses are appended as chunks (verses already in it are skipped; BSB empty verses skipped), its range grows to the
+  union, its `startDate` moves to tomorrow (so the new verses start tomorrow; existing cards keep their schedules) and a
+  mastered Ad hoc plan becomes active. "Its own plan" creates a separate plan starting tomorrow. New plans from
+  `/memorize/new` default to today.
+- **Translations for plans**: BSB / WEB / KJV (bundled, offline). ESV is not offered for memory plans (no offline text);
+  a plan with ESV would read BSB text (`bundledTranslation`).
+- **Hands-Free.** Per item: reference → pause (settings.handsFreePauseSec, adjustable 2–30 s) → verse → 1.2 s. "First
+  half, I finish it": the first half of the words → pause → whole verse. Pause stops speech; Start resumes from the start
+  of the current item. Listen loop: the plan's verses read N times through with S seconds between verses (no recite
+  pause). Each fully read item with a card is logged with `recordHeard` (not graded). Media Session play/pause/next/prev
+  + metadata; screen wake lock while playing. The TabBar is hidden by a small rule appended to globals.css
+  (`:root.hands-free nav[aria-label="Main"]`), keyed on the class `useHandsFreeMode` already sets.
+- **Heatmap** cells show the verse number plus a symbol and border style per state (○ dashed new, ◔ dotted learning,
+  ◑ young, ● mature, — no text in BSB), so state never depends on color alone.

@@ -96,7 +96,10 @@ export interface Settings {
   ttsVoice?: string; ttsRate: number; handsFreePauseSec: number; reminderTime: string; // "HH:MM"
   graceWeekday: 0 | 1 | 2 | 3 | 4 | 5 | 6; readingVersesPerMin: number; enabledPacks: string[];
   esvKey?: string; esvEnabled?: boolean; lastBackupAt?: number; dailyNewLimit: number; updatedAt: number;
+  /** Official author pages the user added to the Library list (titles + URLs only). */
+  customAuthorPages?: CustomAuthorPage[];
 }
+export interface CustomAuthorPage { author: string; title: string; url: string }
 export interface Streak { id: "singleton"; current: number; best: number; lastActiveDate?: string; activeDates: string[]; updatedAt: number }
 
 export interface LibraryCacheEntry { id: string /* `${packId}/${BOOK}` */; packId: string; book: BookCode; data: unknown; fetchedAt: number }

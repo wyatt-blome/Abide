@@ -268,3 +268,12 @@ body:has(.action-bar) .update-banner {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hands-Free (memorize agent): the page sets .hands-free on <html> (useHandsFreeMode); hide the
+   TabBar there and drop the tab-bar padding, since the page has its own bottom controls. */
+:root.hands-free nav[aria-label="Main"] {
+  display: none;
+}
+:root.hands-free .app-main {
+  padding-bottom: calc(var(--safe-bottom) + 16px);
+}

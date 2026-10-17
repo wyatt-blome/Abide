@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
-import { ActionBar, Button, Card, ChipGroup, Icon, PageHeader, useToast } from "@/components/ui";
+import { ActionBar, Button, Card, ChipGroup, cx, Icon, PageHeader, useToast } from "@/components/ui";
 import type { ReadingPlan, ReadingStyle, TranslationId } from "@/db/types";
 import { CHRONOLOGICAL } from "../../../content/plans/chronological";
 import { loadHeadings, loadMeta } from "@/lib/bible";
@@ -61,11 +61,14 @@ export function PlanSetup({ today }: { today: ISODate }) {
                 role="radio"
                 aria-checked={style === s}
                 onClick={() => setStyle(s)}
-                className={`bordered flex min-h-16 w-full items-center gap-3 rounded-xl px-3 py-2 text-left ${style === s ? "border-accent bg-bg" : "bg-surface"}`}
+                className={cx("bordered flex min-h-16 w-full items-center gap-3 rounded-xl px-3 py-2 text-left", style === s ? "border-accent bg-bg" : "bg-surface")}
               >
                 <span
                   aria-hidden="true"
-                  className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full [border-width:3px] ${style === s ? "border-accent bg-accent text-accent-fg" : "border-border"}`}
+                  className={cx(
+                    "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full [border-width:3px]",
+                    style === s ? "border-accent bg-accent text-accent-fg" : "border-border",
+                  )}
                 >
                   {style === s ? <Icon name="check" size={22} strokeWidth={3} /> : null}
                 </span>

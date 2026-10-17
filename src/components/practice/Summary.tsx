@@ -3,6 +3,7 @@
 // After an attempt: grade per verse (✓/✗ + words, not color alone), next due date, Next / Done.
 
 import type { ReactNode } from "react";
+import { useNow } from "@/components/memorize/useNow";
 import type { Grade } from "@/lib/scoring";
 import { ActionBar, Button, Card, Icon } from "@/components/ui";
 import { formatNextDue, GRADE_LABEL } from "./helpers";
@@ -26,7 +27,9 @@ export interface SummaryProps {
 
 const pct = (a: number) => `${Math.round(a * 100)}%`;
 
-export function Summary({ title, rows, passage, note, mastered, extra, onNext, nextLabel = "Next item", onAgain, onDone, now = Date.now() }: SummaryProps) {
+export function Summary({ title, rows, passage, note, mastered, extra, onNext, nextLabel = "Next item", onAgain, onDone, now: nowProp }: SummaryProps) {
+  const tick = useNow();
+  const now = nowProp ?? tick;
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-[22px] font-bold">{title}</h2>

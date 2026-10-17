@@ -72,7 +72,6 @@ export interface HeatmapProps {
 }
 
 export function Heatmap({ cells, label, legend = true }: HeatmapProps) {
-  const states: HeatState[] = [...MATURITY_ORDER, ...(cells.some((c) => c.state === "empty") ? (["empty"] as const) : [])];
   return (
     <div className="flex flex-col gap-2">
       <ul aria-label={label} className="flex flex-wrap gap-1">
@@ -93,25 +92,31 @@ export function Heatmap({ cells, label, legend = true }: HeatmapProps) {
           </li>
         ))}
       </ul>
-      {legend ? (
-        <ul aria-label="Legend" className="flex flex-wrap gap-x-4 gap-y-1 text-[14px] text-muted">
-          {states.map((s) => (
-            <li key={s} className="flex items-center gap-1.5">
-              <span
-                aria-hidden="true"
-                className="inline-flex h-5 w-5 items-center justify-center rounded text-[11px]"
-                style={{ ...cellStyle(s), borderWidth: "max(1px, var(--border-width))", borderColor: "var(--border)" }}
-              >
-                {SYMBOL[s]}
-              </span>
-              <span>
-                {STATE_LABEL[s]}
-                {s === "mature" ? " (≥ 21 days)" : ""}
-              </span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      {legend ? <HeatmapLegend includeEmpty={cells.some((c) => c.state === "empty")} /> : null}
     </div>
+  );
+}
+
+/** Legend: symbol + border style + label for each state. */
+export function HeatmapLegend({ includeEmpty = false }: { includeEmpty?: boolean }) {
+  const states: HeatState[] = [...MATURITY_ORDER, ...(includeEmpty ? (["empty"] as const) : [])];
+  return (
+    <ul aria-label="Legend" className="flex flex-wrap gap-x-4 gap-y-1 text-[14px] text-muted">
+      {states.map((s) => (
+        <li key={s} className="flex items-center gap-1.5">
+          <span
+            aria-hidden="true"
+            className="inline-flex h-5 w-5 items-center justify-center rounded text-[11px]"
+            style={{ ...cellStyle(s), borderWidth: "max(1px, var(--border-width))", borderColor: "var(--border)" }}
+          >
+            {SYMBOL[s]}
+          </span>
+          <span>
+            {STATE_LABEL[s]}
+            {s === "mature" ? " (≥ 21 days)" : ""}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }
