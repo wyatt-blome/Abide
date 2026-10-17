@@ -242,3 +242,74 @@ Built by `npm run build:bible` (`scripts/build-bible.ts`, helpers in `scripts/bi
   (`:root.hands-free nav[aria-label="Main"]`), keyed on the class `useHandsFreeMode` already sets.
 - **Heatmap** cells show the verse number plus a symbol and border style per state (○ dashed new, ◔ dotted learning,
   ◑ young, ● mature, — no text in BSB), so state never depends on color alone.
+
+## Read / Books / Today UI
+- **Routes** (all static; per-item screens use query params so the service worker precaches them):
+  `/` Today, `/read`, `/read/days`, `/read/reader?book=PSA&chapter=23&t=BSB[&v=4][&listen=1]` or
+  `/read/reader?day=<readingDayId>&portion=<i>`, `/read/books`, `/read/book?id=`, `/read/classic?id=[&s=]`.
+  Each `page.tsx` is a server component (metadata) rendering a client screen from `src/components/reader/`;
+  screens that call `useSearchParams` are wrapped in `<Suspense>`.
+- **One reading plan at a time.** Creating a plan replaces the previous plan and its days. Day ids are
+  `${planId}:${dayIndex}`. The wizard (inline on `/read` when there is no plan) defaults to Blended, Sunday grace day,
+  next Monday, the settings translation; it also sets `settings.graceWeekday` to the plan's grace day so the streak,
+  books track and plan share one grace day. Store layer: `src/lib/readingPlanStore.ts`.
+- **Missed days.** With `missedPolicy === "ask"` and missed days, a Sheet asks once: Catch up on grace day / Spread over
+  next 2 weeks / Shift end date. The choice is applied with `lib/missed.ts` and saved as the plan's `missedPolicy`; from
+  then on it is applied automatically whenever days are missed (Read and Today screens). Closing the sheet without a
+  choice hides it for the browser session only. Plan settings can change the policy (including back to "Ask me").
+  Only days whose date or portions actually changed are written, so completed days are never rewritten.
+- **Pace.** Behind = past days with unread portions; ahead = future plan days already complete; shown as
+  "Ahead/Behind by N days". Projected finish = last scheduled date, pushed out by the days behind (reading days only).
+  Estimated minutes = verses ÷ `settings.readingVersesPerMin`, rounded, at least 1. Before the start date the first day
+  is shown so the reader can read ahead. On the grace day the Today/Read view lists catch-up days and missed days.
+- **BSB headings.** Section headings (s1/s2/ms) are shown in their position for every translation, because WEB/KJV/ESV
+  are displayed on the BSB verse grid and the headings are also the tap targets for Sources (a heading's section runs
+  from its verse to the verse before the next s1/s2/ms heading, within the book). Psalm superscriptions (`d`) are shown
+  only with BSB text: they are BSB wording, and the KJV keeps its own superscription inside verse 1. The Reader footer
+  carries "Headings: Berean Standard Bible" whenever a heading is on screen. Empty slots show "(no text in BSB)" etc.
+- **Reader interaction.** Each verse is a ≥ 48 px block (role=button, Enter/Space). Tap → action sheet (Memorize this,
+  Sources, Add note, Add link, Listen from here, Select a range from here). Press and hold 500 ms marks a range start,
+  then a tap on the last verse opens the actions for the range ("Select a range from here" is the keyboard/switch-access
+  path). Swipe ≥ 70 px horizontally (|dx| > 2|dy|, < 800 ms) moves chapters in chapter mode. Portion mode shows only that
+  portion, with "Mark read" in the ActionBar and a link to the day's next portion. The last chapter position is kept in
+  localStorage (per-device convenience only).
+- **Listen** (`components/reader/useSpeech.ts`) wraps `tts.speakSequence` with verse/paragraph and word highlighting,
+  a Screen Wake Lock while speaking and Media Session play/pause/stop/next/previous. Pause cancels and Resume restarts
+  the current verse (speechSynthesis.pause is unreliable on Android). In chapter mode the Reader continues into the next
+  chapter when a chapter ends (`listen=1`; iOS may need a tap). Plan portions are preloaded so Listen speaks inside the
+  tap (iOS gesture rule); when listening finishes, a toast offers "Mark read".
+- **ESV** (`src/lib/esv.ts`). Off unless `esvEnabled` and a key. One request per chapter to
+  `https://api.esv.org/v3/passage/text/` with `Authorization: Token <key>`, verse numbers on, headings, footnotes and
+  passage references off, `include-copyright=true`. Kept only in a module-level Map for the session (never IndexedDB or
+  Cache Storage; `cache: "no-store"`; the SW routes the host NetworkOnly); failed requests are not memoized. The
+  notice under the text is the trailing copyright paragraph from the API response (or its short "(ESV)" form); if the
+  response has none, the license label "Scripture quotations are from the ESV® Bible" is shown. Errors are UI labels
+  with a "Read the BSB instead" button. ESV falls back to BSB when turned off.
+- **Books track** (`src/lib/booksStore.ts`). Logging keeps one BookLog per book per day: saving "read through page N"
+  replaces today's logs with one from the start-of-day position + 1 to N, so the day's assignment does not move while
+  reading; going below the start of the day removes today's logs (a correction). Reaching the total marks the book
+  finished. Each save prompts "Add a quote or note?" → AddNoteSheet with `bookId` and `page`. Default target: 8 weeks
+  (start + 55 days). Off pace (behind): a fixed `unitsPerDay` can be dropped to recompute to the target date; otherwise
+  the daily amount already self-corrects. "Move target to …" uses `proposeTarget` (the pace actually kept). Removing a
+  book deletes its BookLogs; notes stay in My Library.
+- **Bundled classics** (`content/classics.ts`, `src/lib/classics.ts`). Gutenberg texts use
+  `https://www.gutenberg.org/cache/epub/{id}/pg{id}.txt`; Abide in Christ uses the archive.org download URL of
+  `abideinchrist01murr_djvu.txt` (shown with an "OCR text" label); Morning and Evening uses CCEL's
+  `ccel/s/spurgeon/morneve/cache/morneve.txt` (the same cache-URL pattern as the library packs). Downloads are plain
+  browser fetches; gutenberg.org, ccel.org and archive.org may block them by CORS and the app has no backend, so no
+  same-origin proxy is provided: failure shows "Couldn't download this text. Check your connection." with Try again.
+  Raw files are stored in Cache Storage (`abide-classics`, keyed by URL; memory fallback). Gutenberg header/footer are cut
+  at the "*** START OF" / "*** END OF" lines. Sections start at heading lines that follow a blank line (CHAPTER / BOOK /
+  PART / SECTION / STAGE + number or word, Chapter / Book / Part / Section + number, or a lone Roman numeral; ≤ 80 chars);
+  sections with < 400 non-space characters merge into the next (contents lists, title pages); with < 3 headings the text
+  is cut into ~12k-character "Part N"s. The BookPlan counts sections (`unit: "sections"`, total = section count, kept in
+  step with the downloaded text); `current` is the reading position and "Mark read" advances it.
+- **Morning and Evening** is date-locked: entries are found by their date heading lines ("Morning, January 1",
+  "January 1st — Evening", or a date line followed within 4 lines by "Morning"/"Evening"); a date listed twice (contents)
+  uses the entry with the most text. Only today's two entries are shown; its BookPlan has `dateLocked`, total 366, and
+  counts one unit per day marked read. A date the edition lacks shows a UI label.
+- **Today.** Cards: Memory review (`queue.buildQueue` + `formatSummary`; `introduceDueChunks` runs on open, idempotent),
+  Bible reading (portions + Listen), Book reading (active books, quick "Read to p. N", Stepper, note prompt), Streak with
+  week dots (✓ green done, ✗ red missed, – grace, ring today; each with an aria label), and a backup nudge when
+  `lastBackupAt` (or, with no backup yet, the earliest plan's createdAt) is ≥ 14 days old, linking to `/settings#backup`.
+  "Start review" (→ `/memorize/practice?queue=today`) is the ActionBar primary; Hands-Free → `/hands-free?source=queue`.

@@ -8,7 +8,7 @@
     "build:library": "tsx scripts/build-library.ts",
     "verify": "tsx scripts/verify-excerpts.ts",
     "check-links": "tsx scripts/check-links.ts",
-    "prebuild": "tsx scripts/verify-excerpts.ts",
+    "prebuild": "tsx scripts/verify-excerpts.ts && tsx scripts/sync-pack-readme.ts",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
