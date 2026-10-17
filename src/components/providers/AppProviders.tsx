@@ -162,8 +162,10 @@ export function AppProviders({ children }: { children: ReactNode }) {
     await updateSettings(patch);
   }, []);
 
-  // Apply theme + font scale to <html>, mirror them for the pre-paint script.
+  // Apply theme + font scale to <html>, mirror them for the pre-paint script. Not before the
+  // settings load: the defaults would override what the pre-paint script applied.
   useEffect(() => {
+    if (!ready) return;
     const root = document.documentElement;
     const theme = settings.theme ?? "system";
     root.dataset.theme = theme;
@@ -181,7 +183,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const onChange = () => setThemeColorMeta(currentChromeColor(theme));
     mq.addEventListener?.("change", onChange);
     return () => mq.removeEventListener?.("change", onChange);
-  }, [settings.theme, settings.fontScale]);
+  }, [ready, settings.theme, settings.fontScale]);
 
   const updateValue = useServiceWorkerUpdate();
   const offline = useOfflineWarmup(ready ? settings.enabledPacks : null);

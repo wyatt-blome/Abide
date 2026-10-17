@@ -16,7 +16,7 @@ beforeEach(async () => {
 });
 
 describe("Psalm 23 flow (logic level)", () => {
-  it("starter → chunk 1 introduced → graded Good → due tomorrow or later, not today", async () => {
+  it("starter → chunk 1 introduced → graded Good via Type First Letters → due tomorrow", async () => {
     const s = STARTER_BY_ID["psalm-23"];
     const data = await loadPassageData(s.range, "BSB");
     const plan = await createMemoryPlan(
@@ -38,13 +38,40 @@ describe("Psalm 23 flow (logic level)", () => {
     for (const c of cards) await recordVerseReview(c.id, 4, { mode: "typeFirst", accuracy: 0.95, durationMs: 20_000 }, at);
     const after = await db.verseCards.where("planId").equals(plan.id).toArray();
     const tomorrow = localMidnight(addDays(todayISO(T0), 1));
+    const dayAfter = localMidnight(addDays(todayISO(T0), 2));
     for (const c of after) {
       expect(c.reps).toBe(1);
       expect(c.due).toBeGreaterThanOrEqual(tomorrow);
+      expect(c.due).toBeLessThan(dayAfter);
     }
     const p2 = (await db.plans.get(plan.id))!;
     const q2 = buildQueue({ plans: [p2], verseCards: after, passageCards: await db.passageCards.toArray(), now: at });
     expect(q2.items).toHaveLength(0);
     expect(await db.reviewLogs.count()).toBe(cards.length);
+  });
+
+  it("chunk 1 learned with any grade 2..5 is due tomorrow (not later), and back in tomorrow's queue", async () => {
+    const s = STARTER_BY_ID["psalm-23"];
+    const data = await loadPassageData(s.range, "BSB");
+    const tomorrow = localMidnight(addDays(todayISO(T0), 1));
+    const dayAfter = localMidnight(addDays(todayISO(T0), 2));
+    for (const grade of [2, 3, 4, 5] as const) {
+      await clearAllData();
+      const plan = await createMemoryPlan(
+        { title: s.title, range: s.range, translation: "BSB", pace: s.pace, chunkSize: s.chunkSize, starterId: s.id, startDate: todayISO(T0) },
+        data,
+        T0,
+      );
+      const cards = await db.verseCards.where("planId").equals(plan.id).toArray();
+      for (const c of cards) await recordVerseReview(c.id, grade, { mode: "typeFirst", accuracy: 0.9, durationMs: 20_000 }, T0 + 60_000);
+      const after = await db.verseCards.where("planId").equals(plan.id).toArray();
+      for (const c of after) {
+        expect(c.due).toBeGreaterThanOrEqual(tomorrow);
+        expect(c.due).toBeLessThan(dayAfter);
+      }
+      const p2 = (await db.plans.get(plan.id))!;
+      const q = buildQueue({ plans: [p2], verseCards: after, passageCards: [], now: tomorrow + 8 * 3_600_000 });
+      expect(q.items.filter((i) => i.kind !== "new").length).toBeGreaterThan(0);
+    }
   });
 });

@@ -8,12 +8,12 @@
     "catechism"
   ],
   "rawUrls": [
-    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json"
+    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_larger_catechism.json"
   ],
-  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/westminster_larger_catechism.json",
+  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_larger_catechism.json",
   "license": {
     "status": "public-domain",
-    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/westminster_larger_catechism.json",
+    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/westminster_larger_catechism.json",
     "proofText": "\"SourceAttribution\": \"Public Domain\"",
     "basis": "rights-statement"
   },

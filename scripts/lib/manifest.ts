@@ -44,6 +44,8 @@ export const ManifestSchema = z
     rawUrls: z.array(sourceUrl).min(1),
     /** mirrors[i] = ordered fallback URLs for rawUrls[i] (byte-identical copies). */
     mirrors: z.array(z.array(sourceUrl)).optional(),
+    /** Edition label per mirror URL, used as the work's edition when a file came from that mirror. */
+    mirrorEditions: z.record(z.string(), z.string().min(2)).optional(),
     sourcePage: pageUrl,
     license: LicenseSchema,
     parser: ParserIdSchema,
@@ -72,6 +74,14 @@ export const ManifestSchema = z
       ctx.addIssue({ code: "custom", message: "bookScope must have one entry per rawUrl", path: ["bookScope"] });
     if (m.license.status === "CC-BY" && m.license.basis !== "cc-by")
       ctx.addIssue({ code: "custom", message: "CC-BY status requires basis cc-by", path: ["license"] });
+    for (const [k, lim] of [["maxChars", 1500], ["sectionMaxChars", 12000]] as const) {
+      const v = m.parserOptions[k];
+      if (v !== undefined && (typeof v !== "number" || v < 100 || v > lim))
+        ctx.addIssue({ code: "custom", message: `parserOptions.${k} must be a number from 100 to ${lim}`, path: ["parserOptions", k] });
+    }
+    for (const u of Object.keys(m.mirrorEditions ?? {}))
+      if (!(m.mirrors ?? []).some((l) => l.includes(u)))
+        ctx.addIssue({ code: "custom", message: `mirrorEditions key is not a mirror URL: ${u}`, path: ["mirrorEditions"] });
     if (m.ocr && !m.ocrNote)
       ctx.addIssue({ code: "custom", message: "ocr packs need an ocrNote", path: ["ocrNote"] });
   });

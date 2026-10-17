@@ -4,7 +4,7 @@
 
 import { useLiveQuery } from "dexie-react-hooks";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ActionBar, Card, cx, Icon, PageHeader } from "@/components/ui";
 import { db } from "@/db/db";
@@ -188,8 +188,10 @@ function BackupNudge({ now }: { now: number }) {
 
 export function TodayScreen() {
   const today = useToday();
-  // Recomputed when the date changes; minute precision is enough for the queue summary.
-  const now = useMemo(() => (today ? Date.now() : 0), [today]);
+  // Taken once per date (reset when the date changes); minute precision is enough for the queue summary.
+  const [clock, setClock] = useState(() => ({ day: today, now: today ? Date.now() : 0 }));
+  if (clock.day !== today) setClock(() => ({ day: today, now: today ? Date.now() : 0 }));
+  const now = clock.now;
 
   useEffect(() => {
     void introduceDueChunks().catch(() => {});

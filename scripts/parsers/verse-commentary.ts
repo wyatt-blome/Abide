@@ -20,7 +20,7 @@ export const parseVerseCommentary: ExcerptParser = (files, opts, ctx) => {
   for (const f of files) {
     const prep = prepareStructure(f, o, ctx);
     for (const sec of prep.sections) {
-      out.push(...sectionExcerpts(prep, sec, o, o.mappingMethod ?? "heading"));
+      out.push(...sectionExcerpts(prep, sec, o, o.mappingMethod ?? "heading", (s) => ctx.log(`[${ctx.packId}] ${s}`)));
       if (o.alsoInline && !sec.ranges.length) out.push(...inlineExcerpts(prep, sec, o, ctx));
     }
   }

@@ -21,8 +21,9 @@ import { hash8, sha256 } from "./lib/hash";
 import { containsProof, findPublicationYear } from "./lib/license";
 import { type Manifest, loadManifests } from "./lib/manifest";
 import { rawToText } from "./lib/source-text";
-import { SourceView, checkExcerpt } from "./lib/verify-core";
+import { SourceView, checkDisplay, checkExcerpt } from "./lib/verify-core";
 import { PARSERS } from "./parsers";
+import { crossrefShards } from "./parsers/openbible-crossrefs";
 import type { ParsedExcerpt, RawFile } from "./parsers/types";
 
 export const BUDGET_BYTES = 50 * 1024 * 1024;
@@ -44,6 +45,17 @@ export interface BuildReport {
   generatedAt: string; budgetBytes: number; defaultOnBytes: number;
   built: BuiltPack[]; skipped: { id: string; reason: string }[]; rejected: { id: string; reason: string }[];
   exitCode: number; errors: string[];
+}
+
+/** An index.json work as written by the build (primaryUrls: the manifest's rawUrls). */
+export type BuiltWork = LibraryWork & { primaryUrls?: string[] };
+
+/** Edition label for files fetched from mirrors: manifest.mirrorEditions[url], else "edition (copy at host/path)". */
+function editionFor(m: Manifest, mirrorsUsed: string[]): string {
+  const named = mirrorsUsed.map((u) => m.mirrorEditions?.[u]).filter((e): e is string => !!e);
+  if (named.length) return [...new Set(named)].join("; ");
+  const where = [...new Set(mirrorsUsed.map((u) => { try { const x = new URL(u); return `${x.hostname}/${x.pathname.split("/").filter(Boolean).slice(0, 2).join("/")}`; } catch { return u; } }))];
+  return `${m.edition} (copy at ${where.join(", ")})`;
 }
 
 const PATHS = {
@@ -150,7 +162,7 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
   const selected = loaded.filter((l) => !o.only || o.only.includes(l.id));
   if (o.only) for (const id of o.only) if (!loaded.some((l) => l.id === id)) report.errors.push(`--only: unknown pack "${id}"`);
 
-  const newWorks: LibraryWork[] = [];
+  const newWorks: BuiltWork[] = [];
   const shardFiles = new Map<string, Map<string, string>>(); // packId -> BOOK -> json
   const newLock: Record<string, { files: LockFile[] }> = {};
 
@@ -189,7 +201,11 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
           throw new SkipPack(`source unreachable: ${u.url} (${why})`, "skipped");
         }
         const fetchedAt = prev && prev.sha256 === got.sha256 ? prev.fetchedAt : generatedAt;
-        files.push({ url: u.url, text: rawToText(got.buf), buf: got.buf, lf: { url: u.url, fetchedFrom: got.fetchedFrom, sha256: got.sha256, bytes: got.bytes, fetchedAt } });
+        const text = rawToText(got.buf);
+        const bad = (text.match(/\uFFFD/g) ?? []).length;
+        if (bad) log(`[${m.id}] ${got.fetchedFrom}: ${bad} U+FFFD replacement character(s) after UTF-8 decoding; excerpts containing one are dropped`);
+        log(`[${m.id}] file ${n}: ${got.fromCache ? "cached copy of" : "downloaded"} ${got.fetchedFrom}${got.fetchedFrom !== u.url ? ` (mirror of ${u.url})` : ""}`);
+        files.push({ url: u.url, text, buf: got.buf, lf: { url: u.url, fetchedFrom: got.fetchedFrom, sha256: got.sha256, bytes: got.bytes, fetchedAt } });
       };
       for (let i = 0; i < urls.length; i++) await fetchOne(urls[i], i);
       if (m.parser === "html-chapters") {
@@ -231,12 +247,7 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
       if (parser.kind === "crossrefs") {
         const xs: CrossRef[] = parser.parse(rawFiles, m.parserOptions, ctx);
         crossrefCount = xs.length;
-        for (const x of xs) {
-          const b = x.from.split(".")[0];
-          if (!books.has(b)) books.set(b, []);
-          books.get(b)!.push(x);
-        }
-        for (const list of books.values()) (list as CrossRef[]).sort((a, b) => b.votes - a.votes);
+        for (const [b, list] of crossrefShards(xs)) books.set(b, list);
       } else if (!m.listedOnly) {
         const parsed: ParsedExcerpt[] = parser.parse(rawFiles, m.parserOptions, ctx);
         const views = rawFiles.map((f) => new SourceView(f.text));
@@ -244,8 +255,9 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
         const bySection = new Map<string, string>();
         const out: LibraryExcerpt[] = [];
         for (const p of parsed) {
-          const why = checkExcerpt(p, views[p.rawIndex]);
-          if (why) { log(`[${m.id}] parser produced a non-verbatim excerpt (${why}) at ${p.locator}; dropped`); continue; }
+          if (!p.locator?.trim()) { log(`[${m.id}] excerpt at file ${p.rawIndex} offset ${p.charOffset} has no locator from the source structure; dropped`); continue; }
+          const why = checkExcerpt(p, views[p.rawIndex]) ?? checkDisplay(p);
+          if (why) { log(`[${m.id}] excerpt failed verification (${why}) at ${p.locator}; dropped`); continue; }
           const ranges = p.verseRanges.filter((r) => {
             const bad = rangeProblem(meta, r);
             if (bad) log(`[${m.id}] ${p.locator}: range dropped (${bad})`);
@@ -259,7 +271,7 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
           } while (ids.has(id));
           ids.add(id);
           const ex: LibraryExcerpt = {
-            id, workId: m.id, text: p.text, locator: p.locator || m.title, url: urlFor(m, p.anchor),
+            id, workId: m.id, text: p.text, locator: p.locator, url: urlFor(m, p.anchor),
             verseRanges: ranges, mappingMethod: p.mappingMethod, type: p.type ?? m.types[0], era: m.era,
             charOffset: p.charOffset, verbatimHash: sha256(p.text), rawIndex: p.rawIndex,
           };
@@ -303,9 +315,14 @@ export async function buildLibrary(o: BuildOptions = {}): Promise<BuildReport> {
         size += Buffer.byteLength(json);
       }
       shardFiles.set(m.id, shard);
-      const work: LibraryWork = {
-        id: m.id, author: m.author, title: m.title, edition: m.edition, era: m.era, types: m.types,
-        sourcePage: m.sourcePage, rawUrls: files.map((f) => f.url), rawSha256: files.map((f) => f.lf.sha256),
+      // rawUrls = the URLs the files were actually fetched from (a mirror when the primary was
+      // unreachable), primaryUrls = the manifest's rawUrls; the edition names the mirror's copy.
+      const fetched = files.map((f) => f.lf.fetchedFrom);
+      const viaMirror = fetched.filter((u, i) => u !== files[i].url);
+      const edition = viaMirror.length ? editionFor(m, viaMirror) : m.edition;
+      const work: BuiltWork = {
+        id: m.id, author: m.author, title: m.title, edition, era: m.era, types: m.types,
+        sourcePage: m.sourcePage, rawUrls: fetched, primaryUrls: files.map((f) => f.url), rawSha256: files.map((f) => f.lf.sha256),
         license: { status: lic.status, proofUrl: lic.proofUrl, proofText: lic.proofText, basis: lic.basis },
         parser: m.parser, parserOptions: m.parserOptions, defaultEnabled: m.defaultEnabled, largePack: m.largePack,
         packSizeBytes: size, excerptCount, crossrefCount,

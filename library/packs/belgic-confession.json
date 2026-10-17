@@ -8,12 +8,12 @@
     "confession"
   ],
   "rawUrls": [
-    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json"
+    "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/belgic_confession_of_faith.json"
   ],
-  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/master/creeds/belgic_confession_of_faith.json",
+  "sourcePage": "https://github.com/NonlinearFruit/Creeds.json/blob/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/belgic_confession_of_faith.json",
   "license": {
     "status": "public-domain",
-    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/belgic_confession_of_faith.json",
+    "proofUrl": "https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/2ae21a4c5387ecc91f474c9d3d67c826d2a6b9d5/creeds/belgic_confession_of_faith.json",
     "proofText": "\"SourceAttribution\": \"Public Domain\"",
     "basis": "rights-statement"
   },

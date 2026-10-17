@@ -1,105 +1,71 @@
 // Guard for the hard rule: no developer-typed theology/commentary/quotes in the app.
-//
-// 1. src/ and content/: no string literal, template literal or JSX text longer than 160 chars.
-// 2. content/: every string literal must have the shape of an ID, URL, range or setting —
-//    the heuristic allow-list below. Short titles of works and site names are allowed:
-//      - URL                https://… / http://… (no spaces)
-//      - id / slug / path   lowercase letters, digits, "-", "_", ".", "/", ":" (≤ 80)
-//      - book code          GEN … REV, also VerseKeys "ROM.8.28" and "ROM.8.28-ROM.8.30"
-//      - reference          "Rom 8:28-30", "Psalm 23", "John 1:1–18; 3:16" (book word + numbers)
-//      - setting / enum     a single word or camelCase token (≤ 40)
-//      - short title        ≤ 80 chars, ≤ 12 words, no sentence punctuation (no ". X", "!", "?",
-//                           ";" or ":" followed by a space, no quotation marks). Abbreviations such
-//                           as "St." or "Vol." inside a title are allowed.
-//    Anything else (a sentence, a quote, a summary) fails with file:line.
-// Module specifiers in import/export statements are ignored. tests/ and public/ are excluded.
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+// The checks live in scripts/lib/content-lint.ts (shared with the prebuild CLI
+// scripts/lint-content.ts); see that file for the full rule list:
+//   1. src/ + content/: no literal, and no combined text (+ chains, template literals,
+//      [..].join(), adjacent JSX text), over 160 chars;
+//   2. content/: only .ts files; every string is an id, URL, reference, setting or short title
+//      (no trailing sentence punctuation, no prose of function words);
+//   3. library/packs/*.json display fields are label-shaped (≤ 160 chars, no multi-sentence prose).
 import path from "node:path";
-import ts from "typescript";
 import { describe, expect, it } from "vitest";
+import { contentShape, formatViolation, labelProblem, lintManifest, lintRepo, lintSource } from "../scripts/lib/content-lint";
 
 const ROOT = path.resolve(__dirname, "..");
-const MAX = 160;
+const PROSE = "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor ";
 
-function walk(dir: string, out: string[] = []): string[] {
-  if (!existsSync(dir)) return out;
-  for (const f of readdirSync(dir)) {
-    const p = path.join(dir, f);
-    if (statSync(p).isDirectory()) walk(p, out);
-    else if (/\.(ts|tsx)$/.test(f) && !/\.d\.ts$/.test(f)) out.push(p);
-  }
-  return out;
-}
-
-interface Lit { file: string; line: number; text: string; kind: string }
-
-function literals(file: string): Lit[] {
-  const src = ts.createSourceFile(file, readFileSync(file, "utf8"), ts.ScriptTarget.Latest, true, file.endsWith("x") ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
-  const out: Lit[] = [];
-  const add = (n: ts.Node, text: string, kind: string) =>
-    out.push({ file: path.relative(ROOT, file), line: src.getLineAndCharacterOfPosition(n.getStart()).line + 1, text, kind });
-  const visit = (n: ts.Node) => {
-    const p = n.parent;
-    const isModuleSpecifier = !!p && (
-      ts.isImportDeclaration(p) || ts.isExportDeclaration(p) || ts.isExternalModuleReference(p) ||
-      (ts.isCallExpression(p) && (p.expression.kind === ts.SyntaxKind.ImportKeyword || (ts.isIdentifier(p.expression) && p.expression.text === "require"))) ||
-      (ts.isLiteralTypeNode(p) && !!p.parent && ts.isImportTypeNode(p.parent))
-    );
-    if (ts.isStringLiteral(n) && !isModuleSpecifier) add(n, n.text, "string");
-    else if (ts.isNoSubstitutionTemplateLiteral(n)) add(n, n.text, "template");
-    else if (ts.isTemplateHead(n) || ts.isTemplateMiddle(n) || ts.isTemplateTail(n)) add(n, n.text, "template part");
-    else if (ts.isJsxText(n) && n.text.trim()) add(n, n.text.replace(/\s+/g, " ").trim(), "jsx text");
-    ts.forEachChild(n, visit);
-  };
-  visit(src);
-  return out;
-}
-
-const SHAPES: [string, RegExp][] = [
-  ["url", /^https?:\/\/\S+$/],
-  ["id", /^[a-z0-9][a-z0-9._/:-]{0,79}$/],
-  ["book code / verse key", /^[1-3A-Z]{3}(\.\d+(\.\d+)?)?(-[1-3A-Z]{3}\.\d+(\.\d+)?)?$/],
-  ["reference", /^(?:[1-3] )?[A-Z][a-z]+(?: of [A-Z][a-z]+)?\.? \d+(?::\d+)?(?:[-–]\d+(?::\d+)?)?(?:[;,] ?\d+(?::\d+)?(?:[-–]\d+)?)*$/],
-  ["setting", /^[A-Za-z][A-Za-z0-9]{0,39}$/],
-  ["empty", /^\s*$/],
-];
-
-function isShortTitle(s: string): boolean {
-  if (s.length > 80 || s.trim().split(/\s+/).length > 12) return false;
-  if (/["“”]/.test(s)) return false;
-  if (/[!?]/.test(s)) return false;
-  if (/[;:] /.test(s)) return false;
-  // ". X" is sentence punctuation unless the word before is a short abbreviation (St., Vol., Rev.)
-  for (const m of s.matchAll(/(\S+)\. [A-Z]/g)) if (!/^[A-Z][a-z]{0,3}$|^[A-Z]$/.test(m[1])) return false;
-  return true;
-}
-
-function contentShape(s: string): string | null {
-  for (const [name, re] of SHAPES) if (re.test(s)) return name;
-  return isShortTitle(s) ? "short title" : null;
-}
-
-describe("lint guard: no long literals in src/ and content/", () => {
-  const files = [...walk(path.join(ROOT, "src")), ...walk(path.join(ROOT, "content"))];
+describe("lint guard on the repository", () => {
+  const report = lintRepo({ root: ROOT });
   it("finds the source files", () => {
-    expect(files.length).toBeGreaterThan(0);
+    expect(report.files).toBeGreaterThan(50);
   });
-  it(`has no string/template/JSX text over ${MAX} characters`, () => {
-    const long = files.flatMap(literals).filter((l) => l.text.length > MAX);
-    expect(long.map((l) => `${l.file}:${l.line} (${l.kind}, ${l.text.length} chars) ${l.text.slice(0, 60)}…`)).toEqual([]);
+  it("src/, content/ and library/packs have no violations", () => {
+    expect(report.violations.map(formatViolation)).toEqual([]);
   });
 });
 
-describe("lint guard: content/ holds only IDs, URLs, ranges, settings and short titles", () => {
-  const files = walk(path.join(ROOT, "content"));
-  it("every content string literal matches an allowed shape", () => {
-    const bad = files.flatMap(literals).filter((l) => contentShape(l.text) === null);
-    expect(bad.map((l) => `${l.file}:${l.line} ${JSON.stringify(l.text.slice(0, 80))}`)).toEqual([]);
+describe("lint guard self-tests (bypasses that must fail)", () => {
+  it("(a) content/ may hold only .ts files", () => {
+    const r = lintRepo({ root: path.join(__dirname, "fixtures", "lint"), srcDirs: [], contentDir: path.join(__dirname, "fixtures", "lint", "content"), packsDir: "/nonexistent" });
+    expect(r.violations.map((v) => `${path.basename(v.file)} ${v.reason}`)).toEqual(["notes.md content/ may hold only .ts files"]);
   });
-  it("heuristic accepts IDs/URLs/titles and rejects sentences (self-test)", () => {
-    for (const ok of ["https://ccel.org/ccel/henry/mhc1", "romans-8", "ROM", "ROM.8.28", "Rom 8:28-30", "canonical", "The City of God", "St. Augustine's Confessions", "Vol. 2"])
+
+  it("(b) content shapes: accepts ids/URLs/titles, rejects sentences", () => {
+    for (const ok of ["https://ccel.org/ccel/henry/mhc1", "romans-8", "ROM", "ROM.8.28", "Rom 8:28-30", "canonical", "The City of God",
+      "St. Augustine's Confessions", "Vol. 2", "Grace Abounding to the Chief of Sinners"])
       expect(contentShape(ok), ok).not.toBeNull();
-    for (const bad of ["Lorem ipsum dolor sit amet. Consectetur adipiscing elit.", "Is this a question?", "He said “lorem”", "Lorem: ipsum dolor"])
+    for (const bad of ["Lorem ipsum dolor sit amet. Consectetur adipiscing elit.", "Is this a question?", "He said “lorem”", "Lorem: ipsum dolor",
+      "Lorem ipsum dolor sit amet.", "Lorem ipsum!", "lorem is the ipsum of the dolor", "Lorem ipsum was in the dolor and amet"])
       expect(contentShape(bad), bad).toBeNull();
+  });
+
+  it("(c) measures + chains, templates, [].join() and adjacent JSX text", () => {
+    const piece = JSON.stringify(PROSE); // 78 chars each, under the limit alone
+    const cases: [string, string, string][] = [
+      ["plus.ts", `export const a = ${piece} + ${piece} + ${piece};`, "combined + chain"],
+      ["tpl.ts", "const x = 1;\nexport const a = `" + PROSE + "${x}" + PROSE + "${x}" + PROSE + "`;", "combined template"],
+      ["join.ts", `export const a = [${piece}, ${piece}, ${piece}].join(" ");`, "combined [].join()"],
+      ["jsx.tsx", `export const A = () => <p>${PROSE}{" "}${PROSE}{" "}${PROSE}</p>;`, "combined JSX text"],
+    ];
+    for (const [file, code, kind] of cases) {
+      const v = lintSource(file, code, { content: false });
+      expect(v.map((x) => x.kind), file).toContain(kind);
+    }
+    expect(lintSource("ok.tsx", `export const A = () => <p>Lorem {" "} ipsum</p>;`, { content: false })).toEqual([]);
+    expect(lintSource("ok.ts", `import x from "${"a".repeat(200)}"; export const b = x;`, { content: false })).toEqual([]);
+  });
+
+  it("(d) pack display fields must be label-shaped", () => {
+    expect(labelProblem("Creeds.json (SourceUrl: archive.org humbleadviceofas200west, 1647)")).toBeNull();
+    expect(labelProblem("NPNF1-02, trans. Dods")).toBeNull();
+    expect(labelProblem("Preface to the Letter of St. Paul to the Romans")).toBeNull();
+    expect(labelProblem("   ")).toMatch(/blank/);
+    expect(labelProblem("Lorem ipsum dolor sit amet. Consectetur adipiscing elit.")).toMatch(/sentence/);
+    expect(labelProblem("x".repeat(161))).toMatch(/longer/);
+    const v = lintManifest("p.json", {
+      author: "Placeholder", title: "Lorem", edition: "Lorem ipsum. Dolor sit amet consectetur.", ocrNote: " ",
+      parserOptions: { headings: [{ label: "Lorem ipsum dolor sit amet. Sed do eiusmod tempor." }] },
+      alternateSources: [{ url: "https://example.org", note: "y".repeat(200) }],
+    });
+    expect(v.map((x) => x.kind).sort()).toEqual(["manifest alternateSources[0].note", "manifest edition", "manifest ocrNote", "manifest parserOptions.headings[0].label"]);
   });
 });

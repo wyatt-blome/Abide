@@ -17,7 +17,7 @@ export const parseHeadingRange: ExcerptParser = (files, opts, ctx) => {
   const out: ParsedExcerpt[] = [];
   for (const f of files) {
     const prep = prepareStructure(f, o, ctx);
-    for (const sec of prep.sections) out.push(...sectionExcerpts(prep, sec, o, o.mappingMethod ?? "heading"));
+    for (const sec of prep.sections) out.push(...sectionExcerpts(prep, sec, o, o.mappingMethod ?? "heading", (s) => ctx.log(`[${ctx.packId}] ${s}`)));
   }
   return out;
 };

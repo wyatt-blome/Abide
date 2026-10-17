@@ -71,15 +71,30 @@ export function PlanPractice({ planId, target: targetParam, mode: modeParam }: P
   const router = useRouter();
   const plan = useLiveQuery(() => db.plans.get(planId), [planId], null);
   const passageCard = useLiveQuery(() => db.passageCards.where("planId").equals(planId).first(), [planId], null);
+  // undefined while loading: the default target waits for it (a `false` default would pick the
+  // run-through first and then flip to the new chunk, remounting the drill).
   const hasNew = useLiveQuery(
     async () => (await db.verseCards.where("planId").equals(planId).toArray()).some((c) => c.reps === 0),
     [planId],
-    false,
+    undefined,
   );
   const [headings, setHeadings] = useState<BsbHeading[] | null>(null);
   const [target, setTarget] = useState<Target | null>(null);
-  const [spec, setSpec] = useState<PracticeSpec | null>(null);
+  // The default target is decided once, when plan and cards are first loaded. Recording an attempt
+  // changes `hasNew`; re-deriving the default then would swap the target and unmount the Summary.
+  const [defaultTarget, setDefaultTarget] = useState<{ target: Target; newChunk: boolean } | null>(null);
+  // The spec carries the specKey it was built for, so a stale spec is never shown for a new target.
+  const [built, setBuilt] = useState<{ key: string; spec: PracticeSpec } | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  if (!defaultTarget && plan && hasNew !== undefined) {
+    const fromUrl = parseTarget(targetParam, plan);
+    const newChunk = !fromUrl && hasNew && plan.chunksIntroduced > 0;
+    setDefaultTarget({
+      target: fromUrl ?? (newChunk ? { kind: "chunk", index: plan.chunksIntroduced - 1 } : { kind: "run", index: 0 }),
+      newChunk,
+    });
+  }
 
   useEffect(() => {
     let alive = true;
@@ -91,15 +106,9 @@ export function PlanPractice({ planId, target: targetParam, mode: modeParam }: P
     };
   }, []);
 
-  // Default target: ?target, else the plan's newest unlearned chunk, else the run-through.
-  const effectiveTarget = useMemo<Target | null>(() => {
-    if (!plan) return null;
-    if (target) return target;
-    const fromUrl = parseTarget(targetParam, plan);
-    if (fromUrl) return fromUrl;
-    if (hasNew && plan.chunksIntroduced > 0) return { kind: "chunk", index: plan.chunksIntroduced - 1 };
-    return { kind: "run", index: 0 };
-  }, [plan, target, targetParam, hasNew]);
+  // Target: the one chosen on this page, else the default (?target, else the plan's newest
+  // unlearned chunk, else the run-through), frozen once resolved.
+  const effectiveTarget: Target | null = plan ? (target ?? defaultTarget?.target ?? null) : null;
 
   const resolved = useMemo(
     () => (plan && effectiveTarget && passageCard !== null ? resolveTarget(plan, effectiveTarget, !!passageCard) : null),
@@ -113,11 +122,14 @@ export function PlanPractice({ planId, target: targetParam, mode: modeParam }: P
     Promise.all([loadPracticeVerses(resolved.keys, plan.translation), loadPracticeVerses(plan.chunks.flat(), plan.translation)])
       .then(([verses, pool]: [PracticeVerse[], PracticeVerse[]]) => {
         if (!alive) return;
-        const isNewChunk = effectiveTarget?.kind === "chunk" && hasNew && effectiveTarget.index === plan.chunksIntroduced - 1;
-        setSpec({
+        const isNewChunk = !target && !!defaultTarget?.newChunk;
+        setBuilt({
+          key: specKey,
+          spec: {
           planId: plan.id, title: resolved.title, subtitle: resolved.subtitle, verses, pool, record: resolved.record,
           passageCardId: resolved.usePassageCard ? passageCard?.id : undefined,
-          headings: headingsInRange(headings, plan.range), defaultMode: isNewChunk ? "read" : "typeFirst",
+            headings: headingsInRange(headings, plan.range), defaultMode: isNewChunk ? "read" : "typeFirst",
+          },
         });
       })
       .catch((e) => alive && setError(e instanceof Error ? e.message : "Couldn't load the verses."));
@@ -128,7 +140,7 @@ export function PlanPractice({ planId, target: targetParam, mode: modeParam }: P
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [specKey, headings, plan?.id]);
 
-  if (plan === null || passageCard === null) return <p role="status">Loading…</p>;
+  if (plan === null || passageCard === null || (plan && hasNew === undefined)) return <p role="status">Loading…</p>;
   if (!plan) {
     return (
       <EmptyState title="Plan not found" action={<Button onClick={() => router.push("/memorize")}>Memorize</Button>}>
@@ -141,10 +153,8 @@ export function PlanPractice({ planId, target: targetParam, mode: modeParam }: P
   const t = effectiveTarget ?? { kind: "run", index: 0 };
   const all = plan.chunks.flat();
   const allLabels = verseLabels(all.map(fromKey));
-  const setT = (next: Target) => {
-    setSpec(null);
-    setTarget(next);
-  };
+  const setT = (next: Target) => setTarget(next);
+  const spec = built && built.key === specKey ? built.spec : null;
 
   return (
     <div className="flex flex-col gap-4">

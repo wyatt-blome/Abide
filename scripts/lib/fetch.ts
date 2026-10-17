@@ -88,10 +88,11 @@ export async function fetchUrl(url: string, timeoutSec = 300): Promise<Uint8Arra
 }
 
 /** Try url then each mirror in order. Returns the first success; error lists every attempt. */
-export async function fetchWithMirrors(url: string, mirrors: string[] = []): Promise<Fetched> {
+export async function fetchWithMirrors(url: string, mirrors: string[] = [], onAttempt?: (url: string) => void): Promise<Fetched> {
   const errors: FetchError[] = [];
   for (const u of [url, ...mirrors]) {
     try {
+      onAttempt?.(u);
       return { buf: await fetchUrl(u), fetchedFrom: u };
     } catch (e) {
       errors.push(e instanceof FetchError ? e : new FetchError(String(e), "network"));
@@ -119,28 +120,30 @@ export function cachePath(cacheDir: string, packId: string, rawIndex: number, ur
 export interface CachedSource extends Fetched { sha256: string; bytes: number; fromCache: boolean }
 
 /**
- * Return the cached file for rawUrls[rawIndex] if present (and, when expectSha is given, its hash
- * matches); otherwise download (url, then mirrors) and write the cache.
+ * Return the cached copy of rawUrls[rawIndex] if present (and, when expectSha is given, its hash
+ * matches); otherwise download and write the cache.
+ *
+ * Order (for both the cache lookup and the download): fetchedFromHint (the URL the lockfile says
+ * worked last time; it need not be url or a mirror), then url, then mirrors. A cache file is
+ * named after the URL it was actually downloaded from (`{n}-{basename of fetchedFrom}`), so a
+ * mirror's TSV is never stored under the primary's ".zip" name, and `fetchedFrom` of a cache hit
+ * is the URL whose name matched.
  */
 export async function getSource(opts: {
   cacheDir: string; packId: string; rawIndex: number; url: string; mirrors?: string[];
-  expectSha?: string; fetchedFromHint?: string; offline?: boolean;
+  expectSha?: string; fetchedFromHint?: string; offline?: boolean; onAttempt?: (url: string) => void;
 }): Promise<CachedSource> {
-  const p = cachePath(opts.cacheDir, opts.packId, opts.rawIndex, opts.url);
-  if (existsSync(p)) {
+  const order = [...new Set([...(opts.fetchedFromHint ? [opts.fetchedFromHint] : []), opts.url, ...(opts.mirrors ?? [])])];
+  for (const u of order) {
+    const p = cachePath(opts.cacheDir, opts.packId, opts.rawIndex, u);
+    if (!existsSync(p)) continue;
     const buf = new Uint8Array(readFileSync(p));
     const h = sha256(buf);
-    if (!opts.expectSha || opts.expectSha === h)
-      return { buf, fetchedFrom: opts.fetchedFromHint ?? opts.url, sha256: h, bytes: buf.length, fromCache: true };
+    if (!opts.expectSha || opts.expectSha === h) return { buf, fetchedFrom: u, sha256: h, bytes: buf.length, fromCache: true };
   }
-  if (opts.offline) throw new FetchError(`not cached (offline): ${opts.url}`, "network");
-  const order = [opts.url, ...(opts.mirrors ?? [])];
-  // Prefer the URL that worked last time (lockfile hint) to avoid repeated blocked attempts.
-  if (opts.fetchedFromHint && order.includes(opts.fetchedFromHint)) {
-    order.splice(order.indexOf(opts.fetchedFromHint), 1);
-    order.unshift(opts.fetchedFromHint);
-  }
-  const got = await fetchWithMirrors(order[0], order.slice(1));
+  if (opts.offline) throw new FetchError(`not cached (offline): ${order.join(" | ")}`, "network");
+  const got = await fetchWithMirrors(order[0], order.slice(1), opts.onAttempt);
+  const p = cachePath(opts.cacheDir, opts.packId, opts.rawIndex, got.fetchedFrom);
   mkdirSync(path.dirname(p), { recursive: true });
   writeFileSync(p, got.buf);
   return { ...got, sha256: sha256(got.buf), bytes: got.buf.length, fromCache: false };

@@ -19,7 +19,7 @@ import {
   type LibraryExcerpt, type LibraryIndex, type LibraryWork,
 } from "@/lib/library";
 import { iterateRange, rangeKeys, type BibleMeta } from "@/lib/meta";
-import { clampRange, compareRefs, formatRange, formatRanges, formatRef, fromKey, toKey } from "@/lib/refs";
+import { clampRange, compareRefs, formatRange, formatRanges, formatRef, fromKey, rangeId, toKey } from "@/lib/refs";
 import { Button, Chip, Icon, Sheet, cx } from "@/components/ui";
 import { useSettings } from "@/components/providers/AppProviders";
 import { bibleProjectLinksForRange } from "../../../content/bibleproject";
@@ -36,7 +36,6 @@ export interface SourcesPanelProps {
   translation: TranslationId;
 }
 
-const rangeId = (r: VerseRange): string => `${toKey(r.start)}-${toKey(r.end)}`;
 
 const linkClass = cx(
   "tap inline-flex items-center gap-2 rounded-xl px-3 font-semibold text-accent underline underline-offset-4",

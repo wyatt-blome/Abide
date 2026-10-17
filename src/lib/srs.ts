@@ -20,13 +20,17 @@
 // `default_w`, 17 parameters).
 //
 // App mapping: grade 1 → Again, 2 → Hard, 3 and 4 → Good, 5 → Easy.
-// Scheduling granularity: due = now + round(interval) days, minimum 1 day for any passing grade.
+// Scheduling granularity: whole local calendar days. A passing grade is due at local midnight of
+// the day N days after today, N = round(interval), minimum 1 (so DST changes never shift a due
+// date by an hour into the wrong day). Learning steps: the first passing review of a new card
+// (reps = 0) and the first passing review after an Again on the same day (relearning) are due
+// tomorrow, whatever FSRS's interval; FSRS's stability is kept as computed.
 // Again → due now + 10 minutes, so the card resurfaces in the same day's queue (the queue counts
 // anything due before local midnight as due today). Lapses are counted only for cards that had
 // been learned (reps > 0); failing a brand-new card is not a lapse.
 
 import type { SrsState } from "@/db/types";
-import { DAY_MS } from "@/lib/isoDate";
+import { addDays, DAY_MS, diffDays, localMidnight, startOfLocalDay, todayISO } from "@/lib/isoDate";
 
 export const FSRS_W = [
   0.4872, 1.4003, 3.7145, 13.8206, 5.1618, 1.2298, 0.8975, 0.031, 1.6474, 0.1367, 1.0461, 2.1072,
@@ -91,6 +95,20 @@ function forgetStability(d: number, s: number, rr: number): number {
   return Math.min(sf, s);
 }
 
+/**
+ * True when the card's last review was an Again: it is due again within a day of that review and
+ * not at a local midnight (passing grades are always scheduled to a local midnight).
+ */
+export function lastWasAgain(state: SrsState): boolean {
+  if (state.reps === 0 || state.lastReviewed === undefined) return false;
+  return state.due - state.lastReviewed < DAY_MS && state.due !== startOfLocalDay(state.due);
+}
+
+/** Local midnight `days` calendar days after the local day of `now`. */
+export function dueInDays(now: number, days: number): number {
+  return localMidnight(addDays(todayISO(now), days));
+}
+
 /** Pure FSRS-4.5 review. Returns a new state; the input is not mutated. */
 export function review(state: SrsState, grade: AppGrade, now: number): SrsState {
   const r = ratingFromGrade(grade);
@@ -114,16 +132,22 @@ export function review(state: SrsState, grade: AppGrade, now: number): SrsState 
   }
   stability = Math.max(stability, 0.01);
 
-  const due =
-    r === 1
-      ? now + AGAIN_DELAY_MS
-      : now + clamp(Math.round(intervalDays(stability)), 1, MAX_INTERVAL_DAYS) * DAY_MS;
+  let due: number;
+  if (r === 1) {
+    due = now + AGAIN_DELAY_MS;
+  } else {
+    const learning = state.reps === 0;
+    const relearning =
+      lastWasAgain(state) && state.lastReviewed !== undefined && todayISO(state.lastReviewed) === todayISO(now);
+    const days = learning || relearning ? 1 : clamp(Math.round(intervalDays(stability)), 1, MAX_INTERVAL_DAYS);
+    due = dueInDays(now, days);
+  }
 
   return { ...state, stability, difficulty, due, reps: state.reps + 1, lapses, lastReviewed: now };
 }
 
-/** Whole-day interval a passing grade would produce right now (for "next review in N days" hints). */
+/** Calendar days until the review a grade would produce right now (for "next review in N days" hints). */
 export function previewIntervalDays(state: SrsState, grade: AppGrade, now: number): number {
   const next = review(state, grade, now);
-  return Math.round((next.due - now) / DAY_MS);
+  return diffDays(todayISO(now), todayISO(next.due));
 }

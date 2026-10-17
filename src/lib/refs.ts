@@ -38,6 +38,30 @@ export function rangesOverlap(a: VerseRange, b: VerseRange): boolean {
 
 export const singleVerse = (r: VerseRef): VerseRange => ({ start: r, end: r });
 
+/** Compact range id "ROM.8.1-ROM.8.39" (URL parameter, React key). Inverse: parseRangeId. */
+export const rangeId = (r: VerseRange): string => `${toKey(r.start)}-${toKey(r.end)}`;
+
+const KEY_RE = /^([1-3A-Z]{3})\.(\d{1,3})\.(\d{1,3})$/;
+
+function parseKeyStrict(s: string): VerseRef | null {
+  const m = KEY_RE.exec(s);
+  if (!m || !BOOK_BY_CODE[m[1]]) return null;
+  const chapter = Number(m[2]);
+  const verse = Number(m[3]);
+  return chapter >= 1 && verse >= 1 ? { book: m[1], chapter, verse } : null;
+}
+
+/** Parse a rangeId ("ROM.8.1-ROM.8.39", or a single key "ROM.8.28"); null when malformed or reversed. */
+export function parseRangeId(id: string | null | undefined): VerseRange | null {
+  if (!id) return null;
+  const parts = id.trim().split("-");
+  if (parts.length > 2) return null;
+  const start = parseKeyStrict(parts[0]);
+  const end = parts.length === 2 ? parseKeyStrict(parts[1]) : start;
+  if (!start || !end || compareRefs(start, end) > 0) return null;
+  return { start, end };
+}
+
 // ---------------------------------------------------------------- meta index (cached per meta object)
 
 interface MetaIndex {

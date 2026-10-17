@@ -23,16 +23,24 @@ export interface EmitOptions {
   fullSections?: boolean;
 }
 
-function full(text: string, s: number, e: number, max: number): Window {
+function full(text: string, s: number, e: number, max: number): Window | null {
   return windowFromStart(text, s, e, max);
 }
 
-export function sectionExcerpts(prep: Prepared, sec: Section, o: EmitOptions, method: Excerpt["mappingMethod"]): ParsedExcerpt[] {
+const noLog = () => {};
+
+export function sectionExcerpts(
+  prep: Prepared, sec: Section, o: EmitOptions, method: Excerpt["mappingMethod"], log: (s: string) => void = noLog,
+): ParsedExcerpt[] {
   const text = prep.nm.text;
-  const max = o.maxChars ?? MAX_EXCERPT;
+  const max = Math.min(o.maxChars ?? MAX_EXCERPT, MAX_EXCERPT);
   if (!sec.ranges.length || sec.end - sec.start < (o.minChars ?? 40)) return [];
   const paraEnds = sec.paras.map(([, e]) => e);
   const w = sec.isIntro ? windowParagraphs(text, sec.start, sec.end, paraEnds, max) : windowFromStart(text, sec.start, sec.end, max);
+  if (!w) {
+    log(`${sec.locator || "?"}: first sentence/clause longer than ${max} chars; section not excerpted (no word-level cut)`);
+    return [];
+  }
   const key = `${sec.rawIndex}:${sec.start}`;
   const base = {
     rawIndex: sec.rawIndex, locator: sec.locator, verseRanges: sec.ranges, mappingMethod: method,
@@ -43,8 +51,9 @@ export function sectionExcerpts(prep: Prepared, sec: Section, o: EmitOptions, me
     truncatedEnd: w.truncatedEnd || undefined, sectionKey: w.truncatedEnd ? key : undefined,
   }];
   if (w.truncatedEnd && o.fullSections !== false) {
-    const f = full(text, sec.start, sec.end, o.sectionMaxChars ?? MAX_SECTION);
-    out.push({ ...base, charOffset: f.start, text: text.slice(f.start, f.end), truncatedEnd: f.truncatedEnd || undefined, sectionKey: key, isSection: true });
+    const f = full(text, sec.start, sec.end, Math.min(o.sectionMaxChars ?? MAX_SECTION, MAX_SECTION));
+    if (!f) log(`${sec.locator || "?"}: no full-section excerpt (no sentence end within the section limit)`);
+    else out.push({ ...base, charOffset: f.start, text: text.slice(f.start, f.end), truncatedEnd: f.truncatedEnd || undefined, sectionKey: key, isSection: true });
   }
   return out;
 }
@@ -57,7 +66,7 @@ export function inlineExcerpts(
   const text = prep.nm.text;
   const meta: BibleMeta = ctx.meta;
   const out: ParsedExcerpt[] = [];
-  const max = o.maxChars ?? MAX_EXCERPT;
+  const max = Math.min(o.maxChars ?? MAX_EXCERPT, MAX_EXCERPT);
   const context: CitationContext = sec.context;
   for (const [ps, pe] of sec.paras) {
     if (pe - ps < (o.minChars ?? 40)) continue;
@@ -75,6 +84,10 @@ export function inlineExcerpts(
       }
       if (!ranges.length) continue;
       const w = windowAround(text, ps, pe, ps + c.index, ps + c.end, max);
+      if (!w) {
+        ctx.log(`[${ctx.packId}] ${sec.locator || "?"}: "${c.text}" sits in a clause longer than ${max} chars; dropped (no word-level cut)`);
+        continue;
+      }
       if (last && last.charOffset === w.start && last.text.length === w.end - w.start) {
         last.verseRanges = dedupeRanges([...last.verseRanges, ...ranges]);
         continue;
@@ -89,8 +102,9 @@ export function inlineExcerpts(
       };
       out.push(last);
     }
-    if (sectionKey && o.fullSections !== false) {
-      const f = full(text, ps, pe, o.sectionMaxChars ?? MAX_SECTION);
+    const f = sectionKey && o.fullSections !== false ? full(text, ps, pe, Math.min(o.sectionMaxChars ?? MAX_SECTION, MAX_SECTION)) : null;
+    if (sectionKey && o.fullSections !== false && !f) ctx.log(`[${ctx.packId}] ${sec.locator || "?"}: no full-section excerpt for a paragraph (no sentence end within the limit)`);
+    if (sectionKey && f) {
       const all = dedupeRanges(out.filter((x) => x.sectionKey === sectionKey).flatMap((x) => x.verseRanges));
       out.push({
         rawIndex: sec.rawIndex, charOffset: f.start, text: text.slice(f.start, f.end), locator: sec.locator,

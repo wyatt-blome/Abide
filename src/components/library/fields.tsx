@@ -66,17 +66,23 @@ export function TextArea({
 
 export function SelectField({
   label,
+  hint,
   children,
   className,
   ...rest
-}: SelectHTMLAttributes<HTMLSelectElement> & { label: string; children: ReactNode }) {
+}: SelectHTMLAttributes<HTMLSelectElement> & { label: string; hint?: string; children: ReactNode }) {
   const id = useId();
   return (
     <div className={cx("flex flex-col gap-1", className)}>
       <label htmlFor={id} className="font-semibold">
         {label}
       </label>
-      <select id={id} className={control} {...rest}>
+      {hint ? (
+        <p id={`${id}-hint`} className="text-[15px] text-muted">
+          {hint}
+        </p>
+      ) : null}
+      <select id={id} className={control} aria-describedby={hint ? `${id}-hint` : undefined} {...rest}>
         {children}
       </select>
     </div>

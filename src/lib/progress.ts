@@ -2,9 +2,10 @@
 //
 // Maturity of a verse card (shared by the plan heatmap and the Progress page):
 //   new      – no card yet (chunk not introduced) or never reviewed (reps = 0).
-//   learning – reviewed fewer than 2 times, or recently lapsed: the last review was an Again, so the
-//              card is due again within a day of that review (FSRS Again = +10 min).
-//   mature   – the scheduled interval (due − lastReviewed) or the FSRS stability is ≥ 21 days.
+//   learning – reviewed fewer than 2 times, or recently lapsed: the last review was an Again
+//              (srs.lastWasAgain: due again within a day, FSRS Again = +10 min).
+//   mature   – the scheduled interval (calendar days from lastReviewed to due) or the FSRS
+//              stability is ≥ 21 days.
 //   young    – everything else: reviewed and passing, interval < 21 days.
 // "Known" verses = young or mature.
 //
@@ -12,7 +13,8 @@
 // Single-chunk plans have no passage card; there the last review of every verse must be ≥ 4.
 
 import type { MemoryPlan, PassageCard, ReviewLog, SrsState, VerseCard, VerseKey } from "@/db/types";
-import { addDays, DAY_MS, endOfLocalDay, localMidnight, todayISO, type ISODate } from "@/lib/isoDate";
+import { addDays, DAY_MS, diffDays, endOfLocalDay, localMidnight, todayISO, type ISODate } from "@/lib/isoDate";
+import { lastWasAgain } from "@/lib/srs";
 
 export type Maturity = "new" | "learning" | "young" | "mature";
 
@@ -29,16 +31,16 @@ export const MATURITY_LABEL: Record<Maturity, string> = {
   mature: "Mature",
 };
 
-/** Scheduled interval in days (due − lastReviewed); 0 when never reviewed. */
+/** Scheduled interval in local calendar days (day of due − day of lastReviewed); 0 when never reviewed. */
 export function scheduledIntervalDays(card: SrsState): number {
   if (card.lastReviewed === undefined) return 0;
-  return Math.max(0, (card.due - card.lastReviewed) / DAY_MS);
+  return Math.max(0, diffDays(todayISO(card.lastReviewed), todayISO(card.due)));
 }
 
 export function classifyCard(card: SrsState | undefined | null): Maturity {
   if (!card || card.reps === 0) return "new";
   const interval = scheduledIntervalDays(card);
-  const lapsedRecently = card.lastReviewed !== undefined && interval < 1;
+  const lapsedRecently = lastWasAgain(card);
   if (card.reps < 2 || lapsedRecently) return "learning";
   if (interval >= MATURE_DAYS || card.stability >= MATURE_DAYS) return "mature";
   return "young";

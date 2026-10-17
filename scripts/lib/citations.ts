@@ -9,6 +9,13 @@
 //  * the book token must be followed by a chapter number (arabic or roman numerals);
 //  * aliases of <= 2 letters ("Is", "Am", "Ex", "Jn") need a trailing period AND chapter+verse;
 //  * aliases that are common words/names ("Job", "Song", "Mark", "Col", ...) need chapter+verse;
+//  * book names that are also personal names or English words ("James", "Daniel", "Amos", "Ezra",
+//    "Titus", "Esther", "Joel", "Jude", "John", "Luke", "Acts", "Mark", "Numbers", "Job", "Ruth")
+//    need an EXPLICIT verse: "John 3:16", "John iii. 16", "Daniel 3, ver. 5", "Jude ver. 3" —
+//    never "King James I.", "Daniel 3", "Numbers 3" or a bare "Jude 3" (a numbered prefix,
+//    "1 John 4", is not a name and keeps the normal rule);
+//  * a chapter written as a CAPITAL roman numeral alone ("James II.", "Matt. V.") is a regnal or
+//    list number as often as a chapter: it needs a verse ("Matt. V. 3");
 //  * "Ps. 23, 24" (arabic chapter + comma + number, no colon) is ambiguous -> dropped and logged;
 //  * "ver. 5" / "verses 5-7" are only resolved when the caller passes a heading-derived context
 //    ({book, chapter}); otherwise they are dropped and logged;
@@ -103,6 +110,11 @@ const COLLISION = new Set([
   "lam", "num", "ex", "act", "philip", "can", "ruth", "sam", "kin", "esay",
 ]);
 
+/** Person names / English words among full book names: need an explicit verse (unnumbered only). */
+const NAME_COLLISION = new Set([
+  "james", "daniel", "amos", "ezra", "titus", "esther", "joel", "jude", "john", "luke", "acts", "mark", "numbers", "job", "ruth",
+]);
+
 function escapeRe(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -160,7 +172,7 @@ function toHit(m: RegExpExecArray): BookHit | null {
     code = UNNUMBERED.get(alias);
   }
   if (!code) return null;
-  const strict = alias.length <= 2 ? "short" : COLLISION.has(alias) ? "collision" : "normal";
+  const strict = alias.length <= 2 ? "short" : COLLISION.has(alias) || (!g.nbase && NAME_COLLISION.has(alias)) ? "collision" : "normal";
   if (strict === "short" && !g.dot) return null;
   return { code, index: m.index, end: m.index + m[0].length, strict };
 }
@@ -187,7 +199,14 @@ function readVerse(s: string, p: number): Num | null {
   return { value: Number(m[1].replace(/l/g, "1")), roman: false, end: p + m[0].length, ocr };
 }
 
-interface Group { chapter: number; chapterEnd?: number; verses?: [number, number][]; crossEnd?: { chapter: number; verse: number } }
+interface Group {
+  chapter: number; chapterEnd?: number; verses?: [number, number][]; crossEnd?: { chapter: number; verse: number };
+  /** verses were printed after a chapter separator (":", ".", "ver."), not inferred ("Jude 3"). */
+  explicit?: boolean;
+}
+
+/** "ver. 5", ", v. 5", "verse 5" between a chapter (or a single-chapter book) and its verse. */
+const VER_SEP = /^[ \u00a0]?[,.]?[ \u00a0]?(?:ver|vers|verse|v|vv)\.?[ \u00a0]?(?=\d)/i;
 
 function skip(s: string, p: number, re: RegExp): number {
   const m = re.exec(s.slice(p, p + 16));
@@ -255,6 +274,10 @@ function parseTail(s: string, p: number, singleChapterBook: boolean, problems: s
     const sepColon = skip(s, ch.end, /^[  ]?[:.][  ]?/);
     const sepComma = skip(s, ch.end, /^,[  ]?/);
     let vl = sepColon >= 0 ? readVerseList(s, sepColon, problems) : null;
+    if (!vl) {
+      const sepVer = skip(s, ch.end, VER_SEP);
+      if (sepVer >= 0) vl = readVerseList(s, sepVer, problems);
+    }
     if (!vl && sepComma >= 0 && readVerse(s, sepComma)) {
       if (ch.roman) vl = readVerseList(s, sepComma, problems);
       else if (round === 0) {
@@ -263,7 +286,7 @@ function parseTail(s: string, p: number, singleChapterBook: boolean, problems: s
       }
     }
     if (vl) {
-      g = { chapter: ch.value, verses: vl.verses, crossEnd: vl.crossEnd };
+      g = { chapter: ch.value, verses: vl.verses, crossEnd: vl.crossEnd, explicit: true };
       end = vl.end;
     } else if (round > 0 && !ch.roman) {
       break; // "; 5" after a group: not a chapter-only continuation we can trust
@@ -273,6 +296,8 @@ function parseTail(s: string, p: number, singleChapterBook: boolean, problems: s
       if (/^[\p{L}\p{N}]/u.test(next)) break;
       // a roman chapter on its own must be closed by punctuation ("Rom. i." but not "Rom. I think")
       if (ch.roman && !/^[.,;)\]]/.test(next)) break;
+      // a CAPITAL roman numeral alone ("James II.", "Matt. V.") needs a verse
+      if (ch.roman && /^[IVXLC]+$/.test(s.slice(q, ch.end))) break;
       g = { chapter: ch.value };
       end = ch.end;
       const d = skip(s, ch.end, /^\.?[  ]?[-–—][  ]?/);
@@ -343,6 +368,8 @@ export function findCitations(text: string, meta: BibleMeta, context?: CitationC
     const single = chapterCount(meta, hit.code) === 1;
     const tail = parseTail(text, hit.end, single, problems);
     if (!tail) { BOOK_RE.lastIndex = hit.end; continue; }
+    // word-like/name books: keep only groups with an explicitly printed verse
+    if (hit.strict === "collision") tail.groups = tail.groups.filter((g) => g.verses && g.explicit);
     const hasVerse = tail.groups.some((g) => g.verses);
     if (hit.strict !== "normal" && !hasVerse && !problems.length) { BOOK_RE.lastIndex = hit.end; continue; }
     if (!tail.groups.length && !problems.length) { BOOK_RE.lastIndex = hit.end; continue; }

@@ -4,10 +4,12 @@ import { db } from "@/db/db";
 import { clearAllData } from "@/db/repo";
 import type { ReadingDay } from "@/db/types";
 import { CHRONOLOGICAL } from "../../content/plans/chronological";
-import { weekdayOf } from "@/lib/isoDate";
+import { addDays, weekdayOf } from "@/lib/isoDate";
 import { isDayComplete } from "@/lib/missed";
+import { iterateRefs, toKey } from "@/lib/refs";
 import {
-  applyMissedToPlan, createReadingPlan, dayId, getPlanDays, planStats, setDayDone, setPortionDone, totalVerses,
+  applyMissedToPlan, changePlanGraceWeekday, createReadingPlan, dayId, getPlanDays, planStats, regraceDays, setDayDone,
+  setPortionDone, totalVerses,
 } from "@/lib/readingPlanStore";
 import { loadHeadings, loadMeta } from "../logic/_data";
 
@@ -93,5 +95,68 @@ describe("reading plan store", () => {
     expect(s.projectedFinish! > s.lastDate!).toBe(true);
     expect(weekdayOf(s.projectedFinish!)).not.toBe(0);
     expect(s.percent).toBe(0);
+  });
+});
+
+describe("changing the grace day", () => {
+  it("re-dates future unread days off the new grace weekday; completed days untouched; coverage exactly once", async () => {
+    const plan = await createReadingPlan({ style: "blended", startDate: "2026-10-19", graceWeekday: 0, translation: "BSB" }, data, T0);
+    await setDayDone(dayId(plan.id, 0), true, T0);
+    await setDayDone(dayId(plan.id, 1), true, T0);
+    await setDayDone(dayId(plan.id, 10), true, T0); // read ahead
+    await setPortionDone(dayId(plan.id, 3), 0, true, T0); // partly read
+    const before = await getPlanDays(plan.id);
+    const today = before[2].date; // 2026-10-21 (Wed)
+    expect(weekdayOf(today)).toBe(3);
+
+    await changePlanGraceWeekday(plan.id, 3, { today, now: T0 + 1000 });
+    expect((await db.readingPlans.get(plan.id))?.graceWeekday).toBe(3);
+    const after = await getPlanDays(plan.id);
+    expect(after).toHaveLength(312);
+
+    // Completed and partly read days keep date and content.
+    const byId = new Map(before.map((d) => [d.id, d]));
+    for (const d of after) {
+      const old = byId.get(d.id)!;
+      if (old.portions.some((p) => p.done)) expect(d).toEqual(old);
+      expect(d.portions).toEqual(old.portions);
+      expect(d.dayIndex).toBe(old.dayIndex);
+    }
+    // No future unread day falls on the new grace weekday.
+    for (const d of after) {
+      if (d.date >= today && !d.portions.some((p) => p.done)) expect(weekdayOf(d.date)).not.toBe(3);
+    }
+    // Unread days keep their order; one plan day per date; the end date moves by at most a week.
+    const unread = after.filter((d) => d.dayIndex >= 0 && !d.portions.some((p) => p.done)).sort((a, b) => a.dayIndex - b.dayIndex);
+    for (let i = 1; i < unread.length; i++) expect(unread[i].date > unread[i - 1].date).toBe(true);
+    const dates = after.filter((d) => d.dayIndex >= 0).map((d) => d.date);
+    expect(new Set(dates).size).toBe(dates.length);
+    const lastBefore = before[before.length - 1].date;
+    const lastAfter = [...dates].sort().pop()!;
+    expect(lastAfter >= lastBefore).toBe(true);
+    expect(lastAfter <= addDays(lastBefore, 7)).toBe(true);
+    // Every verse still scheduled exactly once.
+    const seen = new Map<string, number>();
+    for (const d of after) for (const p of d.portions) for (const r of iterateRefs(meta, p.range, true)) {
+      const k = toKey(r);
+      seen.set(k, (seen.get(k) ?? 0) + 1);
+    }
+    expect(seen.size).toBe(31086);
+    expect([...seen.values()].every((n) => n === 1)).toBe(true);
+    expect(totalVerses(after)).toBe(31086);
+  });
+
+  it("regraceDays moves unread catch-up days to the new grace weekday", () => {
+    const portion = { track: "NT" as const, range: { start: { book: "JHN", chapter: 1, verse: 1 }, end: { book: "JHN", chapter: 1, verse: 5 } }, verseCount: 5, done: false };
+    const days: ReadingDay[] = [
+      { id: "p:0", planId: "p", dayIndex: 0, date: "2026-10-26", portions: [{ ...portion }] },
+      { id: "p:catchup:2026-11-01", planId: "p", dayIndex: -1, date: "2026-11-01", portions: [{ ...portion, range: { start: { book: "JHN", chapter: 2, verse: 1 }, end: { book: "JHN", chapter: 2, verse: 5 } } }] },
+    ];
+    const { days: out, removedIds } = regraceDays(days, "2026-10-25", 3, 1);
+    expect(removedIds).toEqual(["p:catchup:2026-11-01"]);
+    const cu = out.find((d) => d.dayIndex === -1)!;
+    expect(cu.id).toBe("p:catchup:2026-11-04");
+    expect(weekdayOf(cu.date)).toBe(3);
+    expect(out.find((d) => d.id === "p:0")!.date).toBe("2026-10-26");
   });
 });

@@ -31,6 +31,7 @@ export interface RecordResult {
 }
 
 export interface RecordInput {
+  /** "" = free practice outside a plan: nothing is recorded. */
   planId: string;
   kind: RecordKind;
   verses: PracticeVerse[];
@@ -48,6 +49,14 @@ export async function recordAttempt(input: RecordInput, now = Date.now()): Promi
   const scored = verses.filter((v) => outcome.perVerse[v.key] !== undefined);
   const grades: Record<VerseKey, AppGrade> = {};
   for (const v of scored) grades[v.key] = gradeFor(outcome.mode, outcome.perVerse[v.key]);
+
+  // Practice outside any plan (planId ""): scored for the Summary only, nothing is written.
+  if (!planId) {
+    return {
+      rows: scored.map((v) => ({ key: v.key, label: v.label, accuracy: outcome.perVerse[v.key], grade: grades[v.key] })),
+      mastered: false,
+    };
+  }
   const perVerseMs = scored.length ? Math.round(durationMs / scored.length) : durationMs;
   const rows: SummaryRow[] = [];
   let passageDue: number | undefined;

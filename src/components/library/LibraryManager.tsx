@@ -253,7 +253,7 @@ function WorkCard({
           <Row label="Types">{info.types.map((t) => TYPE_LABELS[t] ?? t).join(", ")}</Row>
           <Row label="Edition">{info.edition}</Row>
           <Row label="License">{`${STATUS_LABELS[info.license.status] ?? info.license.status} · ${BASIS_LABELS[info.license.basis] ?? info.license.basis}`}</Row>
-          <Row label="License evidence (as found in the source)">
+          <Row label={built ? "License proof found in source:" : "Claimed by manifest (not yet verified)"}>
             <code className="break-all">{info.license.proofText}</code>
           </Row>
           <Row label="License page">

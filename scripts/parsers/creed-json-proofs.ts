@@ -16,7 +16,7 @@
 import type { VerseRange } from "../../src/db/types";
 import { dedupeRanges } from "../lib/bible-meta";
 import { findCitations, parseOsis } from "../lib/citations";
-import { MAX_EXCERPT, MAX_SECTION, windowAround, windowFromStart } from "../lib/cut";
+import { MAX_EXCERPT, MAX_SECTION, endsAtBoundary, windowAround, windowFromStart } from "../lib/cut";
 import { normalizeWs } from "../lib/normalize";
 import type { ExcerptParser, ParsedExcerpt } from "./types";
 
@@ -83,16 +83,33 @@ export const parseCreedJson: ExcerptParser = (files, opts, ctx) => {
           out.push({ ...base, charOffset: parts[0].s, partOffsets: parts.map((p) => p.s), text: parts.map((p) => p.v.slice(p.s, p.e)).join("\n") });
           continue;
         }
+        // Too long: earlier parts (the Question) whole, the last part (the Answer) cut at the
+        // original's sentence — or, inside one over-long sentence, clause (";"/":") — stops.
+        // Never between two words: when no stop fits, the excerpt is the earlier parts alone
+        // (truncatedEnd, "Read full section" has the rest); with nothing earlier it is dropped.
         const head = parts.slice(0, -1);
         const lastP = parts[parts.length - 1];
         const headLen = head.reduce((n, p) => n + (p.e - p.s) + 1, 0);
-        const w = windowFromStart(lastP.v, lastP.s, lastP.e, Math.max(200, MAX_EXCERPT - headLen));
-        const cutText = [...head.map((p) => p.v.slice(p.s, p.e)), lastP.v.slice(w.start, w.end)].join("\n");
-        out.push({ ...base, charOffset: parts[0].s, partOffsets: [...head.map((p) => p.s), w.start], text: cutText, truncatedEnd: true, sectionKey: key });
+        const room = MAX_EXCERPT - headLen;
+        const w = room > 0 ? windowFromStart(lastP.v, lastP.s, lastP.e, room) : null;
+        const headText = head.map((p) => p.v.slice(p.s, p.e));
+        if (w) {
+          out.push({ ...base, charOffset: parts[0].s, partOffsets: [...head.map((p) => p.s), w.start], text: [...headText, lastP.v.slice(w.start, w.end)].join("\n"), truncatedEnd: true, sectionKey: key });
+        } else if (head.length && headLen - 1 <= MAX_EXCERPT && endsAtBoundary(headText[headText.length - 1])) {
+          ctx.log(`[${ctx.packId}] ${locator}: no sentence or clause end of ${fields[fields.length - 1]} within ${room} chars; excerpt is ${fields.slice(0, -1).join(" + ")} only`);
+          out.push({
+            ...base, sourcePaths: paths.slice(0, -1), charOffset: parts[0].s, partOffsets: head.map((p) => p.s), text: headText.join("\n"),
+            truncatedEnd: true, sectionKey: key,
+          });
+        } else {
+          ctx.log(`[${ctx.packId}] ${locator}: no sentence or clause end within ${MAX_EXCERPT} chars; dropped (no word-level cut)`);
+          continue;
+        }
         const fw = windowFromStart(lastP.v, lastP.s, lastP.e, MAX_SECTION);
+        if (!fw) { ctx.log(`[${ctx.packId}] ${locator}: no full-section excerpt (no stop within ${MAX_SECTION} chars)`); continue; }
         out.push({
           ...base, charOffset: parts[0].s, partOffsets: [...head.map((p) => p.s), fw.start],
-          text: [...head.map((p) => p.v.slice(p.s, p.e)), lastP.v.slice(fw.start, fw.end)].join("\n"),
+          text: [...headText, lastP.v.slice(fw.start, fw.end)].join("\n"),
           truncatedEnd: fw.truncatedEnd || undefined, sectionKey: key, isSection: true,
         });
         continue;
@@ -117,6 +134,7 @@ export const parseCreedJson: ExcerptParser = (files, opts, ctx) => {
         for (const c of cites) {
           if (!c.ranges.length) continue;
           const w = windowAround(p.v, p.s, p.e, c.index, c.end);
+          if (!w) { ctx.log(`[${ctx.packId}] ${locator}: "${c.text}" sits in a clause longer than ${MAX_EXCERPT} chars; dropped (no word-level cut)`); continue; }
           if (last && last.charOffset === w.start && last.text.length === w.end - w.start) {
             last.verseRanges = dedupeRanges([...last.verseRanges, ...c.ranges]);
             continue;
@@ -128,6 +146,7 @@ export const parseCreedJson: ExcerptParser = (files, opts, ctx) => {
           out.push(last);
         }
         const fw = windowFromStart(p.v, p.s, p.e, MAX_SECTION);
+        if (!fw) { ctx.log(`[${ctx.packId}] ${locator}: no full-section excerpt (no stop within ${MAX_SECTION} chars)`); return; }
         out.push({
           ...base, verseRanges: dedupeRanges(ranges), charOffset: fw.start, partOffsets: [fw.start], text: p.v.slice(fw.start, fw.end),
           truncatedEnd: fw.truncatedEnd || undefined, sectionKey: pkey, isSection: true,

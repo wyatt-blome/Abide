@@ -63,6 +63,40 @@ export interface StructureOptions {
   layout?: "ccel" | "plain";
   /** Locator prefix used before the range when locatorFromRange (e.g. unit label). */
   keepUnitInLocator?: boolean;
+  /**
+   * Regex (group 1 = the title) for the file's own title lines, searched in its first 400 lines.
+   * Default "^Title:\\s*(.+)$" (CCEL and Project Gutenberg headers). For a file whose bookScope is
+   * a single book, the book context before the first book-setting heading is the one book named
+   * in these lines; bookScope only restricts (validates) it, never supplies it.
+   */
+  titlePattern?: string;
+}
+
+export const DEFAULT_TITLE_PATTERN = "^Title:\\s*(.+)$";
+const TITLE_SCAN_LINES = 400;
+
+/**
+ * The book named in a file's own title line(s): the first line matching `pattern` (group 1, or
+ * the whole line) in which bookInTitle finds exactly one book within `scope`. undefined when no
+ * title line names one, so nothing is attributed to a book the text itself does not name.
+ */
+export function bookFromTitleLines(raw: string, pattern = DEFAULT_TITLE_PATTERN, scope?: string[]): { book?: string; title?: string } {
+  const re = new RegExp(pattern, "i");
+  let firstTitle: string | undefined;
+  let pos = 0;
+  for (let n = 0; n < TITLE_SCAN_LINES && pos <= raw.length; n++) {
+    let nl = raw.indexOf("\n", pos);
+    if (nl < 0) nl = raw.length;
+    const line = raw.slice(pos, nl).trim();
+    pos = nl + 1;
+    const m = re.exec(line);
+    if (!m) continue;
+    const title = (m[1] ?? m[0]).trim();
+    firstTitle ??= title;
+    const book = bookInTitle(title, scope);
+    if (book) return { book, title };
+  }
+  return { title: firstTitle };
 }
 
 export interface Section {
@@ -125,6 +159,8 @@ export function bookInTitle(title: string, scope?: string[]): string | undefined
       const cand = words.slice(i, i + n).join(" ");
       if (cand.length < 3 && n === 1) continue;
       const t = cand === cand.toUpperCase() ? cand[0] + cand.slice(1).toLowerCase() : cand;
+      // title lines capitalise book names; a lowercase word ("can", "job") is never a book here
+      if (!/^[\p{Lu}\p{N}]/u.test(t)) continue;
       const code = bookFromName(t);
       if (code && (!scope || scope.includes(code))) found.add(code);
     }
@@ -185,7 +221,17 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
   }
 
   const st: State = { ranges: [], intro: false, skipping: false, labels: {}, unitIndex: 0 };
-  if (scope && scope.length === 1) st.book = scope[0];
+  // A single-book file: the book context comes from the file's own title line, validated
+  // against bookScope (which may only restrict). Not found -> no context (headings that need a
+  // book are then dropped and logged).
+  let fileBook: string | undefined;
+  if (scope && scope.length === 1) {
+    const t = bookFromTitleLines(raw, opts.titlePattern, scope);
+    fileBook = t.book;
+    if (fileBook) ctx.log(`[${ctx.packId}] file ${file.rawIndex}: book ${fileBook} from its title line "${t.title}"`);
+    else ctx.log(`[${ctx.packId}] file ${file.rawIndex}: no title line names ${scope[0]} (title: ${t.title ? `"${t.title}"` : "none found"}); book context only from headings`);
+  }
+  st.book = fileBook;
   const sections: Section[] = [];
   let cur: { paras: [number, number][]; snap: State } | null = null;
 
@@ -255,7 +301,7 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
     }
     if (rule.level === "unit") {
       st.unitIndex++;
-      const book = resolveBook(rule.book, m, lineText) ?? (scope?.length === 1 ? scope[0] : undefined);
+      const book = resolveBook(rule.book, m, lineText) ?? fileBook;
       st.book = book;
       st.chapter = num(rule.chapter);
       st.labels = { unit: rule.label ? fill(rule.label, m, { chapter: st.chapter }) : undefined };

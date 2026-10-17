@@ -6,7 +6,7 @@
 // "Pause" stops speech and remembers the item; "Resume" restarts at the start of that item
 // (speechSynthesis.pause is unreliable on Android).
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import {
   clearMediaSession, requestWakeLock, setMediaHandlers, setMediaMetadata, setPlaybackState, type WakeLockHandle,
@@ -59,11 +59,18 @@ const IDLE: View = { state: "idle", index: -1, word: -1, items: [] };
 
 interface EngineDeps {
   setView: (fn: (v: View) => View) => void;
-  voice: () => string | undefined;
-  rate: () => number;
+  prefs: Prefs;
 }
 
-function createEngine({ setView, voice, rate }: EngineDeps): SpeechControls & { dispose: () => void } {
+interface Prefs {
+  voice: string | undefined;
+  rate: number;
+}
+
+function createEngine({ setView, prefs: initialPrefs }: EngineDeps): SpeechControls & { dispose: () => void; setPrefs: (p: Prefs) => void } {
+  let prefs: Prefs = initialPrefs;
+  const voice = () => prefs.voice;
+  const rate = () => prefs.rate;
   let items: SpeechItem[] = [];
   let opts: StartOptions | null = null;
   let current = -1;
@@ -171,6 +178,9 @@ function createEngine({ setView, voice, rate }: EngineDeps): SpeechControls & { 
 
   return {
     ...controls,
+    setPrefs: (p: Prefs) => {
+      prefs = p;
+    },
     dispose: () => {
       run++;
       if (current >= 0) cancel();
@@ -186,14 +196,11 @@ export function useSpeech(): Speech {
   const { settings } = useSettings();
   const supported = useSyncExternalStore(noopSubscribe, isSupported, () => false);
   const [view, setView] = useState<View>(IDLE);
-  const prefs = useRef({ voice: settings.ttsVoice, rate: settings.ttsRate });
+  const [engine] = useState(() => createEngine({ setView, prefs: { voice: settings.ttsVoice, rate: settings.ttsRate } }));
+  // Voice and rate are read when each item starts speaking, so a change applies from the next item.
   useEffect(() => {
-    prefs.current = { voice: settings.ttsVoice, rate: settings.ttsRate };
-  }, [settings.ttsVoice, settings.ttsRate]);
-
-  const [engine] = useState(() =>
-    createEngine({ setView, voice: () => prefs.current.voice, rate: () => prefs.current.rate }),
-  );
+    engine.setPrefs({ voice: settings.ttsVoice, rate: settings.ttsRate });
+  }, [engine, settings.ttsVoice, settings.ttsRate]);
   useEffect(() => () => engine.dispose(), [engine]);
 
   return {

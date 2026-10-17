@@ -9,6 +9,8 @@ import type { Settings, Theme, TranslationId } from "@/db/types";
 import { getVerseText } from "@/lib/bible";
 import { clearEsvSession, esvAvailable } from "@/lib/esv";
 import { NO_PACKS } from "@/lib/enabledPacks";
+import { todayISO } from "@/lib/isoDate";
+import { changePlanGraceWeekday, getCurrentPlan } from "@/lib/readingPlanStore";
 import { toKey } from "@/lib/refs";
 import * as tts from "@/lib/tts";
 import { useSettings } from "@/components/providers/AppProviders";
@@ -36,6 +38,12 @@ export function SettingsScreen() {
   const { settings, update, ready } = useSettings();
   const set = (patch: Partial<Settings>) => void update(patch);
   const verse = useAsync("name-verse", () => getVerseText("BSB", verseKey));
+  // One grace day for streak, books and the reading plan: the plan's future days are re-dated.
+  const changeGrace = async (graceWeekday: Settings["graceWeekday"]) => {
+    await update({ graceWeekday });
+    const plan = await getCurrentPlan();
+    if (plan && plan.graceWeekday !== graceWeekday) await changePlanGraceWeekday(plan.id, graceWeekday, { today: todayISO() });
+  };
 
   return (
     <>
@@ -86,7 +94,8 @@ export function SettingsScreen() {
         <SelectField
           label="Grace day (rest day each week)"
           value={String(settings.graceWeekday)}
-          onChange={(e) => set({ graceWeekday: Number(e.target.value) as Settings["graceWeekday"] })}
+          hint="Also used by your reading plan: its upcoming unread days move off the new grace day."
+          onChange={(e) => void changeGrace(Number(e.target.value) as Settings["graceWeekday"])}
         >
           {WEEKDAYS.map((d, i) => (
             <option key={d} value={i}>
@@ -109,7 +118,8 @@ export function SettingsScreen() {
         </Link>
       </SettingsBlock>
 
-      <EsvBlock settings={settings} set={set} />
+      {/* The key field copies the saved key once; render it only after settings load so a save never erases it. */}
+      {ready ? <EsvBlock settings={settings} set={set} /> : null}
       <RemindersSection />
       <BackupSection />
       <AboutSection verseText={verse.data} />

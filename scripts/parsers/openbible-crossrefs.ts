@@ -51,3 +51,21 @@ export const parseOpenBibleCrossrefs: CrossRefParser = (files, opts, ctx) => {
   ctx.log(`[${ctx.packId}] ${kept.length} cross references kept; ${low} below minVotes=${minVotes}; ${capped} beyond maxPerVerse=${maxPer || "none"}; ${bad} unparseable or outside versification`);
   return kept;
 };
+
+/**
+ * Cross references grouped into book shards exactly as they are written to
+ * public/library/openbible/{BOOK}.json: by the "from" verse's book, each list sorted by votes
+ * (desc, stable). Shared by build-library and the verifier, which re-derives every shard from the
+ * cached source file and compares it row by row.
+ */
+export function crossrefShards(xs: CrossRef[]): Map<string, CrossRef[]> {
+  const books = new Map<string, CrossRef[]>();
+  for (const x of xs) {
+    const b = x.from.split(".")[0];
+    const l = books.get(b);
+    if (l) l.push(x);
+    else books.set(b, [x]);
+  }
+  for (const list of books.values()) list.sort((a, b) => b.votes - a.votes);
+  return books;
+}

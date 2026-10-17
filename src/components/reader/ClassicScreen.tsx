@@ -212,9 +212,10 @@ function SectionReader({ plan, classic, content, today }: { plan: BookPlan; clas
   const [prompt, setPrompt] = useState<string | null>(null);
 
   // The plan counts sections; keep its total in step with the downloaded text.
+  const { id: planId, total: planTotal, current: planCurrent } = plan;
   useEffect(() => {
-    if (n > 0 && plan.total !== n) void updateBookPlan(plan.id, { total: n, current: Math.min(plan.current, n) });
-  }, [n, plan.id, plan.total, plan.current]);
+    if (n > 0 && planTotal !== n) void updateBookPlan(planId, { total: n, current: Math.min(planCurrent, n) });
+  }, [n, planId, planTotal, planCurrent]);
 
   const goTo = (i: number) => {
     speech.stop();

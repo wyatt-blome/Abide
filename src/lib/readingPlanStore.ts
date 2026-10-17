@@ -148,6 +148,78 @@ export async function applyMissedToPlan(
   });
 }
 
+// ---------------------------------------------------------------- grace day change
+
+const byDateIndex = (a: ReadingDay, b: ReadingDay) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.dayIndex - b.dayIndex);
+
+/**
+ * Re-date a plan's days for a new grace weekday (pure). Only days dated today or later with no
+ * portion read move; completed, partly read and past days keep their dates. Plan days keep their
+ * order and are placed on consecutive dates from the first moved day's date, skipping the new
+ * grace weekday and dates held by kept plan days (like shiftEnd). Unread catch-up days move to the
+ * first new grace weekday on or after their date (merged when one is already there; a moved
+ * catch-up day gets the id of its new date). Portions are never changed, so every verse is still
+ * scheduled exactly once. Returns the full new list and the ids that no longer exist.
+ */
+export function regraceDays(
+  days: ReadingDay[],
+  today: ISODate,
+  graceWeekday: ReadingPlan["graceWeekday"],
+  now = Date.now(),
+): { days: ReadingDay[]; removedIds: string[] } {
+  const untouched = (d: ReadingDay) => d.date < today || d.portions.length === 0 || d.portions.some((p) => p.done);
+  const movable = days.filter((d) => !isCatchUpDay(d) && !untouched(d)).sort(byDateIndex);
+  const occupied = new Set(days.filter((d) => !isCatchUpDay(d) && untouched(d) && d.date >= today).map((d) => d.date));
+
+  const result = new Map(days.map((d) => [d.id, d]));
+  let date = movable[0]?.date ?? today;
+  for (const d of movable) {
+    while (weekdayOf(date) === graceWeekday || occupied.has(date)) date = addDays(date, 1);
+    if (d.date !== date) result.set(d.id, { ...d, date, updatedAt: now });
+    date = addDays(date, 1);
+  }
+
+  const removedIds: string[] = [];
+  const catchUps = days.filter((d) => isCatchUpDay(d) && !untouched(d)).sort(byDateIndex);
+  for (const d of catchUps) {
+    if (weekdayOf(d.date) === graceWeekday) continue;
+    const target = addDays(d.date, (graceWeekday - weekdayOf(d.date) + 7) % 7);
+    const id = `${d.planId}:catchup:${target}`;
+    const there = result.get(id);
+    result.delete(d.id);
+    removedIds.push(d.id);
+    result.set(id, there ? { ...there, portions: [...there.portions, ...d.portions], updatedAt: now } : { ...d, id, date: target, updatedAt: now });
+  }
+  return { days: sortDays([...result.values()]), removedIds: removedIds.filter((id) => !result.has(id)) };
+}
+
+/**
+ * Change the reading plan's grace weekday: updates the plan and re-dates its future unread days
+ * (regraceDays); only changed days are written.
+ */
+export async function changePlanGraceWeekday(
+  planId: string,
+  graceWeekday: ReadingPlan["graceWeekday"],
+  opts: { today: ISODate; now?: number },
+): Promise<{ written: number }> {
+  const now = opts.now ?? Date.now();
+  return db.transaction("rw", db.readingPlans, db.readingDays, async () => {
+    const plan = await db.readingPlans.get(planId);
+    if (!plan) return { written: 0 };
+    const days = await db.readingDays.where("planId").equals(planId).toArray();
+    const before = new Map(days.map((d) => [d.id, d]));
+    const { days: after, removedIds } = regraceDays(days, opts.today, graceWeekday, now);
+    const changed = after.filter((d) => {
+      const old = before.get(d.id);
+      return !old || !sameDay(old, d);
+    });
+    if (removedIds.length) await db.readingDays.bulkDelete(removedIds);
+    if (changed.length) await db.readingDays.bulkPut(changed);
+    if (plan.graceWeekday !== graceWeekday) await db.readingPlans.put({ ...plan, graceWeekday, updatedAt: now });
+    return { written: changed.length + removedIds.length };
+  });
+}
+
 // ---------------------------------------------------------------- pure view helpers
 
 export function sortDays(days: ReadingDay[]): ReadingDay[] {

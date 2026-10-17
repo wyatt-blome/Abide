@@ -74,9 +74,11 @@ export function makeFixtures(cacheDir = DEFAULT_CACHE_DIR, outDir = path.join(RO
       const m = manifests.get(s.pack);
       if (!m) continue;
       const i = s.rawIndex ?? 0;
-      const url = lock.packs?.[s.pack]?.files?.[i]?.url ?? m.rawUrls[i];
-      const p = cachePath(cacheDir, s.pack, i, url);
-      if (!existsSync(p)) continue;
+      const lf = lock.packs?.[s.pack]?.files?.[i];
+      // cache files are named after the URL actually fetched (lockfile fetchedFrom), else the primary
+      const url: string = lf?.fetchedFrom ?? lf?.url ?? m.rawUrls[i];
+      const p = [url, lf?.url ?? m.rawUrls[i]].map((u) => cachePath(cacheDir, s.pack, i, u)).find((c) => existsSync(c));
+      if (!p) continue;
       const buf = new Uint8Array(readFileSync(p));
       const text = rawToText(buf);
       let out: string;

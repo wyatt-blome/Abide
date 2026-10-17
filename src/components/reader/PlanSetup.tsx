@@ -16,7 +16,14 @@ import { TRANSLATION_NAME } from "./PickerSheet";
 /** Average verses per day over 312 days (31,086 verses with BSB text). */
 const AVG_VERSES_PER_DAY = 100;
 
+/** Waits for settings so the form's defaults (grace day, translation) are the saved ones. */
 export function PlanSetup({ today }: { today: ISODate }) {
+  const { ready } = useSettings();
+  if (!ready) return <p role="status" className="my-6 text-muted">Loading…</p>;
+  return <PlanSetupForm today={today} />;
+}
+
+function PlanSetupForm({ today }: { today: ISODate }) {
   const { settings, update } = useSettings();
   const toast = useToast();
   const esv = { esvEnabled: settings.esvEnabled, esvKey: settings.esvKey };

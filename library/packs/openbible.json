@@ -12,9 +12,12 @@
   ],
   "mirrors": [
     [
-      "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/sources/extras/cross_references.txt"
+      "https://raw.githubusercontent.com/scrollmapper/bible_databases/e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c/sources/extras/cross_references.txt"
     ]
   ],
+  "mirrorEditions": {
+    "https://raw.githubusercontent.com/scrollmapper/bible_databases/e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c/sources/extras/cross_references.txt": "OpenBible.info cross-reference data, copy in scrollmapper/bible_databases (sources/extras)"
+  },
   "sourcePage": "https://www.openbible.info/labs/cross-references/",
   "license": {
     "status": "CC-BY",

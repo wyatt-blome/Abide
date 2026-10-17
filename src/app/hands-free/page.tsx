@@ -7,7 +7,7 @@
 // logged as "heard" (it stays due). Listen loop: the passage is read N times, S seconds between
 // verses. Lock-screen / headset controls via Media Session; the screen stays on while playing.
 
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { db } from "@/db/db";
@@ -21,6 +21,8 @@ import { useHandsFreeMode, useSettings } from "@/components/providers/AppProvide
 import { Button, cx, Icon, Stepper, Toggle } from "@/components/ui";
 import { firstHalf, loadPracticeVerses } from "@/components/practice/helpers";
 import { useSwipe } from "@/components/practice/useSwipe";
+
+const noopSubscribe = () => () => {};
 
 interface HFItem {
   id: string;
@@ -115,6 +117,8 @@ function HandsFree() {
 
   const gen = useRef(0);
   const wake = useRef<WakeLockHandle | null>(null);
+  const wakePending = useRef<Promise<WakeLockHandle> | null>(null);
+  const wantWake = useRef(false);
   const live = useRef({ pauseSec: settings.handsFreePauseSec, rate: settings.ttsRate, voice: settings.ttsVoice, halfVariant, gap, repeats });
   useEffect(() => {
     live.current = { pauseSec: settings.handsFreePauseSec, rate: settings.ttsRate, voice: settings.ttsVoice, halfVariant, gap, repeats };
@@ -150,8 +154,30 @@ function HandsFree() {
   }, []);
 
   const releaseWake = useCallback(() => {
+    wantWake.current = false;
     void wake.current?.release();
     wake.current = null;
+  }, []);
+
+  // One wake lock at a time: concurrent requests share the pending promise, and a lock that
+  // arrives after Stop (or a second one) is released at once.
+  const acquireWake = useCallback(async () => {
+    wantWake.current = true;
+    if (wake.current) return;
+    if (!wakePending.current) {
+      const pending = requestWakeLock();
+      wakePending.current = pending;
+      void pending.finally(() => {
+        if (wakePending.current === pending) wakePending.current = null;
+      });
+    }
+    const handle = await wakePending.current;
+    if (wake.current === handle) return;
+    if (!wantWake.current || wake.current) {
+      void handle.release();
+      return;
+    }
+    wake.current = handle;
   }, []);
 
   const stop = useCallback(() => {
@@ -169,10 +195,7 @@ function HandsFree() {
       const alive = () => gen.current === my;
       setRunning(true);
       setPlaybackState("playing");
-      void (async () => {
-        if (!wake.current) wake.current = await requestWakeLock();
-        if (!alive()) return releaseWake();
-      })();
+      void acquireWake().catch(() => {});
       void (async () => {
         const laps = loop ? live.current.repeats : 1;
         for (let l = startLap; l <= laps; l++) {
@@ -213,7 +236,7 @@ function HandsFree() {
         releaseWake();
       })();
     },
-    [items, loop, say, title, releaseWake],
+    [items, loop, say, title, acquireWake, releaseWake],
   );
 
   const toggle = useCallback(() => {
@@ -242,6 +265,7 @@ function HandsFree() {
   useEffect(() => {
     const genRef = gen;
     const wakeRef = wake;
+    const wantWakeRef = wantWake;
     const off = setMediaHandlers({
       play: () => !handlers.current.running && handlers.current.toggle(),
       pause: () => handlers.current.running && handlers.current.stop(),
@@ -253,12 +277,15 @@ function HandsFree() {
       genRef.current++;
       cancelSpeech();
       clearMediaSession();
+      wantWakeRef.current = false;
       void wakeRef.current?.release();
       wakeRef.current = null;
     };
   }, []);
 
   const swipe = useSwipe(() => step(-1), () => step(1));
+  // Server render and hydration assume support; the real value is read after hydration.
+  const speechOk = useSyncExternalStore(noopSubscribe, ttsSupported, () => true);
   const item = items?.[index];
 
   return (
@@ -268,7 +295,7 @@ function HandsFree() {
         {loop ? " · Listen loop" : ""}
       </h1>
 
-      {!ttsSupported() && typeof window !== "undefined" ? <p className="mt-2 font-semibold">Read-aloud isn&apos;t available in this browser.</p> : null}
+      {!speechOk ? <p className="mt-2 font-semibold">Read-aloud isn&apos;t available in this browser.</p> : null}
       {error ? (
         <p role="alert" className="mt-4 text-[20px] font-bold">
           {error}
