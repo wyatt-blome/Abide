@@ -313,3 +313,62 @@ Built by `npm run build:bible` (`scripts/build-bible.ts`, helpers in `scripts/bi
   week dots (✓ green done, ✗ red missed, – grace, ring today; each with an aria label), and a backup nudge when
   `lastBackupAt` (or, with no backup yet, the earliest plan's createdAt) is ≥ 14 days old, linking to `/settings#backup`.
   "Start review" (→ `/memorize/practice?queue=today`) is the ActionBar primary; Hands-Free → `/hands-free?source=queue`.
+
+## Library / Sources / Settings UI
+- **Sources panel** (`src/components/sources/SourcesPanel.tsx`, `SourcesSheet.tsx`). Sections: Outline → Book introduction →
+  What others wrote → Cross-references → From my reading → Links. Every fixed string it can render lives in
+  `src/components/sources/labels.ts` (`SOURCES_UI_LABELS`, plus the generated `vv. a–b` / `p. N` patterns);
+  `tests/library-ui/sources-panel.test.tsx` walks every text node of the rendered panel for Romans 8 and fails on
+  anything that is not a label, verbatim excerpt text (or a Q/A part), BSB heading/verse text, citation field value,
+  formatted reference, or the user's own note.
+- **Five-field citation.** `ExcerptCard` renders nothing unless author, work title, locator, edition and an http(s)
+  `url` are all non-blank (`hasFullCitation`). The panel also filters with it, so empty states count only shown cards.
+  Truncation ellipses are separate `aria-hidden` spans beside (never inside) the verbatim `<span data-verbatim>`, with an
+  sr-only label. Creed Q&A (`sourcePaths` = `…Question`, `…Answer` and exactly one `\n`) shows "Q."/"A." UI labels;
+  other excerpts split on `\n` into paragraphs. OCR works show the manifest's `ocrNote` (fallback label otherwise).
+- **Outline.** Segments start at each BSB heading verse inside the range (headingsInRange); a leading run with no heading
+  in the range is shown as plain verses. Single-chapter ranges use "vv. a–b", others a full reference. The drill link is
+  `/memorize/practice?mode=headings&range=ROM.8.1-ROM.8.39` (URI-encoded), shown only when the range has a heading.
+- **Book introduction** uses only `henry-commentary` excerpts with `isBookIntro` (the pack must be built and enabled);
+  those are not repeated under "What others wrote". Intros from other packs stay in "What others wrote".
+- **What others wrote.** Grouped in `ERA_ORDER`; within a group the order of `excerptsForRange` (most specific first) is
+  kept. Type chips appear when more than one type is present; none selected = all. The Modern group shows only the
+  pointer label when the user has notes/links for the passage (they are listed once, in sections 5/6).
+- **Cross-references** appear only when the `openbible` pack is built and enabled. Rows with the same target range are
+  merged (highest votes kept, all "from" verses listed), sorted by votes, 10 at a time ("Show more"). Target text is
+  always BSB; the reader link carries the panel's translation (`&t=`). Votes are not shown.
+- **Links.** BibleProject: only the verified slugs in `content/bibleproject.ts`, chosen by chapter span; books without one
+  get the explore page. Link-outs show title + URL + stated reference (+ "reference entered by me"); author/site are
+  stored but not shown in Sources.
+- **Enabled packs.** `settings.enabledPacks = []` still means "defaults" (as the offline warm-up reads it). The first
+  toggle materializes the defaults; switching every pack off stores the sentinel `"(none)"` (`NO_PACKS`,
+  `src/lib/enabledPacks.ts`), which matches no pack, so the list never falls back to defaults by accident.
+  Turning on a small pack calls `useOfflineStatus().rewarm()`; turning on a `largePack` fetches each of its shards through
+  `loadShard` (service-worker cache + Dexie) with a progress line. Size is shown as "⬇ N MB" from `packSizeBytes`.
+- **Pack summaries.** `scripts/sync-pack-readme.ts` (appended to `prebuild`) copies `library/packs/README.md` to
+  `public/library/README.md` (rendered on /library/how-to-add by a small React-only Markdown renderer, no injected HTML)
+  and writes `public/library/packs-summary.json` (descriptive manifest fields) so the manager can show author, edition,
+  license evidence and source for packs that were not built. Both are regenerated on every build.
+- **Author pages** (`content/links.ts`): titles + URLs only, never fetched. `pageStatesReference` defaults: Ligonier,
+  BGEA and Philip Anthony Mitchell "varies"; Desiring God and Truth For Life `true` (their message pages list the
+  passage). User-added pages are stored in the new optional `Settings.customAuthorPages` (so they are in backups).
+- **Link-outs.** Save needs an http(s) URL, a title, the stated reference and ≥ 1 verse tag that the user confirmed with
+  the "Confirm tags" checkbox; any change to the tags clears the confirmation. Tags may be prefilled from
+  `parseReference(statedReference)` (on blur, or with a button) but are never saved unconfirmed. Site = URL hostname
+  without `www.`. `repo.saveLinkOut` validates again.
+- **Notes.** Text is required; book, page and verse tags are optional (an untagged note only shows in My Library).
+  Notes always carry the "from my reading" and "entered by me" labels.
+- **Settings.** Font scale 100–200 % in 10 % steps with a live preview of the name verse; TTS rate 0.6–1.4; hands-free
+  pause 2–30 s; reading speed 3–20 verses/min; daily new chunks 1–10. ESV appears as a translation only when enabled
+  with a key; switching ESV off while it is the translation falls back to BSB. The ESV key lives in the settings row, so
+  it is included in exported backups (said in the UI).
+- **Reminders.** `.ics` download (works everywhere) + local test notification (`registration.showNotification`).
+  `src/lib/push.ts` `subscribePush()` is a deliberate no-op returning `{ ok: false, reason }`; the planned server path
+  (VAPID keys + Vercel Cron + `web-push`) is documented in that file. iOS is reported as push-capable only when
+  installed and ≥ 16.4.
+- **Backup.** Export uses the share sheet when `navigator.canShare({ files })`, else a download named
+  `backupFilename()`; `lastBackupAt` is set after a successful export (not when the share sheet is cancelled). Import
+  previews per-table counts; Replace needs a second tap. "Clear all data" confirms in a sheet, then reloads.
+- **About** reads John 15:4 from the bundled BSB (`APP_NAME_VERSE`), and lists source URLs from
+  `public/bible/sources.json`, the library index (`sourcePage`) and `content/classics.ts`.
+- **Sync.** `src/lib/sync.ts` defines `SyncAdapter` (push/pull/status) with a `NoopSyncAdapter`; nothing syncs yet.

@@ -55,6 +55,21 @@ async function loadSummary(): Promise<PackSummary[]> {
 
 type Progress = { done: number; total: number; failed: number };
 
+/** Fetch every shard of a pack (cached by the service worker and in Dexie), reporting progress. */
+export async function downloadPack(packId: string, books: string[], onProgress: (p: Progress) => void): Promise<Progress> {
+  let p: Progress = { done: 0, total: books.length, failed: 0 };
+  onProgress(p);
+  for (const b of books) {
+    const ok = await loadShard(packId, b).then(
+      () => true,
+      () => false,
+    );
+    p = { done: p.done + 1, total: p.total, failed: p.failed + (ok ? 0 : 1) };
+    onProgress(p);
+  }
+  return p;
+}
+
 const byEraThenTitle = (a: { era: Era; title: string }, b: { era: Era; title: string }) =>
   ERA_ORDER.indexOf(a.era) - ERA_ORDER.indexOf(b.era) || a.title.localeCompare(b.title);
 
@@ -72,20 +87,11 @@ export function LibraryManager() {
   const summaries = new Map((summaryQ.data ?? []).map((s) => [s.id, s]));
 
   const download = async (work: LibraryWork) => {
-    const books = index?.books[work.id] ?? [];
-    const p: Progress = { done: 0, total: books.length, failed: 0 };
-    setProgress((cur) => ({ ...cur, [work.id]: { ...p } }));
-    for (const b of books) {
-      try {
-        await loadShard(work.id, b);
-      } catch {
-        p.failed++;
-      }
-      p.done++;
-      setProgress((cur) => ({ ...cur, [work.id]: { ...p } }));
-    }
-    toast(p.failed ? `${p.failed} files failed to download` : `${work.title} downloaded`, {
-      tone: p.failed ? "error" : "success",
+    const result = await downloadPack(work.id, index?.books[work.id] ?? [], (p) =>
+      setProgress((cur) => ({ ...cur, [work.id]: p })),
+    );
+    toast(result.failed ? `${result.failed} files failed to download` : `${work.title} downloaded`, {
+      tone: result.failed ? "error" : "success",
     });
   };
 
