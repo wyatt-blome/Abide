@@ -13,7 +13,7 @@
 // Single-chunk plans have no passage card; there the last review of every verse must be ≥ 4.
 
 import type { MemoryPlan, PassageCard, ReviewLog, SrsState, VerseCard, VerseKey } from "@/db/types";
-import { addDays, DAY_MS, diffDays, endOfLocalDay, localMidnight, todayISO, type ISODate } from "@/lib/isoDate";
+import { addDays, diffDays, endOfLocalDay, localMidnight, todayISO, type ISODate } from "@/lib/isoDate";
 import { lastWasAgain } from "@/lib/srs";
 
 export type Maturity = "new" | "learning" | "young" | "mature";
