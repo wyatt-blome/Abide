@@ -324,9 +324,9 @@ export function generatePlan(opts: PlanGenOptions): GeneratedDay[] {
       if (c.isSoloToday()) soloDay = true;
       const [a, b] = c.take(target);
       deviation += b - a - base;
-      // Order portions OT, NT, PP for display regardless of cut order.
       portions.push(...portionsOf(c.track, c.seq, a, b, gidx));
     }
+    // Display order OT, NT, PP regardless of cut order.
     const order: Record<Track, number> = { ALL: 0, OT: 1, NT: 2, PP: 3 };
     portions.sort((x, y) => order[x.track] - order[y.track]);
     const verseCount = portions.reduce((n, p) => n + p.verseCount, 0);

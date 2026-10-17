@@ -119,7 +119,8 @@ export function prepareStructure(file: RawFile, opts: StructureOptions, ctx: Par
   const raw = file.text;
   const nm = normalizeWithMap(raw);
   const meta = ctx.meta;
-  const scope = ctx.bookScope?.[file.rawIndex];
+  const scopeRaw = ctx.bookScope?.[file.rawIndex];
+  const scope = scopeRaw && scopeRaw.length ? scopeRaw : undefined;
   const rules = (opts.headings ?? []).map((r) => ({ ...r, re: new RegExp(r.pattern, r.flags ?? "") }));
   const lineRules = rules.filter((r) => !r.paragraphStart);
   const paraRules = rules.filter((r) => r.paragraphStart);

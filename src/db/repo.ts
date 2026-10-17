@@ -28,7 +28,7 @@ export const DEFAULT_SETTINGS: Settings = {
   fontScale: 1,
   theme: "system",
   ttsRate: 1,
-  handsFreePauseSec: 4,
+  handsFreePauseSec: 8,
   reminderTime: "07:00",
   graceWeekday: 0,
   readingVersesPerMin: 7,

@@ -10,8 +10,8 @@
 import type { BookLog, BookPlan } from "@/db/types";
 import { addDays, countReadingDays, weekdayOf, type ISODate } from "@/lib/isoDate";
 
+/** Today's units (inclusive). todayAssignment returns null on the grace day, before the start date, or once finished. */
 export interface Assignment {
-  /** null on the grace day, before the start date, or when the book is finished. */
   from: number;
   to: number;
   unit: BookPlan["unit"];
